@@ -68,7 +68,6 @@ import util.ZoomTab;
 /**
  * ekigo kaiwa soft main class
  * @author User
- *
  */
 @SuppressWarnings("serial")
 public class KaiwaMain extends JFrame implements Runnable {
@@ -201,17 +200,15 @@ public class KaiwaMain extends JFrame implements Runnable {
              * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
              */
             public void actionPerformed(ActionEvent actionEvent) {
-                mkFrameHelp();
+                helpFrame();
             }
         });
         return buttton;
     }
 
     /**
-     * Setting to JTextArea help text.
-     *
+     * Help text of JTextArea
      * @param jTextArea
-     *            jTextArea
      * @return JTextArea jTextArea
      */
     private JTextArea readMe(JTextArea jTextArea) {
@@ -238,6 +235,10 @@ public class KaiwaMain extends JFrame implements Runnable {
         return jTextArea;
     }
 
+    /**
+     * @throws IOException
+     * @throws AWTException
+     */
     public KaiwaMain() throws IOException, AWTException {
         super();
 
@@ -291,7 +292,7 @@ public class KaiwaMain extends JFrame implements Runnable {
         prop = getMuveSpeedProp(prop);
 
         ImageIcon icon = setMaximumWindowBounds(); // Matching monitor frame.
-        setHederProps(icon);
+        setIconAndTitle(icon);
 
         tabbedPane.addKeyListener(key); // 全体のComponentにキーが反映される事が解った。
         tabbedPane = mkTabPict(); // Make mokuji tab
@@ -316,7 +317,7 @@ public class KaiwaMain extends JFrame implements Runnable {
             }
         });
 
-        mkHistoryP(); // make history panel
+        historyPanel(); // make history panel
 
         mkBtnPict(); // Add buttons and property on pict panel
 
@@ -340,9 +341,9 @@ public class KaiwaMain extends JFrame implements Runnable {
 
 
     /**
-     *　履歴パネル
+     * Creating a history panel
      */
-    private void mkHistoryP() {
+    private void historyPanel() {
 
         // Click history
         JPanel ekigoHistoryP_main = new JPanel(new BorderLayout());
@@ -367,9 +368,9 @@ public class KaiwaMain extends JFrame implements Runnable {
     }
 
     /**
-     * 　Make help frame.
+     * 　Creating a help frame
      */
-    private void mkFrameHelp() {
+    private void helpFrame() {
         JFrame frame = new JFrame();
         frame.setTitle("使い方");
         frame.setAlwaysOnTop(true);
@@ -411,10 +412,10 @@ public class KaiwaMain extends JFrame implements Runnable {
     }
 
     /**
-     *
+     * Icon and title settings
      * @param icon
      */
-    private void setHederProps(ImageIcon icon) {
+    private void setIconAndTitle(ImageIcon icon) {
         this.setAlwaysOnTop(true);
         this.setBounds(rect);
         this.setIconImage(icon.getImage());
@@ -424,8 +425,7 @@ public class KaiwaMain extends JFrame implements Runnable {
     }
 
     /**
-     * Get lock of double exe.
-     *
+     * Double start control
      * @throws FileNotFoundException
      * @throws IOException
      */
