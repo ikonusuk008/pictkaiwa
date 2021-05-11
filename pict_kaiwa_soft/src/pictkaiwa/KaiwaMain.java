@@ -51,7 +51,6 @@ import javax.swing.JTextArea;
 import javax.swing.JViewport;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
@@ -67,16 +66,14 @@ import util.ZoomTab;
 
 /**
  * ekigo kaiwa soft main class
+ *
  * @author User
  */
-@SuppressWarnings("serial")
-public class KaiwaMain extends JFrame implements Runnable {
+@SuppressWarnings("serial") public class KaiwaMain extends JFrame implements Runnable {
 
     Robot robot = new Robot();
 
-    /**
-     * HistorySizeSec ヒストリーパネル（画面上部のサイズ）
-     */
+    //HistorySizeSec ヒストリーパネル（画面上部のサイズ）
     int HistorySizeSec = 0;//
     int ekigoH = 0;//
     int next_tab_count = 0; // タブをスペースキーで切り替える。
@@ -124,8 +121,9 @@ public class KaiwaMain extends JFrame implements Runnable {
 
     // 目次変数 1.　mokujiName_10を動的にする方法：漢字を音声にする仕組みが必要だが、まだできない。 2.　tab1：目次
     static int tab_num = 10;
-    public static String category_directory_9[] = { "tab1", "tab2", "tab3", "tab4", "tab5", "tab6", "tab7", "tab8",
-                    "tab9", "tab10" };
+    public static String category_directory_9[] = {
+                    "tab1", "tab2", "tab3", "tab4", "tab5", "tab6", "tab7", "tab8", "tab9", "tab10"
+    };
     public static JButton mokuji0To9B[] = new JButton[tab_num];
 
     static JPanel nextPanel;
@@ -138,12 +136,18 @@ public class KaiwaMain extends JFrame implements Runnable {
     JPanel tabPanel_0_9[] = new JPanel[tab_num];
 
     static JButton[] b0, b1, b2, b3, b4, b5, b6, b7, b8, b9 = null;
-    static JButton mokujiBtns0To9[][] = { b0, b1, b2, b3, b4, b5, b6, b7, b8, b9 };
+    static JButton mokujiBtns0To9[][] = {
+                    b0, b1, b2, b3, b4, b5, b6, b7, b8, b9
+    };
     static JButton[] nab0, nab1, nab2, nab3, nab4, nab5, nab6, nab7, nab8, nab9 = null;
-    static JButton nameButtons_0_9[][] = { nab0, nab1, nab2, nab3, nab4, nab5, nab6, nab7, nab8, nab9 };
+    static JButton nameButtons_0_9[][] = {
+                    nab0, nab1, nab2, nab3, nab4, nab5, nab6, nab7, nab8, nab9
+    };
 
     static JPanel[] p0, p1, p2, p3, p4, p5, p6, p7, p8, p9 = null;
-    public static JPanel panels_0_9[][] = { p0, p1, p2, p3, p4, p5, p6, p7, p8, p9 };
+    public static JPanel panels_0_9[][] = {
+                    p0, p1, p2, p3, p4, p5, p6, p7, p8, p9
+    };
     JPanel ekigoHistoryP;
     JButton ekigoHistoryB;
     JScrollPane ekigoHistorySP;
@@ -162,11 +166,15 @@ public class KaiwaMain extends JFrame implements Runnable {
     static int category_tate_kakeru_yoko_num = 0;
     static int category_files_num = 0;
     public static File[] f0, f1, f2, f3, f4, f5, f6, f7, f8, f9;
-    public static File bunyaFiles_0_9[][] = { f0, f1, f2, f3, f4, f5, f6, f7, f8, f9 };
+    public static File bunyaFiles_0_9[][] = {
+                    f0, f1, f2, f3, f4, f5, f6, f7, f8, f9
+    };
 
     // フォルダー内情報取得
     public File d0, d1, d2, d3, d4, d5, d6, d7, d8, d9;
-    private File bunyaFolder_0_9[] = { d0, d1, d2, d3, d4, d5, d6, d7, d8, d9, };
+    private File bunyaFolder_0_9[] = {
+                    d0, d1, d2, d3, d4, d5, d6, d7, d8, d9,
+    };
 
     // イメージ
     Zoom ZoomImg;
@@ -183,63 +191,81 @@ public class KaiwaMain extends JFrame implements Runnable {
     Prop prop = new Prop(); //
 
     /**
-     * 　HELPボタン作成
+     * HELPボタン作成
      *
      * @return JButton buttton
      */
     private JButton mkBtnHelp() {
+
         JButton buttton = new JButton("<html><b><h2>使い方</h2><b><html>");
         buttton.setBackground(Color.black);
         buttton.setForeground(Color.white);
         buttton.addKeyListener(key);
         buttton.setPreferredSize(new Dimension(100, 50));
-        buttton.addActionListener(new ActionListener() {
+        buttton.addActionListener(new ActionListener(){
             /*
              * (非 Javadoc)
              *
              * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
              */
             public void actionPerformed(ActionEvent actionEvent) {
+
                 helpFrame();
+
             }
         });
         return buttton;
+
     }
 
     /**
      * Help text of JTextArea
+     *
      * @param jTextArea
      * @return JTextArea jTextArea
      */
     private JTextArea readMe(JTextArea jTextArea) {
 
         String readMetextLine = new String();
+
         try {
+
             FileReader in = new FileReader("resource/help.txt");
             BufferedReader br = new BufferedReader(in);
             String line;
+
             while ((line = br.readLine()) != null) {// Loop every one record
+
                 System.out.println(line);
                 readMetextLine += line + "\n";
+
             }
+
             br.close();
             in.close();
 
         } catch (FileNotFoundException e) {
+
             System.out.println(e);
+
         } catch (IOException e) {
+
             System.out.println(e);
+
         }
 
         jTextArea.setText(readMetextLine);
         return jTextArea;
+
     }
 
     /**
      * @throws IOException
      * @throws AWTException
      */
+    @SuppressWarnings("javadoc")
     public KaiwaMain() throws IOException, AWTException {
+
         super();
 
         // 常に左角をクリックする。
@@ -252,10 +278,15 @@ public class KaiwaMain extends JFrame implements Runnable {
         // set_tab_ui_manerger(); // タブプロパティ設定
         // Look&Feelの設定
         String type = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
+
         try {
+
             UIManager.setLookAndFeel(type);
+
         } catch (Exception e) {
+
             System.out.println("例外発生：" + e);
+
         }
 
         // Insets
@@ -298,22 +329,31 @@ public class KaiwaMain extends JFrame implements Runnable {
         tabbedPane = mkTabPict(); // Make mokuji tab
 
         // Setting when change mokuji tab background color.
-        tabbedPane.addChangeListener(new ChangeListener() {
+        tabbedPane.addChangeListener(new ChangeListener(){
 
             public void stateChanged(ChangeEvent e) {
+
                 JTabbedPane jtab = (JTabbedPane) e.getSource();
                 int sindex = jtab.getSelectedIndex();
 
                 for (int i = 0; i < jtab.getTabCount(); i++) {
+
                     if (i == sindex && jtab.getTitleAt(sindex).endsWith("1")) {
+
                         // jtab.setForegroundAt(i, Color.GREEN); //　？
                     } else if (i == sindex) {
+
                         Color sc = (sindex % 2 == 0) ? Color.RED : Color.BLUE;
                         jtab.setForegroundAt(i, Color.black);
+
                     } else {
+
                         jtab.setForegroundAt(i, Color.white);
+
                     }
+
                 }
+
             }
         });
 
@@ -323,22 +363,30 @@ public class KaiwaMain extends JFrame implements Runnable {
 
         // ループ選択
         try {
+
             if (prop.getPict().getProperty("seting.roop").equals("ON")) {// ループイベントを起動する。
+
                 thread = new Thread(this);
                 thread.start();
+
             } else {// ループイベントを起動しない。
 
             }
+
         } catch (FileNotFoundException e) {
+
             e.printStackTrace();
+
         } catch (IOException e) {
+
             e.printStackTrace();
+
         }
 
         // Windows ７　では、ボタンがフォルトになる。
         this.setVisible(true); // 最後に可視化する。
-    }
 
+    }
 
     /**
      * Creating a history panel
@@ -365,12 +413,14 @@ public class KaiwaMain extends JFrame implements Runnable {
         this.getContentPane().add(tabbedPane, BorderLayout.CENTER); // Frame本体に乗せる。
         tabbedPane.setSelectedIndex(1); // コンポーネント初期化時、目次タブのフォントを黒にする。
         tabbedPane.setSelectedIndex(0); // コンポーネント初期化時、目次タブのフォントを黒にする。
+
     }
 
     /**
-     * 　Creating a help frame
+     * Creating a help frame
      */
     private void helpFrame() {
+
         JFrame frame = new JFrame();
         frame.setTitle("使い方");
         frame.setAlwaysOnTop(true);
@@ -409,68 +459,105 @@ public class KaiwaMain extends JFrame implements Runnable {
         frame.setBounds(rect);
 
         frame.setVisible(true);
+
     }
 
     /**
      * Icon and title settings
+     *
      * @param icon
      */
     private void setIconAndTitle(ImageIcon icon) {
+
         this.setAlwaysOnTop(true);
         this.setBounds(rect);
         this.setIconImage(icon.getImage());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("絵記号会話ソフト");
         this.setLayout(new BorderLayout());
+
     }
 
     /**
      * Double start control
+     *
      * @throws FileNotFoundException
      * @throws IOException
      */
     private void lock() throws FileNotFoundException, IOException {
+
         final FileOutputStream fos = new FileOutputStream(new File("./resource/lock_control"));
         final FileChannel fc = fos.getChannel();
         final FileLock lock = fc.tryLock();
+
         if (lock == null) {
+
             // 既に起動されているので終了する
             try {
+
                 "hello".charAt(-1);
+
             } catch (Exception e) {
+
                 JOptionPane.showMessageDialog(null, "絵記号会話ソフトはすでに起動しています。");
                 System.exit(0);
+
             }
+
             return;
+
         }
-        Runtime.getRuntime().addShutdownHook(new Thread() {// ロック開放処理を登録
-                            public void run() {
-                                if (lock != null && lock.isValid()) {
-                                    try {
-                                        lock.release();
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                                try {
-                                    fc.close();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                                try {
-                                    fos.close();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
+
+        Runtime.getRuntime().addShutdownHook(new Thread(){// ロック開放処理を登録
+            public void run() {
+
+                if (lock != null && lock.isValid()) {
+
+                    try {
+
+                        lock.release();
+
+                    } catch (IOException e) {
+
+                        e.printStackTrace();
+
+                    }
+
+                }
+
+                try {
+
+                    fc.close();
+
+                } catch (IOException e) {
+
+                    e.printStackTrace();
+
+                }
+
+                try {
+
+                    fos.close();
+
+                } catch (IOException e) {
+
+                    e.printStackTrace();
+
+                }
+
+            }
+        });
+
     }
 
     /**
+     * To maximize the size, use the Robot class and click Maximize.
+     *
      * @author ikonu
-     * @return
+     * @return ImageIcon mainFramIcon
      */
     private ImageIcon setMaximumWindowBounds() {
+
         ImageIcon mainFramIcon = new ImageIcon("./resource/img/tab_img/kurumaisu.jpg");
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         rect = env.getMaximumWindowBounds();
@@ -478,65 +565,109 @@ public class KaiwaMain extends JFrame implements Runnable {
         robot.mousePress(InputEvent.BUTTON1_MASK);
         robot.mouseRelease(InputEvent.BUTTON1_MASK);
         return mainFramIcon;
+
     }
 
     /**
+     *
      * @author ikonu
      * @return
      */
     private Prop getMuveSpeedProp(Prop prop) {
+
         try {
+
             if (prop.getPict().getProperty("seting.speed").equals("2")) {
+
                 speed = 2000;
+
             } else if (prop.getPict().getProperty("seting.speed").equals("3")) {
+
                 speed = 3000;
+
             } else if (prop.getPict().getProperty("seting.speed").equals("4")) {
+
                 speed = 4000;
+
             } else if (prop.getPict().getProperty("seting.speed").equals("5")) {
+
                 speed = 5000;
+
             } else if (prop.getPict().getProperty("seting.speed").equals("6")) {
+
                 speed = 6000;
+
             }
+
         } catch (FileNotFoundException e1) {
+
             e1.printStackTrace();
+
         } catch (IOException e1) {
+
             e1.printStackTrace();
+
         }
 
         // Pict display of line number.
         // 3 line or 4 line
         try {
+
             if (prop.getPict().getProperty("seting.gyou").equals(Constants.PICT_LINE_IS_3)) {
+
                 gyouI = Integer.valueOf(Constants.PICT_LINE_IS_3);
+
             } else if (prop.getPict().getProperty("seting.gyou").equals(Constants.PICT_LINE_IS_4)) {
+
                 gyouI = Integer.valueOf(Constants.PICT_LINE_IS_4);
+
             }
+
         } catch (FileNotFoundException e) {
+
             e.printStackTrace();
+
         } catch (IOException e) {
+
             e.printStackTrace();
+
         }
+
         try {
+
             //
             try {
+
                 if (prop.getPict().getProperty("seting.list").equals("①説明を表示")) {
+
                     gyouIs = "①説明を表示";
                     new Lg(this, "Kaiwa>getProp>else if (prop.getPict().getProperty(seting.list).equals(説明))");
+
                 } else if (prop.getPict().getProperty("seting.list").equals("②絵記号を拡大表示")) {
+
                     gyouIs = "②絵記号を拡大表示";
                     new Lg(this, "Kaiwa>getProp>else if (prop.getPict().getProperty(seting.list).equals(絵記号))");
+
                 } else if (prop.getPict().getProperty("seting.list").equals("③絵記号一時的に表示")) {
+
                     gyouIs = "③絵記号一時的に表示";
                     new Lg(this, "Kaiwa>getProp>else if (prop.getPict().getProperty(seting.list).equals(絵記号一時))");
+
                 }
+
             } catch (FileNotFoundException e) {
+
                 e.printStackTrace();
+
             } catch (IOException e) {
+
                 e.printStackTrace();
+
             }
 
             // Get mokuji info from property.
             for (int j = 0; j < 10; j++) {
+
                 mokujiBtnNameTxt[j] = new String();
                 mokujiBtnNameTxt[j] = prop.getPict().getProperty("seting.category_name" + String.valueOf(j));// Text mokuji name
                 mokujiImgNameTxt[j] = new String();
@@ -546,28 +677,32 @@ public class KaiwaMain extends JFrame implements Runnable {
                 mokujiVisibleBl[j] = Boolean.parseBoolean(mokujiVisibleBool[j]);
                 new Lg(this, "category_from_property[" + j + "] ： mokujiBool[" + j + "] == " + mokujiBtnNameTxt[j]
                                 + " ： " + mokujiVisibleBool[j]);
+
             }
+
         } catch (FileNotFoundException e) {
+
             e.printStackTrace();
+
         } catch (IOException e) {
+
             e.printStackTrace();
+
         }
+
         return prop;
+
     }
 
-    // private String makeTitle(String t, String p) {
-    // return "<html><center><img src='" + getClass().getResource(p) +
-    // "'/><br/>" + t;
-    // }
+    /**
+     * @return
+     */
     private JTabbedPane mkTabPict() {
 
-        //test
-        for (StackTraceElement elem : Thread.currentThread().getStackTrace()) {
-            System.out.println(elem);
-        }
-
         for (int i = 0; i < tabPanel_0_9.length; i++) {
+
             if (mokujiVisibleBl[i].equals(true)) {
+
                 tabNum[i] = trueCount;
                 // truePpanelColor[trueCount - 1] = panelColor_0_9[i];
                 trueCount++;
@@ -575,20 +710,26 @@ public class KaiwaMain extends JFrame implements Runnable {
                 tabPanel_0_9[i].setPreferredSize(new Dimension(900, 500));
                 tabPanel_0_9[i].setBackground(new Color(255, 255, 255));
                 tabPanel_0_9[i].setBorder(new LineBorder(new Color(255, 255, 255), 1, false));
+
                 if (0 == i) {
-                    ZoomTabImg = new ZoomTab(new ImageIcon("./resource/img/tab1/" + mokujiImgNameTxt[i] + ".jpg"), 0,
-                                    0, 50, 50);
+
+                    ZoomTabImg = new ZoomTab(new ImageIcon("./resource/img/tab1/" + mokujiImgNameTxt[i] + ".jpg"), 0, 0,
+                                    50, 50);
+
                 } else {
-                    ZoomTabImg = new ZoomTab(new ImageIcon("./resource/img/tab1/" + mokujiImgNameTxt[i] + ".jpg"), 0,
-                                    0, 50, 50);
+
+                    ZoomTabImg = new ZoomTab(new ImageIcon("./resource/img/tab1/" + mokujiImgNameTxt[i] + ".jpg"), 0, 0,
+                                    50, 50);
+
                 }
+
                 tabbedPane.add(tabPanel_0_9[i], ZoomTabImg);
                 tabbedPane.setForeground(Color.white);
                 tabbedPane.setFont(new Font("", Font.BOLD, 22));
                 tabbedPane.setTitleAt(tabCount, mokujiBtnNameTxt[i]);
                 // tabbedPane.setTitleAt(tabCount, String.valueOf(i));
-                // タブにhtmlレイアウトで画像と文字列を設定したいが、タブは絵記号直感的に区別できるようにしなければならない、と思った。
-                // しかし、タブを選択するのは 初心者の介護者の場合があるので、タブに分野の文字列を入れることとする。
+                // タブにhtmlレイアウトで画像と文字列を設定したいが、タブは絵記号直感的に区別できるようにしなければならないと思った。
+                // しかし、タブを選択するのは初心者の介護者の場合があるのでタブに分野の文字列を入れることとする。
                 // tabbedPane.add(makeTitle(category_from_property[i],
                 // "./resource/img/tab1/" + category_img_from_property[i] +
                 // ".jpg"),
@@ -596,7 +737,9 @@ public class KaiwaMain extends JFrame implements Runnable {
                 // tabbedPane.setForegroundAt(i,Color.white);
                 // tabbedPane.setAlignmentX(LEFT_ALIGNMENT);
                 tabCount++;
+
             }
+
         }
 
         // tabbedPane.setBackgroundAt(0, Color.black);
@@ -604,18 +747,21 @@ public class KaiwaMain extends JFrame implements Runnable {
         tabPanel_0_9[0].setBorder(new LineBorder(new Color(255, 255, 255), 1, false));
 
         for (int i = 1; i < trueCount; i++) {
+
             // tabbedPane.setBackgroundAt(i, Color.black);
             // tabbedPane.setForegroundAt(i, Color.white);
             // tabbedPane.setAlignmentX(LEFT_ALIGNMENT);
         }
 
         return tabbedPane;
+
     }
 
     /**
-    * 目次画面（タブ１）のループ
-    */
+     * 目次画面（タブ１）のループ
+     */
     public void mkBtnPict() {
+
         new Lg(this, "public void button()");
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
@@ -623,6 +769,7 @@ public class KaiwaMain extends JFrame implements Runnable {
 
             // 分野毎のファイル数を取得
             if (mokujiVisibleBl[i].equals(true)) {
+
                 new Lg(this, "if (bool[i].equals(true))");
 
                 bunyaFolder_0_9[i] = new File("./resource/img/" + category_directory_9[i]);
@@ -645,11 +792,13 @@ public class KaiwaMain extends JFrame implements Runnable {
 
                     // 将来、ここにさまざまなボタン1個による操作可能なソフトを入れる。
                     if (i == 9) {// アプリ分野[Tab9]
+
                         mokujiBtns0To9[i][pBtn_i] = new JButton(); //
                         nameButtons_0_9[i][pBtn_i] = new JButton(); //
                         mokujiBtns0To9[i][pBtn_i].setBackground(new Color(0, 0, 0));
 
                         if (category_files_num <= pBtn_i) {
+
                             // アプリのjarがないボタン. 黒く表示する.
                             nameButtons_0_9(i, pBtn_i);
                             mokujiBtn_0_9(i, pBtn_i);
@@ -659,7 +808,9 @@ public class KaiwaMain extends JFrame implements Runnable {
                                             getGridBagConstraints(gridBagConstraints));
                             pane_0_9(i, pBtn_i);
                             tabPanel_0_9[i].add(panels_0_9[i][pBtn_i]);
+
                         } else {
+
                             // アプリのボタン
                             int point = bunyaFiles_0_9[i][pBtn_i].getName().lastIndexOf("."); // ポイントの文字番目を返す。
                             appriNameBtn(i, pBtn_i, point);
@@ -670,15 +821,18 @@ public class KaiwaMain extends JFrame implements Runnable {
                                             getGridBagConstraints(gridBagConstraints));
                             pane_0_9(i, pBtn_i);
                             tabPanel_0_9[i].add(panels_0_9[i][pBtn_i]);
+
                         }
 
                     } else if (1 <= i) {//Appri other tab1 to 8
+
                         // 絵記号分野（アプリ以外の分野） インデックス0番目は目次ボタン
                         mokujiBtns0To9[i][pBtn_i] = new JButton(); //
                         mokujiBtns0To9[i][pBtn_i].setBackground(new Color(0, 0, 0));
                         nameButtons_0_9[i][pBtn_i] = new JButton(); //
 
                         if (category_files_num <= pBtn_i) {
+
                             appriOtherNameBtn_0_9(i, pBtn_i);
                             appriMokujiBtn_0_9(i, pBtn_i);
                             cateBtnPaneGridbaglayout.setConstraints(mokujiBtns0To9[i][pBtn_i],
@@ -688,8 +842,10 @@ public class KaiwaMain extends JFrame implements Runnable {
                             appriOtherPane_0_9(i, pBtn_i);
                             tabPanel_0_9[i].add(panels_0_9[i][pBtn_i]);
 
-                            ZoomImg = new Zoom(new ImageIcon("./resource/img/" + category_directory_9[i] + "/"
-                                            + "non.jpg"), 0, 0, mokujiBtns0To9[i][pBtn_i].getHeight(),
+                            ZoomImg = new Zoom(
+                                            new ImageIcon("./resource/img/" + category_directory_9[i] + "/"
+                                                            + "non.jpg"),
+                                            0, 0, mokujiBtns0To9[i][pBtn_i].getHeight(),
                                             mokujiBtns0To9[i][pBtn_i].getHeight());
 
                             mokujiBtns0To9[i][pBtn_i].add(ZoomImg);
@@ -698,7 +854,9 @@ public class KaiwaMain extends JFrame implements Runnable {
                             new Lg(this, "buttons_0_9[i][j].getHeight()==" + mokujiBtns0To9[i][pBtn_i].getHeight());
 
                             this.setVisible(true);
+
                         } else {
+
                             // 絵記号画面がtrue
                             int point = bunyaFiles_0_9[i][pBtn_i].getName().lastIndexOf("."); // ポイントの文字番目を返す。
                             ekigoNameBtn_0_9(i, pBtn_i, point);
@@ -710,20 +868,29 @@ public class KaiwaMain extends JFrame implements Runnable {
                             appriOtherPane_0_9(i, pBtn_i);
                             tabPanel_0_9[i].add(panels_0_9[i][pBtn_i]);
                             this.setVisible(true);
-                            ZoomImg = new Zoom(new ImageIcon("./resource/img/" + category_directory_9[i] + "/"
-                                            + bunyaFiles_0_9[i][pBtn_i].getName()), 0, 0, mokujiBtns0To9[i][pBtn_i].getHeight(),
+                            ZoomImg = new Zoom(
+                                            new ImageIcon("./resource/img/" + category_directory_9[i] + "/"
+                                                            + bunyaFiles_0_9[i][pBtn_i].getName()),
+                                            0, 0, mokujiBtns0To9[i][pBtn_i].getHeight(),
                                             mokujiBtns0To9[i][pBtn_i].getHeight());
                             new Lg(this, "nameButtons_0_9[" + i + "][" + pBtn_i + "].getWidth()=="
                                             + nameButtons_0_9[i][pBtn_i].getWidth());
                             new Lg(this, "buttons_0_9[" + i + "][" + pBtn_i + "].getHeight()=="
                                             + mokujiBtns0To9[i][pBtn_i].getHeight());
                             mokujiBtns0To9[i][pBtn_i].add(ZoomImg);
+
                         }
+
                     }
+
                 }
+
             }
+
         }
+
         mKBtnMokuji(tabPanel_0_9);
+
     }
 
     /**
@@ -732,11 +899,13 @@ public class KaiwaMain extends JFrame implements Runnable {
      * @param point
      */
     private void ekigoMokujiBtn_0_9(int i, int pBtn_i, int point) {
+
         mokujiBtns0To9[i][pBtn_i].addMouseListener(mouse);
         mokujiBtns0To9[i][pBtn_i].setHorizontalAlignment(JButton.LEFT);
         mokujiBtns0To9[i][pBtn_i].addKeyListener(key);
         mokujiBtns0To9[i][pBtn_i].setText(bunyaFiles_0_9[i][pBtn_i].getName().substring(0, point));
         mokujiBtns0To9[i][pBtn_i].setActionCommand(bunyaFiles_0_9[i][pBtn_i].getName().substring(0, point));
+
     }
 
     /**
@@ -745,10 +914,12 @@ public class KaiwaMain extends JFrame implements Runnable {
      * @param point
      */
     private void ekigoNameBtn_0_9(int i, int pBtn_i, int point) {
+
         nameButtons_0_9[i][pBtn_i].setText(bunyaFiles_0_9[i][pBtn_i].getName().substring(0, point));
         nameButtons_0_9[i][pBtn_i].setBackground(Color.black);
         nameButtons_0_9[i][pBtn_i].setForeground(Color.white);
         nameButtons_0_9[i][pBtn_i].addMouseListener(mouse);
+
     }
 
     /**
@@ -756,10 +927,12 @@ public class KaiwaMain extends JFrame implements Runnable {
      * @param pBtn_i
      */
     private void appriOtherPane_0_9(int i, int pBtn_i) {
+
         panels_0_9[i][pBtn_i] = new JPanel(cateBtnPaneGridbaglayout);
         panels_0_9[i][pBtn_i].setBorder(new LineBorder(Color.black, 0, false));
         panels_0_9[i][pBtn_i].add(mokujiBtns0To9[i][pBtn_i]);
         panels_0_9[i][pBtn_i].add(nameButtons_0_9[i][pBtn_i]);
+
     }
 
     /**
@@ -767,11 +940,13 @@ public class KaiwaMain extends JFrame implements Runnable {
      * @param pBtn_i
      */
     private void appriMokujiBtn_0_9(int i, int pBtn_i) {
+
         mokujiBtns0To9[i][pBtn_i].addMouseListener(mouse);
         mokujiBtns0To9[i][pBtn_i].setHorizontalAlignment(JButton.LEFT);
         mokujiBtns0To9[i][pBtn_i].addKeyListener(key);
         mokujiBtns0To9[i][pBtn_i].setActionCommand(mokujiBtns0To9[i][pBtn_i].getText());
         mokujiBtns0To9[i][pBtn_i].setText(category_directory_9[i]);
+
     }
 
     /**
@@ -779,10 +954,12 @@ public class KaiwaMain extends JFrame implements Runnable {
      * @param pBtn_i
      */
     private void appriOtherNameBtn_0_9(int i, int pBtn_i) {
+
         nameButtons_0_9[i][pBtn_i].setText(" ");
         nameButtons_0_9[i][pBtn_i].addMouseListener(mouse);
         nameButtons_0_9[i][pBtn_i].setBackground(Color.black);
         nameButtons_0_9[i][pBtn_i].setForeground(Color.white);
+
     }
 
     /**
@@ -791,12 +968,14 @@ public class KaiwaMain extends JFrame implements Runnable {
      * @param point
      */
     private void appriMokujiBtn_0_9(int i, int pBtn_i, int point) {
+
         mokujiBtns0To9[i][pBtn_i].addMouseListener(mouse);
         mokujiBtns0To9[i][pBtn_i].addKeyListener(key);
         mokujiBtns0To9[i][pBtn_i].setHorizontalAlignment(JButton.LEFT);
         mokujiBtns0To9[i][pBtn_i].setText(bunyaFiles_0_9[i][pBtn_i].getName().substring(0, point));
         mokujiBtns0To9[i][pBtn_i].setActionCommand(bunyaFiles_0_9[i][pBtn_i].getName().substring(0, point));
         mokujiBtns0To9[i][pBtn_i].setFont(new Font("", Font.BOLD, 50));
+
     }
 
     /**
@@ -804,9 +983,11 @@ public class KaiwaMain extends JFrame implements Runnable {
      * @param pBtn_i
      */
     private void pane_0_9(int i, int pBtn_i) {
+
         panels_0_9[i][pBtn_i] = new JPanel(cateBtnPaneGridbaglayout);
         panels_0_9[i][pBtn_i].setBorder(new LineBorder(Color.black, 0, false));
         panels_0_9[i][pBtn_i].add(nameButtons_0_9[i][pBtn_i]);
+
     }
 
     /**
@@ -814,8 +995,10 @@ public class KaiwaMain extends JFrame implements Runnable {
      * @param pBtn_i
      */
     private void mokujiBtn_0_9(int i, int pBtn_i) {
+
         appriMokujiBtn_0_9(i, pBtn_i);
         mokujiBtns0To9[i][pBtn_i].setFont(new Font("", Font.BOLD, 50));
+
     }
 
     /**
@@ -824,12 +1007,14 @@ public class KaiwaMain extends JFrame implements Runnable {
      * @param point
      */
     private void appriNameBtn(int i, int pBtn_i, int point) {
+
         nameButtons_0_9[i][pBtn_i].setText(bunyaFiles_0_9[i][pBtn_i].getName().substring(0, point));
         nameButtons_0_9[i][pBtn_i].setBackground(Color.black);
         nameButtons_0_9[i][pBtn_i].addMouseListener(mouse);
         nameButtons_0_9[i][pBtn_i].addKeyListener(key);
         nameButtons_0_9[i][pBtn_i].setForeground(Color.white);
         nameButtons_0_9[i][pBtn_i].setFont(new Font("", Font.BOLD, 50));
+
     }
 
     /**
@@ -837,18 +1022,21 @@ public class KaiwaMain extends JFrame implements Runnable {
      * @param j
      */
     private void nameButtons_0_9(int i, int j) {
+
         nameButtons_0_9[i][j].setText(" ");
         nameButtons_0_9[i][j].setBackground(Color.black);
         nameButtons_0_9[i][j].addMouseListener(mouse);
         nameButtons_0_9[i][j].addKeyListener(key);
         nameButtons_0_9[i][j].setForeground(Color.white);
         nameButtons_0_9[i][j].setFont(new Font("", Font.BOLD, 50));
+
     }
 
     /**
      * @param category_button_panel_gridbag_constrainrs
      */
     private GridBagConstraints getGridBagConstraints(GridBagConstraints category_button_panel_gridbag_constrainrs) {
+
         category_button_panel_gridbag_constrainrs.gridx = 0;
         category_button_panel_gridbag_constrainrs.gridy = 0;
         //category_button_panel_gridbag_constrainrs.gridheight = 1;
@@ -856,6 +1044,7 @@ public class KaiwaMain extends JFrame implements Runnable {
         category_button_panel_gridbag_constrainrs.weighty = 1.0d;
         category_button_panel_gridbag_constrainrs.fill = GridBagConstraints.BOTH;
         return category_button_panel_gridbag_constrainrs;
+
     }
 
     /**
@@ -870,10 +1059,13 @@ public class KaiwaMain extends JFrame implements Runnable {
      * @return List<JPanel>
      */
     public void mKBtnMokuji(JPanel[] categoryBtnP) {
+
         // Set mokuji Button property.
         for (int i = 1; i < 10; i++) {
+
             // B：インデックスの使い方が不適当と思われる
             if (mokujiVisibleBl[i].equals(true)) {
+
                 mokuji0To9B[i] = new JButton(mokujiBtnNameTxt[i]);
                 mokuji0To9B[i].setPreferredSize(new Dimension(290, 108));
                 mokuji0To9B[i].addMouseListener(mouse);
@@ -890,15 +1082,21 @@ public class KaiwaMain extends JFrame implements Runnable {
                 Zoom zoomImage = new Zoom(new ImageIcon("./resource/img/tab1/" + mokujiImgNameTxt[i] + ".jpg"), 0, 0,
                                 mokuji0To9B[i].getHeight(), mokuji0To9B[i].getHeight());
                 mokuji0To9B[i].add(zoomImage);
+
             }
+
         }
+
         categoryBtnP[0].setLayout(new GridLayout(3, 3, 1, 1));
         categoryBtnP[0].setBackground(new Color(255, 255, 255));
+
     }
 
     // @see java.lang.Runnable#run()
     public void run() {
+
         mainLoopStart();
+
     }
 
     /**
@@ -908,31 +1106,44 @@ public class KaiwaMain extends JFrame implements Runnable {
     private void mainLoopStart() {
 
         while (true) {
+
             if (mokujiVisibleBl[loop_index].equals(true) && loop_index == 1) {
+
                 yoko_Num = (int) Math.floor(bunyaFiles_0_9[loop_index].length / gyouI) + 1;
+
             }
 
             loopMokuji();
 
             // line loop
             if ((tabbedPane.getSelectedIndex() == 0) == false) {
+
                 ekigoLoop(tabbedPane.getSelectedIndex());
+
             }
+
             loop_index++; // increment of main mokuji loop index
 
             //
             if (loop_index == 10) {
+
                 loop_index = 1;
+
             }
 
             // タブの行ボタン数を取得
             if (mokujiVisibleBl[loop_index].equals(true)) {
+
                 yoko_Num = (int) Math.floor(bunyaFiles_0_9[loop_index].length / gyouI) + 1;
+
             }
+
         }
+
     }
 
     private void ekigoLoop(int tabIndex) {
+
         new Lg(this, "ekigoLoop ①");
 
         // 上下ループ
@@ -946,26 +1157,35 @@ public class KaiwaMain extends JFrame implements Runnable {
 
             // タブが目次になったらループを出る。
             if (tabbedPane.getSelectedIndex() == 0) {
+
                 new Lg(this, "タブが目次になったのでループを出る：if (tabbedPane.getSelectedIndex() == 0)");
                 new Lg(this, "mokujiBIndexI_save==" + tab_change_init_num);
                 loop_index = tab_change_init_num;
                 break;
+
             }
 
             // 色移動：分野
             for (int p = 0; p < yoko_Num; p++) {
+
                 panels_0_9[loop_index][yoko_Inc + p].setBorder(new LineBorder(Color.white, 8, false));
                 nameButtons_0_9[loop_index][yoko_Inc + p].setForeground(Color.white);
+
             }
 
             try {
+
                 Thread.sleep(speed);
+
             } catch (InterruptedException e1) {
+
                 e1.printStackTrace();
+
             }
 
             // 左右ループ
             while (yelllow_loop_select_flag) {
+
                 new Lg(this, "while (tateFlag)＞yoko_Inc2：yoko_Inc：yoko_Num：tate_Inc==" + yoko_Inc2 + "：" + yoko_Inc
                                 + "：" + yoko_Num + "：" + tate_Inc);
 
@@ -983,45 +1203,69 @@ public class KaiwaMain extends JFrame implements Runnable {
 
                 // たて移動毎に音を鳴らす
                 Koe.oto(mokujiBtns0To9[loop_index][tate_Inc + yoko_Inc].getText());
+
                 try {
+
                     Thread.sleep(speed);
+
                 } catch (InterruptedException e1) {
+
                     e1.printStackTrace();
+
                 }
+
                 // 色移動：分野：横に移動する。 横と重なっていた部分は黒から黄色に戻す。
                 //
                 panels_0_9[loop_index][yoko_Num * yoko_Inc2 + tate_Inc]
                                 .setBorder(new LineBorder(Color.white, 10, false));
                 nameButtons_0_9[loop_index][yoko_Num * yoko_Inc2 + tate_Inc].setForeground(Color.white);
+
                 // To mokuji loop when tab index is change.
                 if (tabbedPane.getSelectedIndex() != tabIndex) {
+
                     tate_Inc = 0;
                     yoko_Inc2 = 0;
                     break;
+
                 }
+
                 // To list monitor
                 if (list_select_flag) {
+
                     // Apps panel（final panel）
                     if (tabbedPane.getSelectedIndex() == trueCount - 1) {
+
                         // mokuji button
                         if (mokujiBtns0To9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc].getText().equals("もくじ")) {
+
                             Koe.oto(mokujiBtns0To9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc].getText());
+
                             try {
+
                                 Thread.sleep(1000);
+
                             } catch (InterruptedException e1) {
+
                                 e1.printStackTrace();
+
                             }
+
                             yelllow_loop_select_flag = false;
                             tabbedPane.setSelectedIndex(0);
                             // Kaiwaからのイベントと違い始めから呼び出していないため、初期化する
                             tate_Inc = 0;
                             yoko_Inc2 = 0;
                             break;
+
                         }
+
                         new Lg(this, "buttons_0_9=="
                                         + mokujiBtns0To9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc].getText());
+
                         if (mokujiBtns0To9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc].getText().equals("tab10")) {
+
                         } else {
+
                             // 他PCに入れるときは、C：に近い所に入れないと、execエラーになる。
                             File f = new File("./resource/img/tab10/"
                                             + mokujiBtns0To9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc].getText()
@@ -1038,36 +1282,58 @@ public class KaiwaMain extends JFrame implements Runnable {
                             new Lg(this, "==" + mokujiBtns0To9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc].getText());
                             new Lg(this, "yoko_Inc2：yoko_Inc：yoko_Num：tate_Inc==" + yoko_Inc2 + "：" + yoko_Inc + "："
                                             + yoko_Num + "：" + tate_Inc);
+
                             try {
+
                                 process = runtime.exec("cmd /c start " + command);
+
                             } catch (IOException e) {
+
                                 e.printStackTrace();
+
                             }
+
                             Reader in = new InputStreamReader(process.getInputStream());
                             int c = -1;
                             new Lg(this, "oto");
+
                             try {
+
                                 while ((c = in.read()) != -1) {
+
                                     System.out.print((char) c);
+
                                 }
+
                             } catch (IOException e) {
 
                                 e.printStackTrace();
+
                             }
+
                             System.out.print("\n");
+
                             try {
+
                                 in.close();
+
                             } catch (IOException e) {
 
                                 e.printStackTrace();
+
                             }
+
                         }
+
                         yelllow_loop_select_flag = false;
                         break;
+
                     } else {
+
                         // Other apuri mokuji
                         // Select mokuji button.
                         if (mokujiBtns0To9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc].getText().equals("もくじ")) {
+
                             Koe.oto(mokujiBtns0To9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc].getText());
                             yelllow_loop_select_flag = false;
                             tabbedPane.setSelectedIndex(0);
@@ -1078,29 +1344,31 @@ public class KaiwaMain extends JFrame implements Runnable {
 
                             // Select pict
                         } else {
+
                             if (bunyaFiles_0_9[loop_index].length > yoko_Inc2 * yoko_Num + tate_Inc) {
+
                                 // ボタンを点滅させる
                                 Thread thread = new Thread(new PointerColorTHread());
                                 thread.start();
-                                panels_0_9[loop_index][tate_Inc + yoko_Inc].setBorder(new LineBorder(Color.black, 8,
-                                                false));
+                                panels_0_9[loop_index][tate_Inc + yoko_Inc]
+                                                .setBorder(new LineBorder(Color.black, 8, false));
                                 nameButtons_0_9[loop_index][tate_Inc + yoko_Inc].setForeground(Color.white);
+
                                 if (gyouIs.equals("②絵記号を拡大表示")) {
+
                                     new Lg(this, "if (gyouIs.equals(②絵記号を拡大表示) {");
                                     // 絵記号選択履歴　クリック時
-                                    Zoom zoom = new Zoom(new ImageIcon(
-                                                    "./resource/img/"
-                                                                    + category_directory_9[loop_index]
+                                    Zoom zoom = new Zoom(
+                                                    new ImageIcon("./resource/img/" + category_directory_9[loop_index]
                                                                     + "/"
                                                                     + mokujiBtns0To9[loop_index][yoko_Inc2 * yoko_Num
-                                                                                    + tate_Inc].getText() + ".jpg"), 0,
-                                                    0, 70, 60);
-                                    new Lg(this,
-                                                    "./resource/img/"
-                                                                    + category_directory_9[loop_index]
-                                                                    + "/"
-                                                                    + mokujiBtns0To9[loop_index][yoko_Inc2 * yoko_Num
-                                                                                    + tate_Inc].getText() + ".jpg");
+                                                                                    + tate_Inc].getText()
+                                                                    + ".jpg"),
+                                                    0, 0, 70, 60);
+                                    new Lg(this, "./resource/img/" + category_directory_9[loop_index] + "/"
+                                                    + mokujiBtns0To9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc]
+                                                                    .getText()
+                                                    + ".jpg");
                                     ekigoHistoryB = new JButton();
                                     ekigoHistoryB.setBackground(Color.black);
                                     ekigoHistoryB.setHorizontalAlignment(JButton.LEFT);
@@ -1110,46 +1378,61 @@ public class KaiwaMain extends JFrame implements Runnable {
                                     ekigoHistoryB.validate();
                                     view.setView(ekigoHistoryP);
                                     view.setViewPosition(new Point(5000, 100));
+
                                     if (HistorySizeSec == 0) {
+
                                         ekigoH = ekigoHistoryP.getHeight() - 5;
                                         ekigoHistoryB.setPreferredSize(new Dimension(ekigoH, ekigoH));
                                         HistorySizeSec++;
+
                                     } else {
+
                                         ekigoHistoryB.setPreferredSize(new Dimension(ekigoH, ekigoH));
+
                                     }
+
                                     ekigoHistoryP.add(ekigoHistoryB);
                                     this.setVisible(true);
+
                                     // Sleep before open pict picture.
                                     try {
+
                                         Thread.sleep(handleLag);
+
                                     } catch (InterruptedException e1) {
+
                                         e1.printStackTrace();
+
                                     }
+
                                     try {
-                                        new DispEkigo(
-                                                        mokujiBtns0To9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc]
-                                                                        .getText(),
-                                                        category_directory_9[loop_index], 1);
+
+                                        new DispEkigo(mokujiBtns0To9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc]
+                                                        .getText(), category_directory_9[loop_index], 1);
+
                                     } catch (HeadlessException e) {
+
                                         e.printStackTrace();
+
                                     }
+
                                     Koe.oto(mokujiBtns0To9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc].getText());
+
                                 } else if (gyouIs.equals("①説明を表示")) {
+
                                     new Lg(this, "if (gyouIs.equals(①説明を表示)) {");
                                     // Open pict picture monitor When pict history Click.
-                                    Zoom zoom = new Zoom(new ImageIcon(
-                                                    "./resource/img/"
-                                                                    + category_directory_9[loop_index]
+                                    Zoom zoom = new Zoom(
+                                                    new ImageIcon("./resource/img/" + category_directory_9[loop_index]
                                                                     + "/"
                                                                     + mokujiBtns0To9[loop_index][yoko_Inc2 * yoko_Num
-                                                                                    + tate_Inc].getText() + ".jpg"), 0,
-                                                    0, 70, 60);
-                                    new Lg(this,
-                                                    "./resource/img/"
-                                                                    + category_directory_9[loop_index]
-                                                                    + "/"
-                                                                    + mokujiBtns0To9[loop_index][yoko_Inc2 * yoko_Num
-                                                                                    + tate_Inc].getText() + ".jpg");
+                                                                                    + tate_Inc].getText()
+                                                                    + ".jpg"),
+                                                    0, 0, 70, 60);
+                                    new Lg(this, "./resource/img/" + category_directory_9[loop_index] + "/"
+                                                    + mokujiBtns0To9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc]
+                                                                    .getText()
+                                                    + ".jpg");
                                     ekigoHistoryB = new JButton();
                                     ekigoHistoryB.setBackground(Color.black);
                                     ekigoHistoryB.setHorizontalAlignment(JButton.LEFT);
@@ -1162,22 +1445,29 @@ public class KaiwaMain extends JFrame implements Runnable {
                                     view.setViewPosition(new Point(5000, 100));
 
                                     if (HistorySizeSec == 0) {
+
                                         ekigoH = ekigoHistoryP.getHeight() - 5;
                                         ekigoHistoryB.setPreferredSize(new Dimension(ekigoH, ekigoH));
                                         HistorySizeSec++;
 
                                     } else {
+
                                         ekigoHistoryB.setPreferredSize(new Dimension(ekigoH, ekigoH));
 
                                     }
+
                                     ekigoHistoryP.add(ekigoHistoryB);
                                     this.setVisible(true);
 
                                     // 絵記号を表示する前に、時間をおく。
                                     try {
+
                                         Thread.sleep(handleLag);
+
                                     } catch (InterruptedException e1) {
+
                                         e1.printStackTrace();
+
                                     }
 
                                     try {
@@ -1186,34 +1476,36 @@ public class KaiwaMain extends JFrame implements Runnable {
                                         // folderName)
                                         new List(mokujiBtns0To9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc].getText(),
                                                         category_directory_9[loop_index]);
+
                                     } catch (HeadlessException e) {
 
                                         e.printStackTrace();
+
                                     } catch (SQLException e) {
 
                                         e.printStackTrace();
+
                                     }
 
                                     Koe.oto(mokujiBtns0To9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc].getText());
+
                                 } else if (gyouIs.equals("③絵記号一時的に表示")) {
 
                                     new Lg(this, "if (gyouIs.equals(③絵記号一時的に表示)) {");
 
                                     // 絵記号選択履歴　クリック時
-                                    Zoom zoom = new Zoom(new ImageIcon(
-                                                    "./resource/img/"
-                                                                    + category_directory_9[loop_index]
+                                    Zoom zoom = new Zoom(
+                                                    new ImageIcon("./resource/img/" + category_directory_9[loop_index]
                                                                     + "/"
                                                                     + mokujiBtns0To9[loop_index][yoko_Inc2 * yoko_Num
-                                                                                    + tate_Inc].getText() + ".jpg"), 0,
-                                                    0, 70, 60);
+                                                                                    + tate_Inc].getText()
+                                                                    + ".jpg"),
+                                                    0, 0, 70, 60);
 
-                                    new Lg(this,
-                                                    "./resource/img/"
-                                                                    + category_directory_9[loop_index]
-                                                                    + "/"
-                                                                    + mokujiBtns0To9[loop_index][yoko_Inc2 * yoko_Num
-                                                                                    + tate_Inc].getText() + ".jpg");
+                                    new Lg(this, "./resource/img/" + category_directory_9[loop_index] + "/"
+                                                    + mokujiBtns0To9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc]
+                                                                    .getText()
+                                                    + ".jpg");
 
                                     ekigoHistoryB = new JButton();
                                     ekigoHistoryB.setBackground(Color.black);
@@ -1227,11 +1519,15 @@ public class KaiwaMain extends JFrame implements Runnable {
                                     view.setViewPosition(new Point(5000, 100));
 
                                     if (HistorySizeSec == 0) {
+
                                         ekigoH = ekigoHistoryP.getHeight() - 5;
                                         ekigoHistoryB.setPreferredSize(new Dimension(ekigoH, ekigoH));
                                         HistorySizeSec++;
+
                                     } else {
+
                                         ekigoHistoryB.setPreferredSize(new Dimension(ekigoH, ekigoH));
+
                                     }
 
                                     ekigoHistoryP.add(ekigoHistoryB);
@@ -1239,100 +1535,135 @@ public class KaiwaMain extends JFrame implements Runnable {
 
                                     // 絵記号を表示する前に、時間をおく。
                                     try {
+
                                         Thread.sleep(handleLag);
+
                                     } catch (InterruptedException e1) {
+
                                         e1.printStackTrace();
+
                                     }
 
                                     // 小さな絵記号を２秒間表示する。
                                     try {
+
                                         // public BigEkigo(String
                                         // ekigoFileName,String ekigoFolderName)
-                                        new DispEkigo(
-                                                        mokujiBtns0To9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc]
-                                                                        .getText(),
-                                                        category_directory_9[loop_index], 2);
+                                        new DispEkigo(mokujiBtns0To9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc]
+                                                        .getText(), category_directory_9[loop_index], 2);
+
                                     } catch (HeadlessException e) {
+
                                         e.printStackTrace();
+
                                     }
+
                                     // -----------------------------------------------小さな絵記号を２秒間表示する。
                                     Koe.oto(mokujiBtns0To9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc].getText());
+
                                 }
 
                                 // yoko_Inc2=0; //縦ループを出た場合は、横インデックスを0（上からループ開始）
                                 yelllow_loop_select_flag = false;
 
                                 break;
+
                             } else {// 空ボタンはなにもしない。
 
-                                new Lg(this, "yoko_Inc2：yoko_Inc：yoko_Num：tate_Inc==" + yoko_Inc2 + "：" + yoko_Inc
-                                                + "：" + yoko_Num + "：" + tate_Inc);
+                                new Lg(this, "yoko_Inc2：yoko_Inc：yoko_Num：tate_Inc==" + yoko_Inc2 + "：" + yoko_Inc + "："
+                                                + yoko_Num + "：" + tate_Inc);
 
                                 // yoko_Inc2=0; //縦ループを出た場合は、横インデックスを0（上からループ開始）
                                 yelllow_loop_select_flag = false;
                                 break;
+
                             }
+
                         }
+
                     }
+
                 }
+
                 tate_Inc++;
+
                 if (tate_Inc == yoko_Num) {// 最後のインデックス番号で初期化
+
                     tate_Inc = 0;
+
                 }
-            }// -------------------------------------------------------------------------たてループ終端
+
+            } // -------------------------------------------------------------------------たてループ終端
 
             // 色移動 縦ループで、枠線を黒に戻す。
             for (int i = 0; i < yoko_Num; i++) {
+
                 panels_0_9[loop_index][yoko_Inc + i].setBorder(new LineBorder(Color.black, 0, false));
                 nameButtons_0_9[loop_index][yoko_Inc + i].setForeground(Color.white);
+
             }
 
             // ループ中のタブではなくなった場合、上下ループを抜ける
             if (tabbedPane.getSelectedIndex() != tabIndex && tabbedPane.getSelectedIndex() != 0) {// タブインデックスが変化したら目次ループへ
+
                 yoko_Inc = 0;
                 yoko_Inc2 = 0;
 
                 new Lg(this, "mokujiBIndexI_save==" + tab_change_init_num);
                 loop_index = tab_change_init_num;
                 break;
+
             } else
 
-            // ループ中のタブではなくなった場合、上下ループを抜ける
-            if (tabbedPane.getSelectedIndex() == 0) {// タブインデックスが変化したら目次ループへ
-                yoko_Inc = 0;
-                yoko_Inc2 = 0;
+                // ループ中のタブではなくなった場合、上下ループを抜ける
+                if (tabbedPane.getSelectedIndex() == 0) {// タブインデックスが変化したら目次ループへ
 
-                // Bag：NullPointerException
-                new Lg(this, "mokujiBIndexI_save==" + tab_change_init_num);
+                    yoko_Inc = 0;
+                    yoko_Inc2 = 0;
 
-                // mokujiB_10[mokujiBIndexI_save].setBorder(new
-                // LineBorder(Color.black,
-                // 0, false)); //NG
-                for (int i = 1; i < 10; i++) {
-                    if (mokujiVisibleBl[i].equals(true)) {
-                        mokuji0To9B[i].setBorder(new LineBorder(Color.black, 8, false)); // NG
-                        mokuji0To9B[i].setForeground(Color.white);
+                    // Bag：NullPointerException
+                    new Lg(this, "mokujiBIndexI_save==" + tab_change_init_num);
+
+                    // mokujiB_10[mokujiBIndexI_save].setBorder(new
+                    // LineBorder(Color.black,
+                    // 0, false)); //NG
+                    for (int i = 1; i < 10; i++) {
+
+                        if (mokujiVisibleBl[i].equals(true)) {
+
+                            mokuji0To9B[i].setBorder(new LineBorder(Color.black, 8, false)); // NG
+                            mokuji0To9B[i].setForeground(Color.white);
+
+                        }
+
                     }
+
+                    loop_index = tab_change_init_num;
+                    break;
+
                 }
-                loop_index = tab_change_init_num;
-                break;
-            }
 
             yoko_Inc = yoko_Inc + yoko_Num; // ループするたびに、indexを加算し、赤ループをする
             yoko_Inc2++;
 
             // 最後のボタンインデックス番号で初期化（例：36個→yoko_Inc＝0～35）
             if (yoko_Inc == mokujiBtns0To9[loop_index].length) {
+
                 yoko_Inc = 0;
+
             }
 
             // 最後のインデックス番号で初期化（例：yoko_Inc2＝1～4/gyouI＝3or4）
             if (yoko_Inc2 == gyouI) {
+
                 yoko_Inc2 = 0;
+
             }
 
             tate_Inc = 0; // 横ループ中は縦ループは0（左は時からループを開始）
+
         }
+
         // 横ループ終端
     }
 
@@ -1344,9 +1675,12 @@ public class KaiwaMain extends JFrame implements Runnable {
 
         // windows domestic sound
         playWave("resource/Windows Information Bar.wav");
+
         try {
+
             // change frame side w moving mokuji button.
             if (mokujiVisibleBl[loop_index].equals(true)) {
+
                 // mokuji_button_9[loop_index].setBorder(new
                 // LineBorder(panelColor_0_9[loop_index], 8, false));
                 mokuji0To9B[loop_index].setBorder(new LineBorder(Color.GREEN, 16, false));
@@ -1355,10 +1689,12 @@ public class KaiwaMain extends JFrame implements Runnable {
                 new Lg(this, "mokujiLoop>mokujiName_10[mokujiBIndexI] == "
                                 + StringFormat.stringFormat(mokujiBtnNameTxt[loop_index], 10) + "：" + loop_index);
                 Thread.sleep(speed);
+
             }
 
             // タブが、目次以外の場合、列数を取得する。
             if (tabbedPane.getSelectedIndex() != 0) {
+
                 // Consorlnew
                 // log(Thread.currentThread().getStackTrace(),"void mokuji()＞if (tabbedPane.getSelectedIndex() != 0)");
                 yelllow_loop_select_flag = true;
@@ -1373,14 +1709,19 @@ public class KaiwaMain extends JFrame implements Runnable {
 
                 // タブの行ボタン数を取得
                 if (mokujiVisibleBl[loop_index].equals(true)) {
+
                     yoko_Num = (int) Math.floor(bunyaFiles_0_9[loop_index].length / gyouI) + 1;
+
                 }
+
             }
 
             // 目次から、絵記号へキー移動事例：5秒間以上長押しした場合、目次に戻る機能　→　キーreleaseの時、false
             // にすることにより、目次に行って勝手に分野に行くことを防ぐ。
             if (yelllow_loop_select_flag) {
+
                 new Lg(this, "keyFlag : mokujiBIndexI == " + yelllow_loop_select_flag + " : " + loop_index);
+
                 if (mokujiVisibleBl[loop_index].equals(true)) {
 
                     tabbedPane.setSelectedIndex(tabNum[loop_index]);
@@ -1388,19 +1729,25 @@ public class KaiwaMain extends JFrame implements Runnable {
                     // 目次の音
                     Koe.oto(mokujiBtnNameTxt[loop_index]);
                     yelllow_loop_select_flag = false;
+
                 }
+
             }
 
             // 黒に戻す
             if (mokujiVisibleBl[loop_index].equals(true)) {
+
                 mokuji0To9B[loop_index].setBorder(new LineBorder(Color.black, 8, true));
                 mokuji0To9B[loop_index].setForeground(Color.white);
+
             }
 
         } catch (InterruptedException e1) {
 
             e1.printStackTrace();
+
         }
+
     }
 
     public class MyKey extends KeyAdapter {
@@ -1416,16 +1763,24 @@ public class KaiwaMain extends JFrame implements Runnable {
 
             // タブを切り替える。（スペースキー）
             if (KeyEvent.getKeyText(e.getKeyChar()).equals("Space")) {
+
                 next_tab_count++;
+
                 if (next_tab_count == 10) {
+
                     next_tab_count = 0;
+
                 }
+
                 tabbedPane.setSelectedIndex(next_tab_count);
                 new Lg(this, "moveEkigo>keyPressed == " + KeyEvent.getKeyText(e.getKeyChar()));
+
             }
 
             if (keyPressAvailable == true) {
+
                 for (int i = 0; i < 10; i++) {
+
                     if (KeyEvent.getKeyText(e.getKeyChar()).equals(String.valueOf(i))
                                     || KeyEvent.getKeyText(e.getKeyChar()).equals("Period")
                                     || KeyEvent.getKeyText(e.getKeyChar()).equals("Enter")
@@ -1435,19 +1790,26 @@ public class KaiwaMain extends JFrame implements Runnable {
                                     || KeyEvent.getKeyText(e.getKeyChar()).equals("Minus")
                     // Num Lock is unable to lock.
                     ) {
+
                         // keyPressAvailable キーを押している間は2回目移行は、pressイベントに入らない。
                         keyPressAvailable = false;
                         new Lg(this, "moveEkigo>keyPressed == " + KeyEvent.getKeyText(e.getKeyChar()));
                         yelllow_loop_select_flag = true;
                         list_select_flag = true;
                         break;
+
                     }
+
                 }
+
             }
+
         }
 
         public void keyReleased(KeyEvent e) {
+
             for (int i = 0; i < 10; i++) {
+
                 if (KeyEvent.getKeyText(e.getKeyChar()).equals(String.valueOf(i))
                                 || KeyEvent.getKeyText(e.getKeyChar()).equals("Period")
                                 || KeyEvent.getKeyText(e.getKeyChar()).equals("Enter")
@@ -1460,10 +1822,12 @@ public class KaiwaMain extends JFrame implements Runnable {
                 ) {
 
                     if (returnMokujiCount >= 100) {
+
                         tabbedPane.setSelectedIndex(0);
                         yelllow_loop_select_flag = false;
                         keyPressAvailable = true;
                         returnMokujiCount = 0;
+
                     }
 
                     // keyPressAvailable
@@ -1472,8 +1836,11 @@ public class KaiwaMain extends JFrame implements Runnable {
                     new Lg(this, "moveEkigo>keyReleased == " + KeyEvent.getKeyText(e.getKeyChar()));
                     returnMokujiCount = 0; // キー長押しで目次に戻る。条件値を0に初期化
                     break;
+
                 }
+
             }
+
         }
     }
 
@@ -1485,66 +1852,104 @@ public class KaiwaMain extends JFrame implements Runnable {
          *
          */
         public void mouseEntered(MouseEvent mouseEvent) {
+
             // タブ分野１～9が対象
             for (int i = 1; i < tabPanel_0_9.length; i++) {
+
                 // trueタブを選別
                 if (mokujiVisibleBl[i].equals(true)) {//
+
                     // 分野毎のボタン数ループし、押されたボタンを抽出
+
                     for (int j = 0; j < mokujiBtns0To9[i].length; j++) {
+
                         // 押されたボタンである
-                        if (i != 9 && mouseEvent.getSource() == mokujiBtns0To9[i][j] || i != 9
-                                        && mouseEvent.getSource() == nameButtons_0_9[i][j]) {
+                        if (i != 9 && mouseEvent.getSource() == mokujiBtns0To9[i][j]
+                                        || i != 9 && mouseEvent.getSource() == nameButtons_0_9[i][j]) {
+
                             panels_0_9[i][j].setBorder(new LineBorder(Constants.enteredColor, 3, false));
+
                         }
+
                         if ((i == 9 && mouseEvent.getSource() == mokujiBtns0To9[9][j])
                                         || (i == 9 && mouseEvent.getSource() == nameButtons_0_9[9][j])) {
+
                             panels_0_9[i][j].setBorder(new LineBorder(Constants.enteredColor, 3, false));
+
                         }
+
                     }
+
                 }
+
             }
 
             for (int i = 1; i < tab_num; i++) {
+
                 // MOKUJI BUTTON
                 if (mokujiVisibleBl[i].equals(true)) {
+
                     if (mouseEvent.getSource() == mokuji0To9B[i]) {
+
                         mokuji0To9B[i].setBorder(new LineBorder(Constants.enteredColor, 3, false));
+
                     }
+
                 }
+
             }
+
         }
 
         public void mouseExited(MouseEvent e1) {
 
             // タブ分野１～9が対象
             for (int i = 1; i < tabPanel_0_9.length; i++) {
+
                 // trueタブを選別
                 if (mokujiVisibleBl[i].equals(true)) {
+
                     // 分野毎のボタン数ループし、押されたボタンを抽出
                     for (int j = 0; j < mokujiBtns0To9[i].length; j++) {
+
                         // 押されたボタンである
-                        if (i != 9 && e1.getSource() == mokujiBtns0To9[i][j] || i != 9
-                                        && e1.getSource() == nameButtons_0_9[i][j]) {
+                        if (i != 9 && e1.getSource() == mokujiBtns0To9[i][j]
+                                        || i != 9 && e1.getSource() == nameButtons_0_9[i][j]) {
+
                             panels_0_9[i][j].setBorder(new LineBorder(Color.black, 0, false));
                             nameButtons_0_9[i][j].setForeground(Color.white);
+
                         }
+
                         if ((i == 9 && e1.getSource() == mokujiBtns0To9[9][j])
                                         || (i == 9 && e1.getSource() == nameButtons_0_9[9][j])) {
+
                             panels_0_9[i][j].setBorder(new LineBorder(Color.black, 0, false));
                             nameButtons_0_9[i][j].setForeground(Color.white);
+
                         }
+
                     }
+
                 }
+
             }
 
             for (int i = 1; i < tab_num; i++) {
+
                 // MOKUJI BUTTON
                 if (mokujiVisibleBl[i].equals(true)) {
+
                     if (e1.getSource() == mokuji0To9B[i]) {
+
                         mokuji0To9B[i].setBorder(new LineBorder(Color.black, 8, false));
+
                     }
+
                 }
+
             }
+
         }
 
         public void mousePressed(MouseEvent e) {
@@ -1552,30 +1957,42 @@ public class KaiwaMain extends JFrame implements Runnable {
             // 絵記号の音を再生 タブ分野１～9が対象
 
             for (int i = 1; i < tabPanel_0_9.length; i++) {
+
                 // trueタブを選別
                 if (mokujiVisibleBl[i].equals(true)) {
+
                     // 分野毎のボタン数ループし、押されたボタンを抽出
                     for (int j = 0; j < mokujiBtns0To9[i].length; j++) {
+
                         // 押されたボタンである
-                        if (i != 9 && e.getSource() == mokujiBtns0To9[i][j] || i != 9
-                                        && e.getSource() == nameButtons_0_9[i][j]) {
+                        if (i != 9 && e.getSource() == mokujiBtns0To9[i][j]
+                                        || i != 9 && e.getSource() == nameButtons_0_9[i][j]) {
+
                             // アプリ以外の分野
                             try {
+
                                 // リストを表示
                                 if (mokujiBtns0To9[i][j].getText().equals(category_directory_9[i])) {
+
                                     // 画像なが無い場合は何もしない
                                 } else {
+
                                     if (mokujiBtns0To9[i][j].getText().equals("もくじ")) {
+
                                         Koe.oto("もくじ");
                                         tabbedPane.setSelectedIndex(0);
+
                                     } else {
+
                                         // /////////////////////////////////////////
                                         // リスト・音の表示
                                         if (gyouIs.equals("絵記号")) {
+
                                             // ///////////////////////////////////絵記号選択履歴　クリック時
-                                            Zoom zoom = new Zoom(new ImageIcon("./resource/img/"
-                                                            + category_directory_9[i] + "/"
-                                                            + mokujiBtns0To9[i][j].getText() + ".jpg"), 0, 0, 70, 60);
+                                            Zoom zoom = new Zoom(new ImageIcon(
+                                                            "./resource/img/" + category_directory_9[i] + "/"
+                                                                            + mokujiBtns0To9[i][j].getText() + ".jpg"),
+                                                            0, 0, 70, 60);
                                             new Lg(this, "./resource/img/" + category_directory_9[i] + "/"
                                                             + mokujiBtns0To9[i][j].getText() + ".jpg");
                                             ekigoHistoryB = new JButton(" ");
@@ -1591,11 +2008,15 @@ public class KaiwaMain extends JFrame implements Runnable {
                                             view.setViewPosition(new Point(5000, 100));
 
                                             if (HistorySizeSec == 0) {
+
                                                 ekigoH = ekigoHistoryP.getHeight() - 5;
                                                 ekigoHistoryB.setPreferredSize(new Dimension(ekigoH, ekigoH));
                                                 HistorySizeSec++;
+
                                             } else {
+
                                                 ekigoHistoryB.setPreferredSize(new Dimension(ekigoH, ekigoH));
+
                                             }
 
                                             ekigoHistoryP.add(ekigoHistoryB);
@@ -1608,11 +2029,14 @@ public class KaiwaMain extends JFrame implements Runnable {
                                             // ekigoViewMode)
                                             new DispEkigo(mokujiBtns0To9[i][j].getText(), category_directory_9[i], 2);
                                             Koe.oto(mokujiBtns0To9[i][j].getText());
+
                                         } else {
+
                                             // ///////////////////////////////////絵記号選択履歴　クリック時
-                                            Zoom zoom = new Zoom(new ImageIcon("./resource/img/"
-                                                            + category_directory_9[i] + "/"
-                                                            + mokujiBtns0To9[i][j].getText() + ".jpg"), 0, 0, 70, 60);
+                                            Zoom zoom = new Zoom(new ImageIcon(
+                                                            "./resource/img/" + category_directory_9[i] + "/"
+                                                                            + mokujiBtns0To9[i][j].getText() + ".jpg"),
+                                                            0, 0, 70, 60);
                                             new Lg(this, "./resource/img/" + category_directory_9[i] + "/"
                                                             + mokujiBtns0To9[i][j].getText() + ".jpg");
                                             ekigoHistoryB = new JButton(" ");
@@ -1629,11 +2053,15 @@ public class KaiwaMain extends JFrame implements Runnable {
                                             view.setViewPosition(new Point(5000, 100));
 
                                             if (HistorySizeSec == 0) {
+
                                                 ekigoH = ekigoHistoryP.getHeight() - 5;
                                                 ekigoHistoryB.setPreferredSize(new Dimension(ekigoH, ekigoH));
                                                 HistorySizeSec++;
+
                                             } else {
+
                                                 ekigoHistoryB.setPreferredSize(new Dimension(ekigoH, ekigoH));
+
                                             }
 
                                             ekigoHistoryP.add(ekigoHistoryB);
@@ -1641,85 +2069,118 @@ public class KaiwaMain extends JFrame implements Runnable {
 
                                             new List(mokujiBtns0To9[i][j].getText(), category_directory_9[i]);
                                             Koe.oto(mokujiBtns0To9[i][j].getText());
+
                                         }
+
                                     }
+
                                 }
+
                             } catch (Exception e2) {
+
                                 e2.printStackTrace();
                                 System.exit(1);
+
                             }
 
                             // アプリ分野
                         } else if ((i == 9 && e.getSource() == mokujiBtns0To9[9][j])
                                         || (i == 9 && e.getSource() == nameButtons_0_9[9][j])) {
-                            new Lg(this, "else if(i==9)");
 
-                            if (mokujiBtns0To9[9][j].getText().equals("もくじ")) {
-                                tabbedPane.setSelectedIndex(0);
-                                break;
-                            }
+                                            new Lg(this, "else if(i==9)");
 
-                            if (mokujiBtns0To9[i][j].getText().equals("tab10")) {
+                                            if (mokujiBtns0To9[9][j].getText().equals("もくじ")) {
 
-                            } else {
-                                try {
-                                    Koe.oto(mokujiBtns0To9[i][j].getText());
+                                                tabbedPane.setSelectedIndex(0);
+                                                break;
 
-                                    // /////////////////////////////////////////////////////////////////
-                                    // 他PCに入れるときは、C：に近い所に入れないと、execエラーになる。
-                                    File f = new File("./resource/img/tab10/" + mokujiBtns0To9[i][j].getText() + ".jar");
+                                            }
 
-                                    String command = f.getAbsolutePath();
+                                            if (mokujiBtns0To9[i][j].getText().equals("tab10")) {
 
-                                    new Lg(this, "command==" + command);
+                                            } else {
 
-                                    Runtime runtime = Runtime.getRuntime();
-                                    Process process = runtime.exec("cmd /c start " + command);
+                                                try {
 
-                                    // //////////////////////////////////////////////////////////////////
-                                    // ダイアログは、プログラムを一時停止させる。
-                                    // JOptionPane.showMessageDialog(null,
-                                    // command);
-                                    Reader in = new InputStreamReader(process.getInputStream());
-                                    int c = -1;
-                                    System.out.print("oto==");
-                                    while ((c = in.read()) != -1) {
-                                        System.out.print((char) c);
-                                    }
+                                                    Koe.oto(mokujiBtns0To9[i][j].getText());
 
-                                    System.out.print("\n");
-                                    in.close();
-                                } catch (IOException e1) {
-                                    e1.printStackTrace();
-                                }
-                            }
-                        }
+                                                    // /////////////////////////////////////////////////////////////////
+                                                    // 他PCに入れるときは、C：に近い所に入れないと、execエラーになる。
+                                                    File f = new File("./resource/img/tab10/"
+                                                                    + mokujiBtns0To9[i][j].getText() + ".jar");
+
+                                                    String command = f.getAbsolutePath();
+
+                                                    new Lg(this, "command==" + command);
+
+                                                    Runtime runtime = Runtime.getRuntime();
+                                                    Process process = runtime.exec("cmd /c start " + command);
+
+                                                    // //////////////////////////////////////////////////////////////////
+                                                    // ダイアログは、プログラムを一時停止させる。
+                                                    // JOptionPane.showMessageDialog(null,
+                                                    // command);
+                                                    Reader in = new InputStreamReader(process.getInputStream());
+                                                    int c = -1;
+                                                    System.out.print("oto==");
+
+                                                    while ((c = in.read()) != -1) {
+
+                                                        System.out.print((char) c);
+
+                                                    }
+
+                                                    System.out.print("\n");
+                                                    in.close();
+
+                                                } catch (IOException e1) {
+
+                                                    e1.printStackTrace();
+
+                                                }
+
+                                            }
+
+                                        }
+
                     }
+
                 }
+
             }
 
             // Change tab main picts monitors by ten key.
             new Lg(this, "MousePressed_before");
+
             try {
+
                 moveEkigo(e);
+
             } catch (FileNotFoundException e1) {
 
                 e1.printStackTrace();
+
             } catch (IOException e1) {
 
                 e1.printStackTrace();
+
             }
+
             new Lg(this, "MousePressed_after");
+
         }
 
         // Change tab main picts monitors by mouse choice.
         private void moveEkigo(MouseEvent e) throws FileNotFoundException, IOException {
+
             new Lg(this, "moveEkigo");
 
             for (moveEkigoCount = 1; moveEkigoCount < tab_num; moveEkigoCount++) {
 
                 if (mokujiVisibleBl[moveEkigoCount].equals(true)) {
+
                     if (e.getSource() == mokuji0To9B[moveEkigoCount]) {
+
                         yoko_Inc = 0;
 
                         new Lg(this, mokujiBtnNameTxt[moveEkigoCount]);
@@ -1730,25 +2191,40 @@ public class KaiwaMain extends JFrame implements Runnable {
 
                         // Return mokuji button color to brack.
                         if (mokujiVisibleBl[loop_index].equals(true)) {
+
                             mokuji0To9B[loop_index].setBorder(new LineBorder(Color.black, 0, true));
                             mokuji0To9B[loop_index].setForeground(Color.white);
                             yoko_Num = (int) Math.floor(bunyaFiles_0_9[loop_index].length / gyouI) + 1;
+
                         }
+
                         if (prop.getPict().getProperty("seting.roop").equals("OFF")) {
+
                             new Lg(this, "Change tab by mouse choice.");
+
                             if (mokujiVisibleBl[loop_index].equals(true)) {
+
                                 tabbedPane.setSelectedIndex(tabNum[loop_index]);
+
                             }
+
                         } else {
+
                             new Lg(this, "Change tab by ten key.");
                             yelllow_loop_select_flag = true;
+
                         }
+
                         // ループ状態出なければkeyFlagはアプリに関係ない。
                         // i can not understand this comment. nessusaly to fix.
                         new Lg(this, "moveEkigo>mokujiBIndexI==" + loop_index);
+
                     }
+
                 }
+
             }
+
         }
     }
 
@@ -1766,14 +2242,19 @@ public class KaiwaMain extends JFrame implements Runnable {
          * @see java.lang.Runnable#run()
          */
         public void run() {
+
             panels_0_9[loop_index][tate_Inc + yoko_Inc].setBorder(new LineBorder(Color.white, 20, false));
+
         }
     }
 
     // ループ音
     public static void playWave(String fileName) {
+
         final int EXTERNAL_BUFFER_SIZE = 128000;
+
         try {
+
             // Fileクラスのインスタンスを生成
             File soundFile = new File(fileName);
             // オーディオ入力ストリームを取得します
@@ -1790,21 +2271,32 @@ public class KaiwaMain extends JFrame implements Runnable {
             line.start();
             int nBytesRead = 0;
             byte[] abData = new byte[EXTERNAL_BUFFER_SIZE];
+
             while (nBytesRead != -1) {
+
                 // オーディオストリームからデータを読み込みます
                 nBytesRead = audioInputStream.read(abData, 0, abData.length);
+
                 if (nBytesRead >= 0) {
+
                     // オーディオデータをミキサーに書き込みます
                     int nBytesWritten = line.write(abData, 0, nBytesRead);
+
                 }
+
             }
+
             // ラインからキューに入っているデータを排出します
             line.drain();
             // ラインを閉じます
             line.close();
+
         } catch (Exception e) {
+
             e.printStackTrace();
+
         }
+
     }
 
     /**
@@ -1814,38 +2306,43 @@ public class KaiwaMain extends JFrame implements Runnable {
      */
     public static void main(String[] args) {
 
+        System.out.println("--------------------------------------------------");
 
-    	System.out.println("--------------------------------------------------");
+        try {
 
-    	try {
-			new KaiwaMain();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (AWTException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            new KaiwaMain();
 
-//
-//        SwingUtilities.invokeLater(new Runnable() {
-//            /*
-//             * (非 Javadoc)
-//             *
-//             * @see java.lang.Runnable#run()
-//             */
-//            public void run() {
-//                try {
-//                    new KaiwaMain();
-//                } catch (IOException e) {
-//                    // TODO 自動生成された catch ブロック
-//                    e.printStackTrace();
-//                } catch (AWTException e) {
-//                    // TODO 自動生成された catch ブロック
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
+        } catch (IOException e) {
+
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+
+        } catch (AWTException e) {
+
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+
+        }
+
+        //
+        //        SwingUtilities.invokeLater(new Runnable() {
+        //            /*
+        //             * (非 Javadoc)
+        //             *
+        //             * @see java.lang.Runnable#run()
+        //             */
+        //            public void run() {
+        //                try {
+        //                    new KaiwaMain();
+        //                } catch (IOException e) {
+        //                    // TODO 自動生成された catch ブロック
+        //                    e.printStackTrace();
+        //                } catch (AWTException e) {
+        //                    // TODO 自動生成された catch ブロック
+        //                    e.printStackTrace();
+        //                }
+        //            }
+        //        });
     }
 
     /**
@@ -1854,16 +2351,25 @@ public class KaiwaMain extends JFrame implements Runnable {
      */
     class MyRobot implements Runnable {
         public void run() {
+
             while (true) {
+
                 try {
+
                     Thread.sleep(30000);
+
                 } catch (InterruptedException e) {
+
                     e.printStackTrace();
+
                 }
+
                 robot.mouseMove(rect.width - 100, 10);
                 robot.mousePress(InputEvent.BUTTON1_MASK);
                 robot.mouseRelease(InputEvent.BUTTON1_MASK);
+
             }
+
         }
     }
 }
