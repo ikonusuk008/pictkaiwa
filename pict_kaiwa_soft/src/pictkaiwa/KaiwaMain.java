@@ -66,7 +66,8 @@ import util.Zoom;
 import util.ZoomTab;
 
 /**
- * @author ikonu
+ * ekigo kaiwa soft main class
+ * @author User
  *
  */
 @SuppressWarnings("serial")
@@ -1812,10 +1813,10 @@ public class KaiwaMain extends JFrame implements Runnable {
      * @param args
      */
     public static void main(String[] args) {
-    	
-    	
+
+
     	System.out.println("--------------------------------------------------");
-    	
+
     	try {
 			new KaiwaMain();
 		} catch (IOException e) {
@@ -1825,8 +1826,8 @@ public class KaiwaMain extends JFrame implements Runnable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	
-//    	
+
+//
 //        SwingUtilities.invokeLater(new Runnable() {
 //            /*
 //             * (”ñ Javadoc)
