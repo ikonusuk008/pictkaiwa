@@ -1034,6 +1034,7 @@ import util.ZoomTab;
 
     /**
      * @param category_button_panel_gridbag_constrainrs
+     * @return
      */
     private GridBagConstraints getGridBagConstraints(GridBagConstraints category_button_panel_gridbag_constrainrs) {
 
@@ -1092,7 +1093,9 @@ import util.ZoomTab;
 
     }
 
-    // @see java.lang.Runnable#run()
+    /**
+     *
+     */
     public void run() {
 
         mainLoopStart();
@@ -1100,9 +1103,8 @@ import util.ZoomTab;
     }
 
     /**
-    *
-    *
-    */
+     *
+     */
     private void mainLoopStart() {
 
         while (true) {
@@ -1115,7 +1117,7 @@ import util.ZoomTab;
 
             loopMokuji();
 
-            // line loop
+            // 目次画面から絵記号の詳細ループへ遷移
             if ((tabbedPane.getSelectedIndex() == 0) == false) {
 
                 ekigoLoop(tabbedPane.getSelectedIndex());
@@ -1142,6 +1144,10 @@ import util.ZoomTab;
 
     }
 
+    /**
+     * 絵記号の詳細ループ。これは、絵記号の上下ループと左右ループの制御する。
+     * @param tabIndex
+     */
     private void ekigoLoop(int tabIndex) {
 
         new Lg(this, "ekigoLoop ①");
