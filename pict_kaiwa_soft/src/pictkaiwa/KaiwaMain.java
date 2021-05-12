@@ -268,15 +268,8 @@ import util.ZoomTab;
 
         super();
 
-        // 常に左角をクリックする。
-        // robot_crick robot = new robot_crick();
-        // Thread thread = new Thread(robot);
-        // thread.start();
+        lock();
 
-        lock(); // 2重起動ロック
-
-        // set_tab_ui_manerger(); // タブプロパティ設定
-        // Look&Feelの設定
         String type = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
 
         try {
@@ -289,13 +282,11 @@ import util.ZoomTab;
 
         }
 
-        // Insets
         String tp = "TabbedPane.";
         UIManager.put(tp + "tabInsets", new Insets(2, 8, 2, 8)); // タブの上下空間設定
         UIManager.put(tp + "tabAreaInsets", new Insets(8, 8, 8, 8)); // タブパネルの上下空間設定
         UIManager.put(tp + "contentBorderInsets", new Insets(8, 8, 8, 8));
         UIManager.put(tp + "selectedTabPadInsets", new Insets(8, 8, 8, 8));
-        // Color
         UIManager.put(tp + "shadow", Color.GRAY);
         UIManager.put(tp + "darkShadow", Color.GRAY);
         UIManager.put(tp + "light", Color.GRAY);
@@ -1040,7 +1031,6 @@ import util.ZoomTab;
 
         category_button_panel_gridbag_constrainrs.gridx = 0;
         category_button_panel_gridbag_constrainrs.gridy = 0;
-        //category_button_panel_gridbag_constrainrs.gridheight = 1;
         category_button_panel_gridbag_constrainrs.weightx = 1.0d;
         category_button_panel_gridbag_constrainrs.weighty = 1.0d;
         category_button_panel_gridbag_constrainrs.fill = GridBagConstraints.BOTH;
@@ -1103,7 +1093,7 @@ import util.ZoomTab;
     }
 
     /**
-     *
+     * 目次画面。目次が白枠で遷移する。
      */
     private void mainLoopStart() {
 
@@ -1115,7 +1105,7 @@ import util.ZoomTab;
 
             }
 
-            loopMokuji();
+            mokujiLoop();
 
             // 目次画面から絵記号の詳細ループへ遷移
             if ((tabbedPane.getSelectedIndex() == 0) == false) {
@@ -1146,6 +1136,7 @@ import util.ZoomTab;
 
     /**
      * 絵記号の詳細ループ。これは、絵記号の上下ループと左右ループの制御する。
+     *
      * @param tabIndex
      */
     private void ekigoLoop(int tabIndex) {
@@ -1677,7 +1668,7 @@ import util.ZoomTab;
      * moving mokuji button color(Ten key can use as click button when button is active)
      *
      */
-    void loopMokuji() {
+    void mokujiLoop() {
 
         // windows domestic sound
         playWave("resource/Windows Information Bar.wav");
@@ -1756,6 +1747,10 @@ import util.ZoomTab;
 
     }
 
+    /**
+     * @author User
+     *
+     */
     public class MyKey extends KeyAdapter {
         int returnMokujiCount = 0; // キー長押しで、目次に戻る機能
 
@@ -1850,6 +1845,10 @@ import util.ZoomTab;
         }
     }
 
+    /**
+     * @author User
+     *
+     */
     class MyMouse extends MouseAdapter {
 
         /**
@@ -1907,6 +1906,9 @@ import util.ZoomTab;
 
         }
 
+        /**
+         *
+         */
         public void mouseExited(MouseEvent e1) {
 
             // タブ分野１～9が対象
@@ -1958,10 +1960,12 @@ import util.ZoomTab;
 
         }
 
+        /**
+         *
+         */
         public void mousePressed(MouseEvent e) {
 
             // 絵記号の音を再生 タブ分野１～9が対象
-
             for (int i = 1; i < tabPanel_0_9.length; i++) {
 
                 // trueタブを選別
@@ -2176,7 +2180,13 @@ import util.ZoomTab;
 
         }
 
-        // Change tab main picts monitors by mouse choice.
+        /**
+         * Change tab main picts monitors by mouse choice.
+         *
+         * @param e
+         * @throws FileNotFoundException
+         * @throws IOException
+         */
         private void moveEkigo(MouseEvent e) throws FileNotFoundException, IOException {
 
             new Lg(this, "moveEkigo");
@@ -2237,7 +2247,7 @@ import util.ZoomTab;
     /**
      * ボタンループ選択時、borderをオレンジに変化させる。
      *
-     * @author ikonu
+     * @author User
      *
      */
     class PointerColorTHread implements Runnable {
@@ -2306,7 +2316,7 @@ import util.ZoomTab;
     }
 
     /**
-     * PICT会話起動
+     * 絵記号会話ソフト（絵記号の画面遷移による、会話支援ソフト）
      *
      * @param args
      */
