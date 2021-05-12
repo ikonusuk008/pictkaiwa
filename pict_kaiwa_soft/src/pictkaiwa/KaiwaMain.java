@@ -73,6 +73,8 @@ import util.ZoomTab;
 
     Robot robot = new Robot();
 
+
+
     //HistorySizeSec ヒストリーパネル（画面上部のサイズ）
     int HistorySizeSec = 0;//
     int ekigoH = 0;//
