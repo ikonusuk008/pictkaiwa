@@ -984,6 +984,7 @@ import util.ZoomTab;
     }
 
     /**
+     * アプリ起動用の目次タブ画面
      * @param i
      * @param pBtn_i
      */
