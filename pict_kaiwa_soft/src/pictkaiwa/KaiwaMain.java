@@ -73,8 +73,6 @@ import util.ZoomTab;
 
     Robot robot = new Robot();
 
-
-
     //HistorySizeSec ヒストリーパネル（画面上部のサイズ）
     int HistorySizeSec = 0;//
     int ekigoH = 0;//
@@ -270,7 +268,7 @@ import util.ZoomTab;
 
         super();
 
-        lock();
+        doubleStartLock();
 
         String type = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
 
@@ -477,7 +475,7 @@ import util.ZoomTab;
      * @throws FileNotFoundException
      * @throws IOException
      */
-    private void lock() throws FileNotFoundException, IOException {
+    private void doubleStartLock() throws FileNotFoundException, IOException {
 
         final FileOutputStream fos = new FileOutputStream(new File("./resource/lock_control"));
         final FileChannel fc = fos.getChannel();
@@ -793,13 +791,13 @@ import util.ZoomTab;
                         if (category_files_num <= pBtn_i) {
 
                             // アプリのjarがないボタン. 黒く表示する.
-                            nameButtons_0_9(i, pBtn_i);
+                            ekigoNameButtons_0_9(i, pBtn_i);
                             mokujiBtn_0_9(i, pBtn_i);
                             cateBtnPaneGridbaglayout.setConstraints(mokujiBtns0To9[i][pBtn_i],
                                             getGridBagConstraints(gridBagConstraints));
                             cateBtnPaneGridbaglayout.setConstraints(nameButtons_0_9[i][pBtn_i],
                                             getGridBagConstraints(gridBagConstraints));
-                            pane_0_9(i, pBtn_i);
+                            tab9AppPane_0_9(i, pBtn_i);
                             tabPanel_0_9[i].add(panels_0_9[i][pBtn_i]);
 
                         } else {
@@ -812,7 +810,7 @@ import util.ZoomTab;
                                             getGridBagConstraints(gridBagConstraints));
                             cateBtnPaneGridbaglayout.setConstraints(nameButtons_0_9[i][pBtn_i],
                                             getGridBagConstraints(gridBagConstraints));
-                            pane_0_9(i, pBtn_i);
+                            tab9AppPane_0_9(i, pBtn_i);
                             tabPanel_0_9[i].add(panels_0_9[i][pBtn_i]);
 
                         }
@@ -832,7 +830,7 @@ import util.ZoomTab;
                                             getGridBagConstraints(gridBagConstraints));
                             cateBtnPaneGridbaglayout.setConstraints(nameButtons_0_9[i][pBtn_i],
                                             getGridBagConstraints(gridBagConstraints));
-                            appriOtherPane_0_9(i, pBtn_i);
+                            tab1_9AppriOtherPane_0_9(i, pBtn_i);
                             tabPanel_0_9[i].add(panels_0_9[i][pBtn_i]);
 
                             ZoomImg = new Zoom(
@@ -858,7 +856,7 @@ import util.ZoomTab;
                                             getGridBagConstraints(gridBagConstraints));
                             cateBtnPaneGridbaglayout.setConstraints(nameButtons_0_9[i][pBtn_i],
                                             getGridBagConstraints(gridBagConstraints));
-                            appriOtherPane_0_9(i, pBtn_i);
+                            tab1_9AppriOtherPane_0_9(i, pBtn_i);
                             tabPanel_0_9[i].add(panels_0_9[i][pBtn_i]);
                             this.setVisible(true);
                             ZoomImg = new Zoom(
@@ -919,7 +917,7 @@ import util.ZoomTab;
      * @param i
      * @param pBtn_i
      */
-    private void appriOtherPane_0_9(int i, int pBtn_i) {
+    private void tab1_9AppriOtherPane_0_9(int i, int pBtn_i) {
 
         panels_0_9[i][pBtn_i] = new JPanel(cateBtnPaneGridbaglayout);
         panels_0_9[i][pBtn_i].setBorder(new LineBorder(Color.black, 0, false));
@@ -975,7 +973,7 @@ import util.ZoomTab;
      * @param i
      * @param pBtn_i
      */
-    private void pane_0_9(int i, int pBtn_i) {
+    private void tab9AppPane_0_9(int i, int pBtn_i) {
 
         panels_0_9[i][pBtn_i] = new JPanel(cateBtnPaneGridbaglayout);
         panels_0_9[i][pBtn_i].setBorder(new LineBorder(Color.black, 0, false));
@@ -1015,7 +1013,7 @@ import util.ZoomTab;
      * @param i
      * @param j
      */
-    private void nameButtons_0_9(int i, int j) {
+    private void ekigoNameButtons_0_9(int i, int j) {
 
         nameButtons_0_9[i][j].setText(" ");
         nameButtons_0_9[i][j].setBackground(Color.black);
