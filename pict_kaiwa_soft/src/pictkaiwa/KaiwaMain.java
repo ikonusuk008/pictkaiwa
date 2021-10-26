@@ -64,6 +64,9 @@ import util.ZoomTab;
  * ekigo kaiwa soft main class
  *
  * @author User
+ *
+ *
+ *
  */
 @SuppressWarnings("serial") public class KaiwaMain extends JFrame implements Runnable {
 
