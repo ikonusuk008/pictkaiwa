@@ -484,7 +484,7 @@ import util.ZoomTab;
             mokujiVisibleBool[j] = new String();
             mokujiVisibleBool[j] = prop.getPict().getProperty("seting.mokujiBool" + String.valueOf(j));        // mokuji button that visible is true or false.
             mokujiVisibleBl[j]   = Boolean.parseBoolean(mokujiVisibleBool[j]);
-            new Lg(this, "category_from_property[" + j + "] ： mokujiBool[" + j + "] == " + mokujiBtnNameTxt[j] + " ： "
+            new Lg(this, "category_from_property[" + j + "] : mokujiBool[" + j + "] == " + mokujiBtnNameTxt[j] + " : "
                                                                + mokujiVisibleBool[j]);
          }
       } catch (FileNotFoundException e) {
@@ -552,7 +552,7 @@ import util.ZoomTab;
          // 分野毎のファイル数を取得
          if (mokujiVisibleBl[i].equals(true)) {
             new Lg(this, "if (bool[i].equals(true))");
-            bunyaFolder_0_9[i] = new File("./resource/img/" + category_directory_9[i]);
+            bunyaFolder_0_9[i] = new File("C:/Users/User/Documents/GitHub/pictkaiwa/pict_kaiwa_soft/resource/img/" + category_directory_9[i]);
             bunyaFiles_0_9[i]  = bunyaFolder_0_9[i].listFiles();                       // フォルダー内のファイルを配列で返す。
             category_files_num = bunyaFiles_0_9[i].length;
             // 絵記号の行数を設定
