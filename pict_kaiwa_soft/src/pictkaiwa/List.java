@@ -44,7 +44,7 @@ public class List extends JFrame implements Runnable,ActionListener {
     Connection conn = null;
 
     /*
-     * DB‚Ìrowƒiƒ“ƒo[‚ÍA‚P‚©‚çn‚Ü‚éB
+     * DBã®rowã«é–¢ã™ã‚‹æƒ…å ±
      */
     final int table_row_start_num = 1;
     final int table_row_finish_num = 7;
@@ -56,10 +56,10 @@ public class List extends JFrame implements Runnable,ActionListener {
     JTextArea textArea[] = new JTextArea[7];
     JTextArea insertListText = new JTextArea();
 
-    JButton end_button = new JButton("<html>•Â‚¶‚é@<u>ƒL[2‰ñ</u></html>");
+    JButton end_button = new JButton("<html>çµ‚äº†@<u>ãƒªã‚¹ãƒˆ2</u></html>");
     JButton imgButton[] = new JButton[7];
     JButton playButton[] = new JButton[7];
-    JButton listTitleButton = new JButton();// ã‚Ì€–Ú
+    JButton listTitleButton = new JButton();// ã‚¿ã‚¤ãƒˆãƒ«ãƒœã‚¿ãƒ³
     JButton deleteButtons[] = new JButton[7];
 
     JPanel mainPanel = new JPanel(new BorderLayout());
@@ -96,9 +96,9 @@ public class List extends JFrame implements Runnable,ActionListener {
 
         mainFrameSetting(this.ekigoName, this.folderName);
 
-        make_new_pict_table(this.ekigoName,getSqlStatement());// ŠG‹L†ƒe[ƒuƒ‹H
+        make_new_pict_table(this.ekigoName,getSqlStatement());// æ–°ã—ã„ç”»åƒãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ä½œæˆ
 
-        selectTable(this.ekigoName);// ƒe[ƒuƒ‹ƒf[ƒ^‚ğæ‚èo‚·
+        selectTable(this.ekigoName);// ãƒ†ãƒ¼ãƒ–ãƒ«ã‹ã‚‰ãƒ‡ãƒ¼ã‚¿ã‚’é¸æŠ
 
         make_buttons();
 
@@ -126,7 +126,7 @@ public class List extends JFrame implements Runnable,ActionListener {
         for (int i = table_row_start_num; i < table_row_finish_num; i++) {
 
             new Lg(this, "imgButton[j].getWidth()==" + imgButton[i].getWidth());
-            Zoom zoom = new Zoom(new ImageIcon("./resource/img/" + folderName + "_Ú×/" + listURL[i]), 0, 0,
+            Zoom zoom = new Zoom(new ImageIcon("./resource/img/" + folderName + "_ã‚µãƒ ãƒã‚¤ãƒ«/" + listURL[i]), 0, 0,
                             imgButton[i].getWidth(), imgButton[i].getHeight());
             imgButton[i].add(zoom);
 
@@ -169,12 +169,12 @@ public class List extends JFrame implements Runnable,ActionListener {
     private void make_buttons() {
 
         /*
-         * ƒŠƒXƒg‰æ‘œEƒeƒLƒXƒgƒGƒŠƒAEíœƒ{ƒ^ƒ“
+         * ãƒœã‚¿ãƒ³ã®è¨­å®š
          */
         for (int i = table_row_start_num; i < table_row_finish_num; i++) {
 
             /*
-             * Ä¶ƒ{ƒ^ƒ“
+             * å†ç”Ÿãƒœã‚¿ãƒ³
              */
             playButton[i] = new JButton();
             playButton[i].setPreferredSize(new Dimension(120, 60));
@@ -188,7 +188,7 @@ public class List extends JFrame implements Runnable,ActionListener {
             playButton[i].setMargin(new Insets(0, 0, 0, 0));
 
             /*
-             * ‰æ‘œƒ{ƒ^ƒ“
+             * ã‚µãƒ ãƒã‚¤ãƒ«ãƒœã‚¿ãƒ³
              */
             imgButton[i] = new JButton();
             imgButton[i].setBorder(new LineBorder(Color.white, 1, false));
@@ -196,12 +196,12 @@ public class List extends JFrame implements Runnable,ActionListener {
             imgButton[i].addMouseListener(myMouse);
             imgButton[i].addKeyListener(myKeyEvent);
             imgButton[i].setActionCommand(ristNO[i - 1]);
-            imgButton[i].setText(ristNO[i - 1]);// ƒe[ƒuƒ‹ƒCƒ“ƒfƒbƒNƒX‚ğ‚½‚ñ‚É“o˜^i‰æ‘œ•ÏX‚Ég—p‚·‚éBj
+            imgButton[i].setText(ristNO[i - 1]);// ãƒ†ã‚­ã‚¹ãƒˆã‚’è¨­å®š
             imgButton[i].addActionListener(this);
             imgButton[i].setMargin(new Insets(0, 0, 0, 0));
 
             /*
-             * ƒeƒLƒXƒgƒGƒŠƒA
+             * ãƒ†ã‚­ã‚¹ãƒˆã‚¨ãƒªã‚¢
              */
             textArea[i] = new JTextArea();
             textArea[i].addKeyListener(myKeyEvent);
@@ -214,7 +214,7 @@ public class List extends JFrame implements Runnable,ActionListener {
             textArea[i].setMargin(new Insets(0, 0, 0, 0));
 
             /*
-             * íœƒ{ƒ^ƒ“
+             * å‰Šé™¤ãƒœã‚¿ãƒ³
              */
             deleteButtons[i] = new JButton();
             deleteButtons[i].setPreferredSize(new Dimension(80, 60));
@@ -252,20 +252,19 @@ public class List extends JFrame implements Runnable,ActionListener {
      */
     private void make_new_pict_table(String ekigoName, Statement statement) {
 
-        // 1.ƒJƒ‰ƒ€‚Ìƒtƒ@ƒCƒ‹‚ª‚È‚¢ê‡‚ÍAƒe[ƒuƒ‹‚ğì¬‚·‚éB
-        // ‚QDjava_mysql_test.java‚ğƒCƒ“ƒXƒ^ƒ“ƒX‰»‚µA fileName‚ªƒJƒ‰ƒ€‚Æ‚È‚éƒŠƒXƒg‚ğ’Šo‚·‚éB
+        // 1.ãƒ†ãƒ¼ãƒ–ãƒ«ãŒå­˜åœ¨ã™ã‚‹ã‹ç¢ºèªã—ã€ãªã‘ã‚Œã°ä½œæˆã™ã‚‹
         boolean isFile = new Read(ekigoName).read();
 
-        if (isFile) {// true:‚·‚Å‚Éƒtƒ@ƒCƒ‹‚ª‚ ‚é
+        if (isFile) {// true:ãƒ†ãƒ¼ãƒ–ãƒ«ãŒå­˜åœ¨ã™ã‚‹
 
-            new Lg(this, "isFile>true: ƒe[ƒuƒ‹—L‚èFì¬‚µ‚È‚¢");
+            new Lg(this, "isFile>true: ãƒ†ãƒ¼ãƒ–ãƒ«ãŒå­˜åœ¨ã—ã¾ã™");
 
         } else {
 
             /*
-             * false:ƒtƒ@ƒCƒ‹‚ª‚È‚¢‚Ì‚Åì¬‚·‚é
+             * false:ãƒ†ãƒ¼ãƒ–ãƒ«ãŒå­˜åœ¨ã—ãªã„
              */
-            new Lg(this, "isFile>false: ƒe[ƒuƒ‹‚È‚µFì¬‚·‚é");
+            new Lg(this, "isFile>false: ãƒ†ãƒ¼ãƒ–ãƒ«ãŒå­˜åœ¨ã—ã¾ã›ã‚“");
             new Write(ekigoName);
 
             try {
@@ -275,19 +274,18 @@ public class List extends JFrame implements Runnable,ActionListener {
 
             } catch (SQLException e) {
 
-                // TODO ©“®¶¬‚³‚ê‚½ catch ƒuƒƒbƒN
                 e.printStackTrace();
 
             }
 
             /*
-             * ƒe[ƒuƒ‹ì¬ ¨ DBƒf[ƒ^‚ğ“o˜^‚·‚éB
+             * ãƒ‡ãƒ¼ã‚¿ã‚’DBã«æŒ¿å…¥
              */
             for (int j = table_row_start_num; j < table_row_finish_num; j++) {
 
                 try {
 
-                    if (file_name_list[j] == null) {// null‚Å‚ ‚ê‚ÎE‚ğ‚¢‚ê‚é
+                    if (file_name_list[j] == null) {// nullã®å ´åˆ
 
                         statement.executeUpdate("insert into " + ekigo + "_t" + "(NO," + ekigo + ", url)" + "values("
                                         + String.valueOf(j) + ",'" + " " + "','default.jpg');");//
@@ -302,7 +300,6 @@ public class List extends JFrame implements Runnable,ActionListener {
 
                     if (e1 instanceof SQLException) {
 
-                        // o("Error Code:" + ((SQLException) e1).getErrorCode());
                     }
 
                     e1.printStackTrace();
@@ -345,12 +342,11 @@ public class List extends JFrame implements Runnable,ActionListener {
 
         } catch (ClassNotFoundException e) {
 
-            // TODO ©“®¶¬‚³‚ê‚½ catch ƒuƒƒbƒN
             e.printStackTrace();
 
         }
 
-        File file = new File("resource/db/pict");// sqlite‚Ìƒf[ƒ^Ši”[ƒtƒ@ƒCƒ‹
+        File file = new File("resource/db/pict");
         String path = file.getAbsolutePath();
 
         try {
@@ -376,13 +372,13 @@ public class List extends JFrame implements Runnable,ActionListener {
      */
     private void mainFrameSetting(String ekigoName, String folderName) {
 
-        this.setTitle(ekigoName + " Ú×‰æ–Ê");
+        this.setTitle(ekigoName + " ã‚µãƒ³ãƒ—ãƒ«");
         this.setIconImage(new ImageIcon("./resource/img/tab_img/kurumaisu.jpg").getImage());
         this.setAlwaysOnTop(true);
         this.addKeyListener(myKeyEvent);
 
-        this.ekigo = ekigoName;// ƒNƒ‰ƒXˆø”FŠG‹L†–¼
-        this.folder = folderName;// ƒNƒ‰ƒXˆø”FƒtƒHƒ‹ƒ_–¼
+        this.ekigo = ekigoName;
+        this.folder = folderName;
 
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Rectangle rect = env.getMaximumWindowBounds();
@@ -412,16 +408,15 @@ public class List extends JFrame implements Runnable,ActionListener {
             Statement stmt = conn.createStatement();
 
             new Lg(this, "select " + "*" + " from " + fileName + "_t");
-            // ORDER BY no:¸‡
             ResultSet executequery_resultset = stmt.executeQuery("select " + "*" + " from " + fileName + "_t");
 
             /*
-             * Ú× ƒe[ƒuƒ‹ •\¦
+             * ãƒ‡ãƒ¼ã‚¿ã®è¡¨ç¤º
              */
             System.out.println("----------------------------------------");
             System.out.print("NO. | ");
-            System.out.print("ŠG‹L†–¼ | ");
-            System.out.println("‰æ‘œ–¼");
+            System.out.print("ã‚¿ã‚¤ãƒˆãƒ« | ");
+            System.out.println("ã‚µãƒ ãƒã‚¤ãƒ«");
 
             int j = 0;
 
@@ -432,14 +427,14 @@ public class List extends JFrame implements Runnable,ActionListener {
                 ristNO[j] = new String();
                 ristNO[j] = String.valueOf(num);
 
-                fileNameList = executequery_resultset.getString(fileName);// file_name is culum
+                fileNameList = executequery_resultset.getString(fileName);
 
                 file_name_list[executequery_resultset.getRow()] = new String();
                 file_name_list[executequery_resultset.getRow()] = fileNameList;
 
                 System.out.println("rs.getRow()==" + executequery_resultset.getRow());
 
-                jpgFileName = executequery_resultset.getString("url");// file_name is culum
+                jpgFileName = executequery_resultset.getString("url");
 
                 listURL[executequery_resultset.getRow()] = new String();
                 listURL[executequery_resultset.getRow()] = jpgFileName;
@@ -513,21 +508,21 @@ public class List extends JFrame implements Runnable,ActionListener {
         for (int i = table_row_start_num; i < table_row_finish_num; i++) {
 
             /*
-             * ‰æ‘œ•ÏX‚ğ•ÏX‚·‚éB
+             * ã‚µãƒ ãƒã‚¤ãƒ«ã®æ›´æ–°
              */
             if (cmd.equals(imgButton[i].getText())) {
 
-                JFileChooser filechooser = new JFileChooser("./resource/img/" + folder + "_Ú×/");
+                JFileChooser filechooser = new JFileChooser("./resource/img/" + folder + "_ã‚µãƒ ãƒã‚¤ãƒ«/");
 
                 new Lg(this, "------------------------------------------ImgAction>URL==" + "./resource/img/" + folder
-                                + "_Ú×/");
+                                + "_ã‚µãƒ ãƒã‚¤ãƒ«/");
 
                 int selected = filechooser.showOpenDialog(this);
 
                 if (selected == JFileChooser.APPROVE_OPTION) {
 
                     /*
-                     * sqlÀs0 Œã‚©‚ç‰æ‘œ‚ğ“ü‚ê‚é‚Æ•¶š‚ªÁ‚¦‚é–â‘è
+                     * SQLã®æ›´æ–°
                      */
                     try {
 
@@ -538,7 +533,7 @@ public class List extends JFrame implements Runnable,ActionListener {
 
                         imgButton[i].removeAll();
                         imgButton[i].add(new Zoom(
-                                        new ImageIcon("./resource/img/" + folder + "_Ú×/"
+                                        new ImageIcon("./resource/img/" + folder + "_ã‚µãƒ ãƒã‚¤ãƒ«/"
                                                         + filechooser.getSelectedFile().getName()),
                                         0, 0, imgButton[i].getWidth(), imgButton[i].getHeight()));
                         imgButton[i].validate();
@@ -566,13 +561,10 @@ public class List extends JFrame implements Runnable,ActionListener {
 
             textArea[Integer.parseInt(cmd)].getText().replaceAll(" ", "");
 
-            // o("ListKoeAction:" + listTextArea[Integer.parseInt(cmd)].getText());
-
             if (textArea[Integer.parseInt(cmd)].getText().equals(" ")
                             | textArea[Integer.parseInt(cmd)].getText().equals("")
-                            | textArea[Integer.parseInt(cmd)].getText().equals("@")) {
+                            | textArea[Integer.parseInt(cmd)].getText().equals("ã€€")) {
 
-                // ‚È‚É‚à‚µ‚È‚¢
             } else {
 
                 Koe.oto(textArea[Integer.parseInt(cmd)].getText().replaceAll(" ", ""));
@@ -589,7 +581,6 @@ public class List extends JFrame implements Runnable,ActionListener {
 
             for (int i = table_row_start_num; i < table_row_finish_num; i++) {
 
-                // •¶šíœ
                 if (false == textArea[i].getText().equals(" ")) {
 
                     if (textArea[i].getText().equals(cmd)) {
@@ -598,28 +589,19 @@ public class List extends JFrame implements Runnable,ActionListener {
 
                             Statement stmt = conn.createStatement();
 
-                            /*
-                             * ƒŒƒR[ƒh‚ğíœ‚·‚éFƒŒƒR[ƒh©‘Ì‚ªÁ‚¦‚Ä‚µ‚Ü‚¤‚½‚ßNG stmt.executeUpdate("DELETE  FROM " + ekigo + "_t WHERE " +
-                             * ekigo + "='" + textArea[i].getText() + "';"); ƒŒƒR[ƒh‚ğXV‚·‚éB
-                             */
                             stmt.executeUpdate("update " + ekigo + "_t set " + ekigo + "='" + "" + "' where " + "no"
                                             + "=" + String.valueOf(i) + ";");
 
                             stmt.executeUpdate("insert into " + ekigo + "_t" + "(NO," + ekigo + ")" + "values("
-                                            + String.valueOf(ristNO[i - 1]) + ",'" + " " + "');");// ƒCƒ“ƒfƒbƒNƒX‚ğŒ³‚Ì”Ô†‚É‘‚«’¼‚µ‚½-20100429
+                                            + String.valueOf(ristNO[i - 1]) + ",'" + " " + "');");
                             stmt.executeUpdate("update " + ekigo + "_t set " + "url" + "= '" + "default.jpg"
                                             + "' where " + " NO" + "=" + imgButton[i].getText() + ";");
-                            /*
-                             * executeInsert("DELETE  FROM ‚¤‚Å_t WHERE ‚¤‚Å='test';"); o("DELETE  FROM " + fileName +
-                             * "_t WHERE " + fileName + "='" + listTextArea[i].getText() + "';");
-                             * o("listTextButton[i].getText():::" + listTextArea[i].getText());
-                             */
                             stmt.close();
 
                             setVisible(false);
                             new List(ekigo, folder);
 
-                        } catch (SQLException e1) { // Error Message and Error Code
+                        } catch (SQLException e1) {
 
                             System.out.print(e1.toString());
                             e1.printStackTrace();
@@ -670,16 +652,15 @@ public class List extends JFrame implements Runnable,ActionListener {
 
                         keyPressReleaseAvailable = false;
 
-                        KaiwaMain.keyPressAvailable = false;// •Â‚¶‚½‚Æ‚«‚ÉAKaiwaƒtƒŒ[ƒ€‚ÉƒL[ƒCƒxƒ“ƒg‚ªs‚©‚È‚¢‚æ‚¤‚É‚·‚éB
+                        KaiwaMain.keyPressAvailable = false;
 
                         new Lg(this, "moveEkigo>keyPressed == " + KeyEvent.getKeyText(e.getKeyChar()));
-                        Koe.oto("‚Æ‚¶‚é");
+                        Koe.oto("å†ç”Ÿ");
                         update_sql_data();
                         break;
 
                     } else {
 
-                        // ‰½‚à‚µ‚È‚¢
                     }
 
                 }
@@ -701,7 +682,6 @@ public class List extends JFrame implements Runnable,ActionListener {
                                     || KeyEvent.getKeyText(e.getKeyChar()).equals("Unknown keyCode: 0x2a")
                                     || KeyEvent.getKeyText(e.getKeyChar()).equals("Slash")
                                     || KeyEvent.getKeyText(e.getKeyChar()).equals("Minus")
-                    // Num Lock‚Í§Œä•s‰Â
                     ) {
 
                         keyPressReleaseAvailable = true;
@@ -740,7 +720,6 @@ public class List extends JFrame implements Runnable,ActionListener {
 
             if (e1 instanceof SQLException) {
 
-                // o("Error Code:" + ((SQLException) e1).getErrorCode());
             }
 
             e1.printStackTrace();
@@ -769,7 +748,7 @@ public class List extends JFrame implements Runnable,ActionListener {
 
             if (end_button == e1.getSource()) {
 
-                Koe.oto("‚Æ‚¶‚é");
+                Koe.oto("çµ‚äº†");
                 update_sql_data();
 
             }
@@ -825,20 +804,17 @@ public class List extends JFrame implements Runnable,ActionListener {
 
         try {
 
-            new List("‚Ï‚ñ", "tab7");
+            new List("ã‚µãƒ³ãƒ—ãƒ«", "tab7");
 
         } catch (HeadlessException e) {
 
-            // TODO ©“®¶¬‚³‚ê‚½ catch ƒuƒƒbƒN
             e.printStackTrace();
 
         } catch (SQLException e) {
 
-            // TODO ©“®¶¬‚³‚ê‚½ catch ƒuƒƒbƒN
             e.printStackTrace();
 
         }
 
-        // o("n------------------------------------------" + n_);
     }
 }

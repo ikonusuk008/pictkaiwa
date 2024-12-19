@@ -49,26 +49,26 @@ public class Set extends JFrame implements ActionListener {
 	JPanel mainP2;
 	Prop prop_ = new Prop();
 
-	/*İ’è‰æ–ÊƒRƒ“ƒ|[ƒlƒ“ƒg
+	/*è¨­å®šç”»é¢ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
 	 */
 	JPanel mokujiP;
 	JPanel mokujiPP;
 	JPanel mokujiPPB;
 
-	/*ˆÈ‰º4‚Â‚Åˆê‚Â‚ÌƒJƒeƒSƒŠ‚ğ‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg
+	/*ä»¥ä¸‹4ã¤ã§ä¸€ã¤ã®ã‚«ãƒ†ã‚´ãƒªã‚’ã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
 	 */
-	JPanel one_category_panel_on_3conponent[] = new JPanel[10];//‚P‚Â‚ÌƒJƒeƒSƒŠiƒ`ƒFƒbƒNƒ{ƒbƒNƒXAŠG‹L†AŠG‹L†–¼j
-	JCheckBox mokujiPPPCb[] = new JCheckBox[10];// ƒ`ƒFƒbƒNƒ{ƒbƒNƒX
-	JButton mokujiPPPnB[] = new JButton[10];//@ŠG‹L†
-	JTextArea category_name_textarea[] = new JTextArea[10];//@ŠG‹L†–¼@//•ÏXF@ƒeƒLƒXƒgƒGƒŠƒA‚É‚·‚é
+	JPanel one_category_panel_on_3conponent[] = new JPanel[10];//ï¼‘ã¤ã®ã‚«ãƒ†ã‚´ãƒªï¼ˆãƒã‚§ãƒƒã‚¯ãƒœãƒƒã‚¯ã‚¹ã€çµµè¨˜å·ã€çµµè¨˜å·åï¼‰
+	JCheckBox mokujiPPPCb[] = new JCheckBox[10];// ãƒã‚§ãƒƒã‚¯ãƒœãƒƒã‚¯ã‚¹
+	JButton mokujiPPPnB[] = new JButton[10];//ã€€çµµè¨˜å·
+	JTextArea category_name_textarea[] = new JTextArea[10];//ã€€çµµè¨˜å·åã€€//å¤‰æ›´ï¼šã€€ãƒ†ã‚­ã‚¹ãƒˆã‚¨ãƒªã‚¢ã«ã™ã‚‹
 
 	/*
 	 *
 	 */
-	public static String category_name[] = new String[10];//ƒJƒeƒSƒŠ–¼‘O@ƒvƒƒpƒeƒB
-	public static String category_img_name[] = new String[10];//ƒJƒeƒSƒŠ–¼‘O@ƒvƒƒpƒeƒB
-	String category_boolean_string[] = new String[10];//ƒJƒeƒSƒŠ@•\¦ƒtƒ‰ƒO@•¶š—ñŒ^
-	Boolean category_boolean[] = new Boolean[10];//ƒJƒeƒSƒŠ@•\¦ƒtƒ‰ƒO@booleaŒ^
+	public static String category_name[] = new String[10];//ã‚«ãƒ†ã‚´ãƒªåå‰ã€€ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
+	public static String category_img_name[] = new String[10];//ã‚«ãƒ†ã‚´ãƒªåå‰ã€€ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
+	String category_boolean_string[] = new String[10];//ã‚«ãƒ†ã‚´ãƒªã€€è¡¨ç¤ºãƒ•ãƒ©ã‚°ã€€æ–‡å­—åˆ—å‹
+	Boolean category_boolean[] = new Boolean[10];//ã‚«ãƒ†ã‚´ãƒªã€€è¡¨ç¤ºãƒ•ãƒ©ã‚°ã€€booleaå‹
 
 	/*
 	 *
@@ -132,8 +132,8 @@ public class Set extends JFrame implements ActionListener {
 		/*
 		 * Insets
 		 */
-		UIManager.put("TabbedPane.tabInsets", new Insets(5, 8, 5, 8));// ƒ^ƒu‚Ìã‰º‹óŠÔİ’è
-		// UIManager.put("TabbedPane.tabAreaInsets", new Insets(8,8,8,8));//ƒ^ƒuƒpƒlƒ‹‚Ìã‰º‹óŠÔİ’è
+		UIManager.put("TabbedPane.tabInsets", new Insets(5, 8, 5, 8));// ã‚¿ãƒ–ã®ä¸Šä¸‹ç©ºé–“è¨­å®š
+		// UIManager.put("TabbedPane.tabAreaInsets", new Insets(8,8,8,8));//ã‚¿ãƒ–ãƒ‘ãƒãƒ«ã®ä¸Šä¸‹ç©ºé–“è¨­å®š
 		// UIManager.put("TabbedPane.contentBorderInsets", new Insets(8,8,8,8));
 		// UIManager.put("TabbedPane.selectedTabPadInsets", new Insets(8,8,8,8));
 
@@ -151,8 +151,8 @@ public class Set extends JFrame implements ActionListener {
 		UIManager.put("TabbedPane.foreground",  new Color(0, 0, 0));
 		UIManager.put("TabbedPane.focus", new Color(255, 255, 255));
 		UIManager.put("TabbedPane.contentAreaColor", new Color(255, 255, 255));
-		UIManager.put("TabbedPane.selected",  new Color(255, 255, 255));// ƒ^ƒu‘I‘ğAF‚ğ‚Â‚¯‚éB
-		UIManager.put("TabbedPane.selectHighlight", new Color(0, 0, 0));// ƒ^ƒu¶ã‚Ìü‚ÌF
+		UIManager.put("TabbedPane.selected",  new Color(255, 255, 255));// ã‚¿ãƒ–é¸æŠæ™‚ã€è‰²ã‚’ã¤ã‘ã‚‹ã€‚
+		UIManager.put("TabbedPane.selectHighlight", new Color(0, 0, 0));// ã‚¿ãƒ–å·¦ä¸Šã®ç·šã®è‰²
 		UIManager.put("TabbedPane.borderHightlightColor", new Color(0, 0, 0));
 
 
@@ -176,7 +176,7 @@ public class Set extends JFrame implements ActionListener {
 		this.setAlwaysOnTop(true);
 		this.setBounds(rect);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setTitle("ŠG‹L†‰ï˜bƒ\ƒtƒg@İ’è");
+		this.setTitle("çµµè¨˜å·ä¼šè©±ã‚½ãƒ•ãƒˆã€€è¨­å®š");
 		this.setLayout(new BorderLayout());
 
 		mainP = new JPanel(new GridLayout(3, 1));
@@ -199,12 +199,12 @@ public class Set extends JFrame implements ActionListener {
 		ZoomTab ZoomTabImg2 = new ZoomTab(new ImageIcon("./resource/img/setting/tab2.jpg"), 0, 0, 90, 40);
 
 
-		tabbedPane.add("<html><h2><b>ŠG‹L†‘I‘ğ•û–@EŠG‹L†•\¦”E•ª–ì•\¦</b></h2></html>",mainP);
-		tabbedPane.add("<html><h2><b>Ú×•\¦“à—eE‘I‘ğ˜gˆÚ“®‘¬“x</b></h2></html>",mainP2);
+		tabbedPane.add("<html><h2><b>çµµè¨˜å·é¸æŠæ–¹æ³•ãƒ»çµµè¨˜å·è¡¨ç¤ºæ•°ãƒ»åˆ†é‡è¡¨ç¤º</b></h2></html>",mainP);
+		tabbedPane.add("<html><h2><b>è©³ç´°è¡¨ç¤ºå†…å®¹ãƒ»é¸æŠæ ç§»å‹•é€Ÿåº¦</b></h2></html>",mainP2);
 
 
 		/*
-		 * ƒ^ƒu‚Ì‘OŒiF‚ğØ‚è‘Ö‚¦ƒCƒxƒ“ƒgAİ’è‚·‚éB//Œø‚©‚È‚¢B
+		 * ã‚¿ãƒ–ã®å‰æ™¯è‰²ã‚’åˆ‡ã‚Šæ›¿ãˆã‚¤ãƒ™ãƒ³ãƒˆæ™‚ã€è¨­å®šã™ã‚‹ã€‚//åŠ¹ã‹ãªã„ã€‚
 		 */
 		tabbedPane.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -213,7 +213,7 @@ public class Set extends JFrame implements ActionListener {
 
 				for (int i = 0; i < jtab.getTabCount(); i++) {
 					if (i == sindex && jtab.getTitleAt(sindex).endsWith("1")) {
-						// jtab.setForegroundAt(i, Color.GREEN);//@H
+						// jtab.setForegroundAt(i, Color.GREEN);//ã€€ï¼Ÿ
 					} else if (i == sindex) {
 						// Color sc = (sindex % 2 == 0) ? Color.RED : Color.BLUE;
 						jtab.setForegroundAt(i, Color.white);
@@ -229,7 +229,7 @@ public class Set extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
-	// Ú×‰æ–Ê‚Ì•\¦•û–@iƒŠƒXƒgEŠG‹L†EŠG‹L†ˆêj
+	// è©³ç´°ç”»é¢ã®è¡¨ç¤ºæ–¹æ³•ï¼ˆãƒªã‚¹ãƒˆãƒ»çµµè¨˜å·ãƒ»çµµè¨˜å·ä¸€æ™‚ï¼‰
 	JPanel showList() {
 		JPanel setEkigoRoopP;
 		JPanel setEkigoRoopPB;
@@ -242,7 +242,7 @@ public class Set extends JFrame implements ActionListener {
 		endP = new JPanel(new GridLayout());
 		endP.setPreferredSize(new Dimension(0, 100));
 
-		ekigoRoopB = new JButton("<html>yÚ×•\¦z<br>" + "‡@ŠG‹L†‚ÌˆÓ–¡‚ğƒŠƒXƒgƒAƒbƒv<br>" + "‡AŠG‹L†Šg‘å•\¦<br>" + "‡BŠG‹L†Šg‘å•\¦‚µ‚T•b‚ÅÁ‚¦‚é</html>");
+		ekigoRoopB = new JButton("<html>ã€è©³ç´°è¡¨ç¤ºã€‘<br>" + "â‘ çµµè¨˜å·ã®æ„å‘³ã‚’ãƒªã‚¹ãƒˆã‚¢ãƒƒãƒ—<br>" + "â‘¡çµµè¨˜å·æ‹¡å¤§è¡¨ç¤º<br>" + "â‘¢çµµè¨˜å·æ‹¡å¤§è¡¨ç¤ºã—ï¼•ç§’ã§æ¶ˆãˆã‚‹</html>");
 		ekigoRoopB.setFont(new Font("", Font.BOLD, 25));
 		ekigoRoopB.setForeground(Color.white);
 		ekigoRoopB.setBackground(Color.black);
@@ -250,31 +250,31 @@ public class Set extends JFrame implements ActionListener {
 
 		ImageIcon icon1 = new ImageIcon("./resource/img/setting/listON.jpg");
 		ImageIcon sicon1 = new ImageIcon("./resource/img/setting/listONon.jpg");
-		roopRadio1l = new JRadioButton("‡@à–¾‚ğ•\¦", icon1);
+		roopRadio1l = new JRadioButton("â‘ èª¬æ˜ã‚’è¡¨ç¤º", icon1);
 
 		ImageIcon icon2 = new ImageIcon("./resource/img/setting/listOFF.jpg");
 		ImageIcon sicon2 = new ImageIcon("./resource/img/setting/listOFFon.jpg");
-		roopRadio2l = new JRadioButton("‡AŠG‹L†‚ğŠg‘å•\¦", icon2);
+		roopRadio2l = new JRadioButton("â‘¡çµµè¨˜å·ã‚’æ‹¡å¤§è¡¨ç¤º", icon2);
 
 		ImageIcon icon3 = new ImageIcon("./resource/img/setting/listNO.jpg");
 		ImageIcon sicon3 = new ImageIcon("./resource/img/setting/listNOon.jpg");
-		roopRadio3l = new JRadioButton("‡BŠG‹L†ˆê“I‚É•\¦", icon2);
+		roopRadio3l = new JRadioButton("â‘¢çµµè¨˜å·ä¸€æ™‚çš„ã«è¡¨ç¤º", icon2);
 
 		try {
-			if (prop_.getPict().getProperty("seting.list").equals("‡@à–¾‚ğ•\¦")) {
-				roopRadio1l = new JRadioButton("‡@à–¾‚ğ•\¦", icon1, true);
+			if (prop_.getPict().getProperty("seting.list").equals("â‘ èª¬æ˜ã‚’è¡¨ç¤º")) {
+				roopRadio1l = new JRadioButton("â‘ èª¬æ˜ã‚’è¡¨ç¤º", icon1, true);
 
-			} else if (prop_.getPict().getProperty("seting.list").equals("‡AŠG‹L†‚ğŠg‘å•\¦")) {
-				roopRadio2l = new JRadioButton("‡AŠG‹L†‚ğŠg‘å•\¦", icon2, true);
+			} else if (prop_.getPict().getProperty("seting.list").equals("â‘¡çµµè¨˜å·ã‚’æ‹¡å¤§è¡¨ç¤º")) {
+				roopRadio2l = new JRadioButton("â‘¡çµµè¨˜å·ã‚’æ‹¡å¤§è¡¨ç¤º", icon2, true);
 
-			} else if (prop_.getPict().getProperty("seting.list").equals("‡BŠG‹L†ˆê“I‚É•\¦")) {
-				roopRadio3l = new JRadioButton("‡BŠG‹L†ˆê“I‚É•\¦", icon3, true);
+			} else if (prop_.getPict().getProperty("seting.list").equals("â‘¢çµµè¨˜å·ä¸€æ™‚çš„ã«è¡¨ç¤º")) {
+				roopRadio3l = new JRadioButton("â‘¢çµµè¨˜å·ä¸€æ™‚çš„ã«è¡¨ç¤º", icon3, true);
 			}
 		} catch (FileNotFoundException e) {
-			// TODO ©“®¶¬‚³‚ê‚½ catch ƒuƒƒbƒN
+			// TODO è‡ªå‹•ç”Ÿæˆã•ã‚ŒãŸ catch ãƒ–ãƒ­ãƒƒã‚¯
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO ©“®¶¬‚³‚ê‚½ catch ƒuƒƒbƒN
+			// TODO è‡ªå‹•ç”Ÿæˆã•ã‚ŒãŸ catch ãƒ–ãƒ­ãƒƒã‚¯
 			e.printStackTrace();
 		}
 
@@ -333,10 +333,10 @@ public class Set extends JFrame implements ActionListener {
 				category_boolean[i] = Boolean.parseBoolean(category_boolean_string[i]);
 			}
 		} catch (FileNotFoundException e) {
-			// TODO ©“®¶¬‚³‚ê‚½ catch ƒuƒƒbƒN
+			// TODO è‡ªå‹•ç”Ÿæˆã•ã‚ŒãŸ catch ãƒ–ãƒ­ãƒƒã‚¯
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO ©“®¶¬‚³‚ê‚½ catch ƒuƒƒbƒN
+			// TODO è‡ªå‹•ç”Ÿæˆã•ã‚ŒãŸ catch ãƒ–ãƒ­ãƒƒã‚¯
 			e.printStackTrace();
 		}
 
@@ -344,14 +344,14 @@ public class Set extends JFrame implements ActionListener {
 		category_visual_setting_main_panel.setBorder(new LineBorder(Color.white, 3, false));
 		JPanel category_next_of_main_panel = new JPanel(new GridLayout(1, 9, 2, 2));
 
-		JButton mokujiPPB = new JButton("<html>‡@•ª–ì ‘I‘ğ<br>" + "‡A•ª–ì ‰æ‘œ•ÏX<br>" + "‡B‰æ‘œ–¼ •ÏX</html>");
+		JButton mokujiPPB = new JButton("<html>â‘ åˆ†é‡ é¸æŠ<br>" + "â‘¡åˆ†é‡ ç”»åƒå¤‰æ›´<br>" + "â‘¢ç”»åƒå å¤‰æ›´</html>");
 
 		mokujiPPB.setForeground(Color.white);
 		mokujiPPB.setBackground(Color.black);
 		mokujiPPB.setFont(new Font("", Font.BOLD, 25));
 
 		/*
-		 * –ÚŸ•\¦İ’è for (int i = 1; i < 10; i++) {@i=0‚Í–ÚŸ‚¾‚Á‚½B
+		 * ç›®æ¬¡è¡¨ç¤ºè¨­å®š for (int i = 1; i < 10; i++) {ã€€i=0ã¯ç›®æ¬¡ã ã£ãŸã€‚
 		 */
 
 		for (int i = 0; i < 10; i++) {
@@ -361,7 +361,7 @@ public class Set extends JFrame implements ActionListener {
 			mokujiPPPCb[i] = new JCheckBox(icon1);
 
 			if(i == 0){
-				//–ÚŸ‚Íİ’è‚µ‚È‚¢ií‚Éfalsej
+				//ç›®æ¬¡ã¯è¨­å®šã—ãªã„ï¼ˆå¸¸ã«falseï¼‰
 				mokujiPPPCb[i].setSelected(false);
 				mokujiPPPCb[i].setPreferredSize(new Dimension(30, 30));
 				mokujiPPPCb[i].setBackground(Color.black);
@@ -387,7 +387,7 @@ public class Set extends JFrame implements ActionListener {
 
 			new Lg(this,"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~category_name["+i+"]"+category_name[i]);
 
-			category_name_textarea[i] = new JTextArea(category_name[i]);//ƒJƒeƒSƒŠ‚Ì •¶š—ñİ’è
+			category_name_textarea[i] = new JTextArea(category_name[i]);//ã‚«ãƒ†ã‚´ãƒªã® æ–‡å­—åˆ—è¨­å®š
 			category_name_textarea[i].setPreferredSize(new Dimension(30, 30));
 			category_name_textarea[i].setBackground(Color.black);
 			category_name_textarea[i].setForeground(Color.white);
@@ -396,7 +396,7 @@ public class Set extends JFrame implements ActionListener {
 			category_name_textarea[i].setFont(new Font("", Font.BOLD, 15));
 			category_name_textarea[i].putClientProperty("caretAspectRatio", Float.valueOf(0.3F));
 
-			// ¦mokujiPP_p‚ª‰e‹¿‚µ‚ÄABorderLayout+GridLayout‚É‚È‚Á‚Ä‚¢‚éH
+			// â€»mokujiPP_pãŒå½±éŸ¿ã—ã¦ã€BorderLayout+GridLayoutã«ãªã£ã¦ã„ã‚‹ï¼Ÿ
 			one_category_panel_on_3conponent[i].add(mokujiPPPCb[i], BorderLayout.NORTH);
 			one_category_panel_on_3conponent[i].add(mokujiPPPnB[i], BorderLayout.CENTER);
 			one_category_panel_on_3conponent[i].add(category_name_textarea[i], BorderLayout.SOUTH);
@@ -418,11 +418,11 @@ public class Set extends JFrame implements ActionListener {
 		return category_visual_setting_main_panel;
 	}
 
-	// ƒ‹[ƒv‘¬“x
+	// ãƒ«ãƒ¼ãƒ—é€Ÿåº¦
 	private JPanel loopSpeed() throws FileNotFoundException, IOException {
 		setEkigoSpeedP = new JPanel(new BorderLayout());
 		setEkigoSpeedPB = new JPanel(new GridLayout());
-		ekigoSpeedB = new JButton("ˆÚ“®˜g‚Ì‘¬“x(•b)");
+		ekigoSpeedB = new JButton("ç§»å‹•æ ã®é€Ÿåº¦(ç§’)");
 		ekigoSpeedB.setFont(new Font("", Font.BOLD, 25));
 		ekigoSpeedB.setForeground(Color.white);
 		ekigoSpeedB.setBackground(Color.black);
@@ -511,7 +511,7 @@ public class Set extends JFrame implements ActionListener {
 		return setEkigoSpeedP;
 	}
 
-	// ã‰º¶‰E‚Ìƒ‹[ƒv‘I‘ğ@ONEOFFØ‚è‘Ö‚¦
+	// ä¸Šä¸‹å·¦å³ã®ãƒ«ãƒ¼ãƒ—é¸æŠã€€ONãƒ»OFFåˆ‡ã‚Šæ›¿ãˆ
 	private JPanel roopOnOff() throws IOException, FileNotFoundException {
 		JPanel roopP;
 		JPanel setEkigoRoopP;
@@ -523,7 +523,7 @@ public class Set extends JFrame implements ActionListener {
 		setEkigoRoopPB = new JPanel(new GridLayout());
 		endP = new JPanel(new GridLayout());
 		endP.setPreferredSize(new Dimension(0, 100));
-		ekigoRoopB = new JButton("<html>y‘I‘ğ•û–@z<br>ONF˜gˆÚ“®‘I‘ğ<br>OFFF‰æ–Êƒ^ƒbƒ`‘I‘ğ</html>");
+		ekigoRoopB = new JButton("<html>ã€é¸æŠæ–¹æ³•ã€‘<br>ONï¼šæ ç§»å‹•é¸æŠ<br>OFFï¼šç”»é¢ã‚¿ãƒƒãƒé¸æŠ</html>");
 		ekigoRoopB.setFont(new Font("", Font.BOLD, 25));
 		ekigoRoopB.setForeground(Color.white);
 		ekigoRoopB.setBackground(Color.black);
@@ -574,7 +574,7 @@ public class Set extends JFrame implements ActionListener {
 		return setEkigoRoopP;
 	}
 
-	// s”Fã‰º‚ÌŠG‹L†‚Ì”
+	// è¡Œæ•°ï¼šä¸Šä¸‹ã®çµµè¨˜å·ã®æ•°
 	private JPanel ekigoGyou() throws IOException, FileNotFoundException {
 		JPanel gyouP;
 		JPanel setEkigoRoopP;
@@ -586,7 +586,7 @@ public class Set extends JFrame implements ActionListener {
 		setEkigoRoopPB = new JPanel(new GridLayout());
 		endP = new JPanel(new GridLayout());
 		endP.setPreferredSize(new Dimension(0, 100));
-		ekigoRoopB = new JButton("<html>y•\¦”z<br>‚RFc‚RŒÂ~‰¡‚TŒÂ<br>‚SFc‚SŒÂ~‰¡‚VŒÂ<br>i28ŒÂ‚Ü‚Å‰æ‘œ‚ğ•\¦‚Å‚«‚Ü‚·j</html>");
+		ekigoRoopB = new JButton("<html>ã€è¡¨ç¤ºæ•°ã€‘<br>ï¼“ï¼šç¸¦ï¼“å€‹Ã—æ¨ªï¼•å€‹<br>ï¼”ï¼šç¸¦ï¼”å€‹Ã—æ¨ªï¼—å€‹<br>ï¼ˆ28å€‹ã¾ã§ç”»åƒã‚’è¡¨ç¤ºã§ãã¾ã™ï¼‰</html>");
 		ekigoRoopB.setFont(new Font("", Font.BOLD, 25));
 		ekigoRoopB.setForeground(Color.white);
 		ekigoRoopB.setBackground(Color.black);
@@ -638,9 +638,9 @@ public class Set extends JFrame implements ActionListener {
 		return setEkigoRoopP;
 	}
 
-	// •ÏXÀs
+	// å¤‰æ›´å®Ÿè¡Œ
 	private JButton endButton() {
-		setEndButton = new JButton("•ÏXE•Â‚¶‚é(ƒNƒŠƒbƒN)");
+		setEndButton = new JButton("å¤‰æ›´ãƒ»é–‰ã˜ã‚‹(ã‚¯ãƒªãƒƒã‚¯)");
 		setEndButton.setFont(new Font("", Font.BOLD, 30));
 		setEndButton.setBackground(Constants.end);
 		setEndButton.setBorder(new LineBorder(Constants.endBorder, 5, true));
@@ -703,13 +703,13 @@ public class Set extends JFrame implements ActionListener {
 				for (int j = 0; j < 10; j++) {
 
 					if(j == 0){
-						//–ÚŸ‚ÌƒvƒƒpƒeƒB\‚Íí‚Étrue
+						//ç›®æ¬¡ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£â€•ã¯å¸¸ã«true
 						category_boolean[j] = true;
 					}else{
 						category_boolean[j] = mokujiPPPCb[j].isSelected();
 					}
 
-					category_name[j]=category_name_textarea[j].getText();	//ƒeƒLƒXƒgƒGƒŠƒA‚Ì•¶š—ñ‚ğcategory_name[]‚Éİ’è
+					category_name[j]=category_name_textarea[j].getText();	//ãƒ†ã‚­ã‚¹ãƒˆã‚¨ãƒªã‚¢ã®æ–‡å­—åˆ—ã‚’category_name[]ã«è¨­å®š
 
 					System.out.println("-----------------------------------------category_img_name["+j+"]"+category_img_name[j]);
 					System.out.println("-----------------------------------------category_name["+j+"]"+category_name[j]);
@@ -719,8 +719,8 @@ public class Set extends JFrame implements ActionListener {
 				try {
 					prop_.setRoop(radioRoopS);
 					prop_.setGyou(radioGyouS);
-					prop_.setCategoryName(category_name);//•ÏXF@ƒeƒLƒXƒgƒGƒŠƒA‚©‚çæ‚èo‚·
-					prop_.setCategoryImgName(category_img_name);//•ÏXF@ƒeƒLƒXƒgƒGƒŠƒA‚©‚çæ‚èo‚·
+					prop_.setCategoryName(category_name);//å¤‰æ›´ï¼šã€€ãƒ†ã‚­ã‚¹ãƒˆã‚¨ãƒªã‚¢ã‹ã‚‰å–ã‚Šå‡ºã™
+					prop_.setCategoryImgName(category_img_name);//å¤‰æ›´ï¼šã€€ãƒ†ã‚­ã‚¹ãƒˆã‚¨ãƒªã‚¢ã‹ã‚‰å–ã‚Šå‡ºã™
 					prop_.setTabBool(category_boolean);
 					prop_.setList(radioRoopSl);
 					System.out.println("prop_.setList(radioRoopSl);");
@@ -733,7 +733,7 @@ public class Set extends JFrame implements ActionListener {
 					e1.printStackTrace();
 				}
 
-				Koe.oto("‚»‚Ó‚Æ‚ğ‚³‚¢‚«‚Ç‚¤‚·‚é‚Æ‚¹‚Á‚Ä‚¢‚ª‚Í‚ñ‚¦‚¢‚³‚ê‚Ü‚·");
+				Koe.oto("ããµã¨ã‚’ã•ã„ãã©ã†ã™ã‚‹ã¨ã›ã£ã¦ã„ãŒã¯ã‚“ãˆã„ã•ã‚Œã¾ã™");
 				Set.this.dispose();
 			}
 		}
@@ -771,10 +771,10 @@ public class Set extends JFrame implements ActionListener {
 				try {
 					new Set();
 				} catch (FileNotFoundException e) {
-					// TODO ©“®¶¬‚³‚ê‚½ catch ƒuƒƒbƒN
+					// TODO è‡ªå‹•ç”Ÿæˆã•ã‚ŒãŸ catch ãƒ–ãƒ­ãƒƒã‚¯
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO ©“®¶¬‚³‚ê‚½ catch ƒuƒƒbƒN
+					// TODO è‡ªå‹•ç”Ÿæˆã•ã‚ŒãŸ catch ãƒ–ãƒ­ãƒƒã‚¯
 					e.printStackTrace();
 				}
 			}

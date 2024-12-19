@@ -47,7 +47,7 @@ public class List extends JFrame implements Runnable, ActionListener {
 	Statement stmt = null;
 
 	/*
-	 * DB‚Ìrowƒiƒ“ƒo[‚ÍA‚P‚©‚çn‚Ü‚éB
+	 * DBã®rowãƒŠãƒ³ãƒãƒ¼ã¯ã€ï¼‘ã‹ã‚‰å§‹ã¾ã‚‹ã€‚
 	 */
 	final int table_row_start_num = 1;
 	final int table_row_finish_num = 7;
@@ -59,10 +59,10 @@ public class List extends JFrame implements Runnable, ActionListener {
 	JTextArea textArea[] = new JTextArea[7];
 	JTextArea insertListText = new JTextArea();
 
-	JButton end_button = new JButton("<html>•Â‚¶‚é@<u>ƒL[2‰ñ</u></html>");
+	JButton end_button = new JButton("<html>é–‰ã˜ã‚‹ã€€<u>ã‚­ãƒ¼2å›</u></html>");
 	JButton imgButton[] = new JButton[7];
 	JButton playButton[] = new JButton[7];
-	JButton listTitleButton = new JButton();// ã‚Ì€–Ú
+	JButton listTitleButton = new JButton();// ä¸Šã®é …ç›®
 	JButton deleteButtons[] = new JButton[7];
 
 	JPanel mainPanel = new JPanel(new BorderLayout());
@@ -83,7 +83,7 @@ public class List extends JFrame implements Runnable, ActionListener {
 	String ekigoName=null;
 	String folderName=null;
 
-	// ˆø”FƒtƒHƒ‹ƒ_[–¼,“ü—Í‚·‚é’PŒê
+	// å¼•æ•°ï¼šãƒ•ã‚©ãƒ«ãƒ€ãƒ¼å,å…¥åŠ›ã™ã‚‹å˜èª
 	public List(String ekigoName, String folderName) throws HeadlessException, SQLException {
 		super();
 
@@ -93,9 +93,9 @@ public class List extends JFrame implements Runnable, ActionListener {
 		set_class_property(this.ekigoName, this.folderName);
 		set_db_property();
 
-		make_new_pict_table(this.ekigoName);// ŠG‹L†ƒe[ƒuƒ‹H
+		make_new_pict_table(this.ekigoName);// çµµè¨˜å·ãƒ†ãƒ¼ãƒ–ãƒ«ï¼Ÿ
 
-		selectTable(this.ekigoName);// ƒe[ƒuƒ‹ƒf[ƒ^‚ğæ‚èo‚·
+		selectTable(this.ekigoName);// ãƒ†ãƒ¼ãƒ–ãƒ«ãƒ‡ãƒ¼ã‚¿ã‚’å–ã‚Šå‡ºã™
 
 		make_buttons();
 
@@ -122,7 +122,7 @@ public class List extends JFrame implements Runnable, ActionListener {
 
 		for (int i = table_row_start_num; i < table_row_finish_num; i++) {
 			new l(this, "imgButton[j].getWidth()==" + imgButton[i].getWidth());
-			Zoom zoom = new Zoom(new ImageIcon("./resource/img/" + folderName + "_Ú×/" + listURL[i]), 0, 0, imgButton[i].getWidth(), imgButton[i]
+			Zoom zoom = new Zoom(new ImageIcon("./resource/img/" + folderName + "_è©³ç´°/" + listURL[i]), 0, 0, imgButton[i].getWidth(), imgButton[i]
 					.getHeight());
 			imgButton[i].add(zoom);
 
@@ -157,11 +157,11 @@ public class List extends JFrame implements Runnable, ActionListener {
 	 */
 	private void make_buttons() {
 		/*
-		 * ƒŠƒXƒg‰æ‘œEƒeƒLƒXƒgƒGƒŠƒAEíœƒ{ƒ^ƒ“
+		 * ãƒªã‚¹ãƒˆç”»åƒãƒ»ãƒ†ã‚­ã‚¹ãƒˆã‚¨ãƒªã‚¢ãƒ»å‰Šé™¤ãƒœã‚¿ãƒ³
 		 */
 		for (int i = table_row_start_num; i < table_row_finish_num; i++) {
 			/*
-			 * Ä¶ƒ{ƒ^ƒ“
+			 * å†ç”Ÿãƒœã‚¿ãƒ³
 			 */
 			playButton[i] = new JButton();
 			playButton[i].setPreferredSize(new Dimension(120, 60));
@@ -175,7 +175,7 @@ public class List extends JFrame implements Runnable, ActionListener {
 			playButton[i].setMargin(new Insets(0, 0, 0, 0));
 
 			/*
-			 * ‰æ‘œƒ{ƒ^ƒ“
+			 * ç”»åƒãƒœã‚¿ãƒ³
 			 */
 			imgButton[i] = new JButton();
 			imgButton[i].setBorder(new LineBorder(Color.white, 1, false));
@@ -183,12 +183,12 @@ public class List extends JFrame implements Runnable, ActionListener {
 			imgButton[i].addMouseListener(myMouse);
 			imgButton[i].addKeyListener(myKeyEvent);
 			imgButton[i].setActionCommand(ristNO[i - 1]);
-			imgButton[i].setText(ristNO[i - 1]);// ƒe[ƒuƒ‹ƒCƒ“ƒfƒbƒNƒX‚ğ‚½‚ñ‚É“o˜^i‰æ‘œ•ÏX‚Ég—p‚·‚éBj
+			imgButton[i].setText(ristNO[i - 1]);// ãƒ†ãƒ¼ãƒ–ãƒ«ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’æŒãŸã‚“ã«ç™»éŒ²ï¼ˆç”»åƒå¤‰æ›´æ™‚ã«ä½¿ç”¨ã™ã‚‹ã€‚ï¼‰
 			imgButton[i].addActionListener(this);
 			imgButton[i].setMargin(new Insets(0, 0, 0, 0));
 
 			/*
-			 * ƒeƒLƒXƒgƒGƒŠƒA
+			 * ãƒ†ã‚­ã‚¹ãƒˆã‚¨ãƒªã‚¢
 			 */
 			textArea[i] = new JTextArea();
 			textArea[i].addKeyListener(myKeyEvent);
@@ -201,7 +201,7 @@ public class List extends JFrame implements Runnable, ActionListener {
 			textArea[i].setMargin(new Insets(0, 0, 0, 0));
 
 			/*
-			 * íœƒ{ƒ^ƒ“
+			 * å‰Šé™¤ãƒœã‚¿ãƒ³
 			 */
 			deleteButtons[i] = new JButton();
 			deleteButtons[i].setPreferredSize(new Dimension(80, 60));
@@ -235,32 +235,32 @@ public class List extends JFrame implements Runnable, ActionListener {
 	 * @param ekigoName
 	 */
 	private void make_new_pict_table(String ekigoName) {
-		// 1.ƒJƒ‰ƒ€‚Ìƒtƒ@ƒCƒ‹‚ª‚È‚¢ê‡‚ÍAƒe[ƒuƒ‹‚ğì¬‚·‚éB
-		// ‚QDjava_mysql_test.java‚ğƒCƒ“ƒXƒ^ƒ“ƒX‰»‚µA fileName‚ªƒJƒ‰ƒ€‚Æ‚È‚éƒŠƒXƒg‚ğ’Šo‚·‚éB
+		// 1.ã‚«ãƒ©ãƒ ã®ãƒ•ã‚¡ã‚¤ãƒ«ãŒãªã„å ´åˆã¯ã€ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ä½œæˆã™ã‚‹ã€‚
+		// ï¼’ï¼java_mysql_test.javaã‚’ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–ã—ã€ fileNameãŒã‚«ãƒ©ãƒ ã¨ãªã‚‹ãƒªã‚¹ãƒˆã‚’æŠ½å‡ºã™ã‚‹ã€‚
 		boolean isFile = new Read(ekigoName).read();
-		if (isFile) {// true:‚·‚Å‚Éƒtƒ@ƒCƒ‹‚ª‚ ‚é
-			new l(this, "isFile>true: ƒe[ƒuƒ‹—L‚èFì¬‚µ‚È‚¢");
+		if (isFile) {// true:ã™ã§ã«ãƒ•ã‚¡ã‚¤ãƒ«ãŒã‚ã‚‹
+			new l(this, "isFile>true: ãƒ†ãƒ¼ãƒ–ãƒ«æœ‰ã‚Šï¼šä½œæˆã—ãªã„");
 		} else {
 			/*
-			 * false:ƒtƒ@ƒCƒ‹‚ª‚È‚¢‚Ì‚Åì¬‚·‚é
+			 * false:ãƒ•ã‚¡ã‚¤ãƒ«ãŒãªã„ã®ã§ä½œæˆã™ã‚‹
 			 */
-			new l(this, "isFile>false: ƒe[ƒuƒ‹‚È‚µFì¬‚·‚é");
+			new l(this, "isFile>false: ãƒ†ãƒ¼ãƒ–ãƒ«ãªã—ï¼šä½œæˆã™ã‚‹");
 			new Write(ekigoName);
 
 			try {
 				stmt = conn.createStatement();
 				stmt.executeUpdate("create table " + ekigoName + "_t" + "(NO int," + ekigoName + " text, url text)");
 			} catch (SQLException e) {
-				// TODO ©“®¶¬‚³‚ê‚½ catch ƒuƒƒbƒN
+				// TODO è‡ªå‹•ç”Ÿæˆã•ã‚ŒãŸ catch ãƒ–ãƒ­ãƒƒã‚¯
 				e.printStackTrace();
 			}
 
 			/*
-			 * ƒe[ƒuƒ‹ì¬@¨@DBƒf[ƒ^‚ğ“o˜^‚·‚éB
+			 * ãƒ†ãƒ¼ãƒ–ãƒ«ä½œæˆã€€â†’ã€€DBãƒ‡ãƒ¼ã‚¿ã‚’ç™»éŒ²ã™ã‚‹ã€‚
 			 */
 			for (int j = table_row_start_num; j < table_row_finish_num; j++) {
 				try {
-					if (file_name_list[j] == null) {// null‚Å‚ ‚ê‚ÎE‚ğ‚¢‚ê‚é
+					if (file_name_list[j] == null) {// nullã§ã‚ã‚Œã°ãƒ»ã‚’ã„ã‚Œã‚‹
 						stmt.executeUpdate("insert into " + ekigo + "_t" + "(NO," + ekigo + ", url)" + "values(" + String.valueOf(j) + ",'" + " "
 								+ "','default.jpg');");//
 					}
@@ -292,17 +292,17 @@ public class List extends JFrame implements Runnable, ActionListener {
 //		try {
 //			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 //		} catch (Exception e) {
-//			System.out.println("—áŠO”­¶F" + e);
+//			System.out.println("ä¾‹å¤–ç™ºç”Ÿï¼š" + e);
 //		}
 
 		try {
 			Class.forName("org.sqlite.JDBC");
 		} catch (ClassNotFoundException e) {
-			// TODO ©“®¶¬‚³‚ê‚½ catch ƒuƒƒbƒN
+			// TODO è‡ªå‹•ç”Ÿæˆã•ã‚ŒãŸ catch ãƒ–ãƒ­ãƒƒã‚¯
 			e.printStackTrace();
 		}
 
-		File file = new File("resource/db/pict");// sqlite‚Ìƒf[ƒ^Ši”[ƒtƒ@ƒCƒ‹
+		File file = new File("resource/db/pict");// sqliteã®ãƒ‡ãƒ¼ã‚¿æ ¼ç´ãƒ•ã‚¡ã‚¤ãƒ«
 		String path = file.getAbsolutePath();
 		try {
 			conn = DriverManager.getConnection("jdbc:sqlite://" + path);
@@ -317,13 +317,13 @@ public class List extends JFrame implements Runnable, ActionListener {
 	 * @param folderName
 	 */
 	private void set_class_property(String ekigoName, String folderName) {
-		this.setTitle(ekigoName + " Ú×‰æ–Ê");
+		this.setTitle(ekigoName + " è©³ç´°ç”»é¢");
 		this.setIconImage(new ImageIcon("./resource/img/tab_img/kurumaisu.jpg").getImage());
 		this.setAlwaysOnTop(true);
 		this.addKeyListener(myKeyEvent);
 
-		this.ekigo = ekigoName;// ƒNƒ‰ƒXˆø”FŠG‹L†–¼
-		this.folder = folderName;// ƒNƒ‰ƒXˆø”FƒtƒHƒ‹ƒ_–¼
+		this.ekigo = ekigoName;// ã‚¯ãƒ©ã‚¹å¼•æ•°ï¼šçµµè¨˜å·å
+		this.folder = folderName;// ã‚¯ãƒ©ã‚¹å¼•æ•°ï¼šãƒ•ã‚©ãƒ«ãƒ€å
 
 		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		Rectangle rect = env.getMaximumWindowBounds();
@@ -349,16 +349,16 @@ public class List extends JFrame implements Runnable, ActionListener {
 			Statement stmt = conn.createStatement();
 
 			new l(this, "select " + "*" + " from " + fileName + "_t");
-			// ORDER BY no:¸‡
+			// ORDER BY no:æ˜‡é †
 			ResultSet executequery_resultset = stmt.executeQuery("select " + "*" + " from " + fileName + "_t");
 
 			/*
-			 * Ú× ƒe[ƒuƒ‹ •\¦
+			 * è©³ç´° ãƒ†ãƒ¼ãƒ–ãƒ« è¡¨ç¤º
 			 */
 			System.out.println("----------------------------------------");
 			System.out.print("NO. | ");
-			System.out.print("ŠG‹L†–¼ | ");
-			System.out.println("‰æ‘œ–¼");
+			System.out.print("çµµè¨˜å·å | ");
+			System.out.println("ç”»åƒå");
 
 			int j = 0;
 			while (executequery_resultset.next()) {
@@ -422,20 +422,20 @@ public class List extends JFrame implements Runnable, ActionListener {
 		for (int i = table_row_start_num; i < table_row_finish_num; i++) {
 
 			/*
-			 * ‰æ‘œ•ÏX‚ğ•ÏX‚·‚éB
+			 * ç”»åƒå¤‰æ›´ã‚’å¤‰æ›´ã™ã‚‹ã€‚
 			 */
 			if (cmd.equals(imgButton[i].getText())) {
 
-				JFileChooser filechooser = new JFileChooser("./resource/img/" + folder + "_Ú×/");
+				JFileChooser filechooser = new JFileChooser("./resource/img/" + folder + "_è©³ç´°/");
 
-				new l(this, "------------------------------------------ImgAction>URL==" + "./resource/img/" + folder + "_Ú×/");
+				new l(this, "------------------------------------------ImgAction>URL==" + "./resource/img/" + folder + "_è©³ç´°/");
 
 				int selected = filechooser.showOpenDialog(this);
 
 				if (selected == JFileChooser.APPROVE_OPTION) {
 
 					/*
-					 * sqlÀs0 Œã‚©‚ç‰æ‘œ‚ğ“ü‚ê‚é‚Æ•¶š‚ªÁ‚¦‚é–â‘è
+					 * sqlå®Ÿè¡Œ0 å¾Œã‹ã‚‰ç”»åƒã‚’å…¥ã‚Œã‚‹ã¨æ–‡å­—ãŒæ¶ˆãˆã‚‹å•é¡Œ
 					 */
 					try {
 						Statement stmt = conn.createStatement();
@@ -443,7 +443,7 @@ public class List extends JFrame implements Runnable, ActionListener {
 								+ " NO" + "=" + imgButton[i].getText() + ";");
 
 						imgButton[i].removeAll();
-						imgButton[i].add(new Zoom(new ImageIcon("./resource/img/" + folder + "_Ú×/" + filechooser.getSelectedFile().getName()), 0, 0,
+						imgButton[i].add(new Zoom(new ImageIcon("./resource/img/" + folder + "_è©³ç´°/" + filechooser.getSelectedFile().getName()), 0, 0,
 								imgButton[i].getWidth(), imgButton[i].getHeight()));
 						imgButton[i].validate();
 
@@ -466,8 +466,8 @@ public class List extends JFrame implements Runnable, ActionListener {
 			// o("ListKoeAction:" + listTextArea[Integer.parseInt(cmd)].getText());
 
 			if (textArea[Integer.parseInt(cmd)].getText().equals(" ") | textArea[Integer.parseInt(cmd)].getText().equals("")
-					| textArea[Integer.parseInt(cmd)].getText().equals("@")) {
-				// ‚È‚É‚à‚µ‚È‚¢
+					| textArea[Integer.parseInt(cmd)].getText().equals("ã€€")) {
+				// ãªã«ã‚‚ã—ãªã„
 			} else {
 				Koe.oto(textArea[Integer.parseInt(cmd)].getText().replaceAll(" ", ""));
 			}
@@ -479,24 +479,24 @@ public class List extends JFrame implements Runnable, ActionListener {
 			String cmd = e.getActionCommand();
 
 			for (int i = table_row_start_num; i < table_row_finish_num; i++) {
-				// •¶šíœ
+				// æ–‡å­—å‰Šé™¤
 				if (false == textArea[i].getText().equals(" ")) {
 					if (textArea[i].getText().equals(cmd)) {
 						try {
 							Statement stmt = conn.createStatement();
 
 							/*
-							 * ƒŒƒR[ƒh‚ğíœ‚·‚éFƒŒƒR[ƒh©‘Ì‚ªÁ‚¦‚Ä‚µ‚Ü‚¤‚½‚ßNG stmt.executeUpdate("DELETE  FROM " + ekigo + "_t WHERE " + ekigo + "='" +
-							 * textArea[i].getText() + "';"); ƒŒƒR[ƒh‚ğXV‚·‚éB
+							 * ãƒ¬ã‚³ãƒ¼ãƒ‰ã‚’å‰Šé™¤ã™ã‚‹ï¼šãƒ¬ã‚³ãƒ¼ãƒ‰è‡ªä½“ãŒæ¶ˆãˆã¦ã—ã¾ã†ãŸã‚NG stmt.executeUpdate("DELETE  FROM " + ekigo + "_t WHERE " + ekigo + "='" +
+							 * textArea[i].getText() + "';"); ãƒ¬ã‚³ãƒ¼ãƒ‰ã‚’æ›´æ–°ã™ã‚‹ã€‚
 							 */
 							stmt.executeUpdate("update " + ekigo + "_t set " + ekigo + "='" + "" + "' where " + "no" + "=" + String.valueOf(i) + ";");
 
 							stmt.executeUpdate("insert into " + ekigo + "_t" + "(NO," + ekigo + ")" + "values(" + String.valueOf(ristNO[i - 1])
-									+ ",'" + " " + "');");// ƒCƒ“ƒfƒbƒNƒX‚ğŒ³‚Ì”Ô†‚É‘‚«’¼‚µ‚½-20100429
+									+ ",'" + " " + "');");// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’å…ƒã®ç•ªå·ã«æ›¸ãç›´ã—ãŸ-20100429
 							stmt.executeUpdate("update " + ekigo + "_t set " + "url" + "= '" + "default.jpg" + "' where " + " NO" + "="
 									+ imgButton[i].getText() + ";");
 							/*
-							 * executeInsert("DELETE  FROM ‚¤‚Å_t WHERE ‚¤‚Å='test';"); o("DELETE  FROM " + fileName + "_t WHERE " + fileName + "='" +
+							 * executeInsert("DELETE  FROM ã†ã§_t WHERE ã†ã§='test';"); o("DELETE  FROM " + fileName + "_t WHERE " + fileName + "='" +
 							 * listTextArea[i].getText() + "';"); o("listTextButton[i].getText():::" + listTextArea[i].getText());
 							 */
 							stmt.close();
@@ -537,14 +537,14 @@ public class List extends JFrame implements Runnable, ActionListener {
 							|| KeyEvent.getKeyText(e.getKeyChar()).equals("Slash") || KeyEvent.getKeyText(e.getKeyChar()).equals("Minus")) {
 						keyPressReleaseAvailable = false;
 
-						Kaiwa.keyPressAvailable = false;// •Â‚¶‚½‚Æ‚«‚ÉAKaiwaƒtƒŒ[ƒ€‚ÉƒL[ƒCƒxƒ“ƒg‚ªs‚©‚È‚¢‚æ‚¤‚É‚·‚éB
+						Kaiwa.keyPressAvailable = false;// é–‰ã˜ãŸã¨ãã«ã€Kaiwaãƒ•ãƒ¬ãƒ¼ãƒ ã«ã‚­ãƒ¼ã‚¤ãƒ™ãƒ³ãƒˆãŒè¡Œã‹ãªã„ã‚ˆã†ã«ã™ã‚‹ã€‚
 
 						new l(this, "moveEkigo>keyPressed == " + KeyEvent.getKeyText(e.getKeyChar()));
-						Koe.oto("‚Æ‚¶‚é");
+						Koe.oto("ã¨ã˜ã‚‹");
 						update_sql_data();
 						break;
 					} else {
-						// ‰½‚à‚µ‚È‚¢
+						// ä½•ã‚‚ã—ãªã„
 					}
 				}
 			}
@@ -560,7 +560,7 @@ public class List extends JFrame implements Runnable, ActionListener {
 							|| KeyEvent.getKeyText(e.getKeyChar()).equals("Unknown keyCode: 0x2b")
 							|| KeyEvent.getKeyText(e.getKeyChar()).equals("Unknown keyCode: 0x2a")
 							|| KeyEvent.getKeyText(e.getKeyChar()).equals("Slash") || KeyEvent.getKeyText(e.getKeyChar()).equals("Minus")
-					// Num Lock‚Í§Œä•s‰Â
+					// Num Lockã¯åˆ¶å¾¡ä¸å¯
 					) {
 						keyPressReleaseAvailable = true;
 						keyEventCout++;
@@ -602,7 +602,7 @@ public class List extends JFrame implements Runnable, ActionListener {
 
 		public void mousePressed(MouseEvent e1) {
 			if (end_button == e1.getSource()) {
-				Koe.oto("‚Æ‚¶‚é");
+				Koe.oto("ã¨ã˜ã‚‹");
 				update_sql_data();
 			}
 		}
@@ -636,12 +636,12 @@ public class List extends JFrame implements Runnable, ActionListener {
 
 	public static void main(String[] args) {
 		try {
-			new List("‚Ï‚ñ", "tab7");
+			new List("ã±ã‚“", "tab7");
 		} catch (HeadlessException e) {
-			// TODO ©“®¶¬‚³‚ê‚½ catch ƒuƒƒbƒN
+			// TODO è‡ªå‹•ç”Ÿæˆã•ã‚ŒãŸ catch ãƒ–ãƒ­ãƒƒã‚¯
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO ©“®¶¬‚³‚ê‚½ catch ƒuƒƒbƒN
+			// TODO è‡ªå‹•ç”Ÿæˆã•ã‚ŒãŸ catch ãƒ–ãƒ­ãƒƒã‚¯
 			e.printStackTrace();
 		}
 		// o("n------------------------------------------" + n_);

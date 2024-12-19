@@ -17,25 +17,25 @@ public class Prop {
 		super();
 	}
 
-	/***** İ’èƒ^ƒui1j *****/
-	// ‘I‘ğƒ‚[ƒhiONEOFFj
+	/***** è¨­å®šã‚¿ãƒ–ï¼ˆ1ï¼‰ *****/
+	// é¸æŠãƒ¢ãƒ¼ãƒ‰ï¼ˆONãƒ»OFFï¼‰
 	public void setRoop(String s1) throws IOException, FileNotFoundException {
-		// ƒvƒƒpƒeƒBƒtƒ@ƒCƒ‹‚©‚çƒL[‚Æ’l‚ÌƒŠƒXƒg‚ğ“Ç‚İ‚İ‚Ü‚·
+		// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ã‚­ãƒ¼ã¨å€¤ã®ãƒªã‚¹ãƒˆã‚’èª­ã¿è¾¼ã¿ã¾ã™
 		prop.load(new FileInputStream("./resource/seting.properties"));
 		prop.setProperty("seting.roop", s1);
 		prop.store(new FileOutputStream("./resource/seting.properties"), "seting");
 	}
 
-	// s”i3E4j
+	// è¡Œæ•°ï¼ˆ3ãƒ»4ï¼‰
 	public void setGyou(String Gyou) throws IOException, FileNotFoundException {
 
-		// ƒvƒƒpƒeƒBƒtƒ@ƒCƒ‹‚©‚çƒL[‚Æ’l‚ÌƒŠƒXƒg‚ğ“Ç‚İ‚İ‚Ü‚·
+		// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ã‚­ãƒ¼ã¨å€¤ã®ãƒªã‚¹ãƒˆã‚’èª­ã¿è¾¼ã¿ã¾ã™
 		prop.load(new FileInputStream("./resource/seting.properties"));
 		prop.setProperty("seting.gyou", Gyou);
 		prop.store(new FileOutputStream("./resource/seting.properties"), "seting");
 	}
 
-	// Šeƒ^ƒu‚Ì•\¦i‘Ì’²`ƒAƒvƒŠj
+	// å„ã‚¿ãƒ–ã®è¡¨ç¤ºï¼ˆä½“èª¿ï½ã‚¢ãƒ—ãƒªï¼‰
 	public void setTabBool(Boolean mokujiBool[]) throws IOException, FileNotFoundException {
 
 		prop.load(new FileInputStream("./resource/seting.properties"));
@@ -47,7 +47,7 @@ public class Prop {
 		prop.store(new FileOutputStream("./resource/seting.properties"), "seting");
 	}
 
-	// ƒJƒeƒSƒŠ[–¼i‘Ì’²`ƒAƒvƒŠj
+	// ã‚«ãƒ†ã‚´ãƒªãƒ¼åï¼ˆä½“èª¿ï½ã‚¢ãƒ—ãƒªï¼‰
 	public void setCategoryName(String category_name[]) throws IOException, FileNotFoundException {
 
 		prop.load(new FileInputStream("./resource/seting.properties"));
@@ -58,7 +58,7 @@ public class Prop {
 		prop.store(new FileOutputStream("./resource/seting.properties"), "seting");
 	}
 
-	// ƒJƒeƒSƒŠ[‰æ‘œ–¼i‘Ì’²`ƒAƒvƒŠj
+	// ã‚«ãƒ†ã‚´ãƒªãƒ¼ç”»åƒåï¼ˆä½“èª¿ï½ã‚¢ãƒ—ãƒªï¼‰
 	public void setCategoryImgName(String category_img_name[]) throws IOException, FileNotFoundException {
 		prop.load(new FileInputStream("./resource/seting.properties"));
 		for (int i = 1; i < 10; i++) {
@@ -67,7 +67,7 @@ public class Prop {
 		prop.store(new FileOutputStream("./resource/seting.properties"), "seting");
 	}
 
-	// ƒJƒeƒSƒŠ[‰æ‘œ–¼i‘Ì’²`ƒAƒvƒŠj
+	// ã‚«ãƒ†ã‚´ãƒªãƒ¼ç”»åƒåï¼ˆä½“èª¿ï½ã‚¢ãƒ—ãƒªï¼‰
 	public void setCategoryImgName_(String category_img_name, int i) throws IOException, FileNotFoundException {
 		prop.load(new FileInputStream("./resource/seting.properties"));
 	   new Lg(this,"^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"+category_img_name);
@@ -76,29 +76,29 @@ public class Prop {
 		prop.store(new FileOutputStream("./resource/seting.properties"), "seting");
 	}
 
-	/***** İ’èƒ^ƒui2j“r’†İ’è‰Â”\ *****/
-	// Ú×‰æ–Ê‚Ì•\¦•û–@iƒŠƒXƒgEŠG‹L†E”ñ•\¦j
+	/***** è¨­å®šã‚¿ãƒ–ï¼ˆ2ï¼‰é€”ä¸­è¨­å®šå¯èƒ½ *****/
+	// è©³ç´°ç”»é¢ã®è¡¨ç¤ºæ–¹æ³•ï¼ˆãƒªã‚¹ãƒˆãƒ»çµµè¨˜å·ãƒ»éè¡¨ç¤ºï¼‰
 	public void setList(String s1) throws IOException, FileNotFoundException {
 
-		// ƒvƒƒpƒeƒBƒtƒ@ƒCƒ‹‚©‚çƒL[‚Æ’l‚ÌƒŠƒXƒg‚ğ“Ç‚İ‚İ‚Ü‚·
+		// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ã‚­ãƒ¼ã¨å€¤ã®ãƒªã‚¹ãƒˆã‚’èª­ã¿è¾¼ã¿ã¾ã™
 
 		System.out.println("Prop()>setList(String s1)>s1==" + s1);
 		prop.load(new FileInputStream("./resource/seting.properties"));
 		prop.setProperty("seting.list", s1);
 		prop.store(new FileOutputStream("./resource/seting.properties"), "seting");
 
-		// ’¼Ú•Ï”‚Éİ’èFƒ\ƒtƒg‹N“®
+		// ç›´æ¥å¤‰æ•°ã«è¨­å®šï¼šã‚½ãƒ•ãƒˆèµ·å‹•æ™‚
 		KaiwaMain.gyouIs = s1;
 	}
 
-	// ƒ‹[ƒv‘¬“x
+	// ãƒ«ãƒ¼ãƒ—é€Ÿåº¦
 	public void setSpeed(String s) throws IOException, FileNotFoundException {
 
 		prop.load(new FileInputStream("./resource/seting.properties"));
 		prop.setProperty("seting.speed", s);
 		prop.store(new FileOutputStream("./resource/seting.properties"), "seting");
 
-		// ’¼Ú•Ï”‚Éİ’èFƒ\ƒtƒg‹N“®
+		// ç›´æ¥å¤‰æ•°ã«è¨­å®šï¼šã‚½ãƒ•ãƒˆèµ·å‹•æ™‚
 		if (s.equals("1.5")) {
 			KaiwaMain.speed = 1500;
 		} else if (s.equals("2")) {

@@ -69,36 +69,36 @@ public class Kaiwa extends JFrame implements Runnable {
    private static final long serialVersionUID  = 1L;
    int                       HistorySizeSec    = 0;
    int                       ekigoH            = 0;
-   int                       next_tab_count    = 0;            // ƒ^ƒu‚ğƒXƒy[ƒXƒL[‚ÅØ‚è‘Ö‚¦‚éB
+   int                       next_tab_count    = 0;            // ã‚¿ãƒ–ã‚’ã‚¹ãƒšãƒ¼ã‚¹ã‚­ãƒ¼ã§åˆ‡ã‚Šæ›¿ãˆã‚‹ã€‚
    Rectangle                 rect              = null;
    JViewport                 view              = null;
    JButton                   button            = new JButton();
    JPanel                    jPanel            = new JPanel();
    static boolean            keyPressAvailable = true;
-   int                       moveEkigoCount;                   // –ÚŸ‚©‚çŠG‹L†ˆÚ“®‚Ìw’èƒCƒ“ƒfƒbƒNƒX
+   int                       moveEkigoCount;                   // ç›®æ¬¡ã‹ã‚‰çµµè¨˜å·ç§»å‹•æ™‚ã®æŒ‡å®šã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
    Thread                    thread            = null;
    int                       handleLag         = 2000;
    /*
-    * ƒ‹[ƒv‚ÌƒCƒ“ƒfƒbƒNƒX
+    * ãƒ«ãƒ¼ãƒ—ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
     */
-   static int loop_index = 1;// 1`9 ƒ‹[ƒvindex
+   static int loop_index = 1;// 1ï½9 ãƒ«ãƒ¼ãƒ—index
    /*
-    * 1. ƒ^ƒu‚ª•Ï‚í‚Á‚½‚Æ‚«‚ÉAloop_index‚ğ‰Šú‰»‚·‚éB
+    * 1. ã‚¿ãƒ–ãŒå¤‰ã‚ã£ãŸã¨ãã«ã€loop_indexã‚’åˆæœŸåŒ–ã™ã‚‹ã€‚
     */
-   static int tab_change_init_num = 1;// 0ˆÈŠO‚ğ‰Šú‚Â‚Æ‚·‚é
-   // ƒ‹[ƒv•\¦§Œä•Ï”
-   int        yoko_Inc  = 0;// yoko_Ink:ãs‚Ì‡Œv
-   int        yoko_Inc2 = 0;// sƒCƒ“ƒfƒbƒNƒXi1`4j
-   int        tate_Inc  = 0;// —ñƒCƒ“ƒfƒbƒNƒXi1`yoko_Numj
-   static int yoko_Num  = 0;// s‚ÌŒÂ”
-   // ƒvƒƒpƒeƒB•Ï”
-   static int           speed                        = 0;             // ƒ‹[ƒv‘¬“x
+   static int tab_change_init_num = 1;// 0ä»¥å¤–ã‚’åˆæœŸã¤ã¨ã™ã‚‹
+   // ãƒ«ãƒ¼ãƒ—è¡¨ç¤ºåˆ¶å¾¡å¤‰æ•°
+   int        yoko_Inc  = 0;// yoko_Ink:ä¸Šè¡Œã®åˆè¨ˆ
+   int        yoko_Inc2 = 0;// è¡Œã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ï¼ˆ1ï½4ï¼‰
+   int        tate_Inc  = 0;// åˆ—ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ï¼ˆ1ï½yoko_Numï¼‰
+   static int yoko_Num  = 0;// è¡Œã®å€‹æ•°
+   // ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£å¤‰æ•°
+   static int           speed                        = 0;             // ãƒ«ãƒ¼ãƒ—é€Ÿåº¦
    static int           tabCount                     = 0;
    static int           tabNum[]                     = new int[10];
-   public static String category_from_property[]     = new String[10];// ƒvƒƒpƒeƒB‚©‚çæ‚èo‚µ‚½ƒJƒeƒSƒŠ[–¼
-   public static String category_img_from_property[] = new String[10];// ƒvƒƒpƒeƒB‚©‚çæ‚èo‚µ‚½ƒJƒeƒSƒŠ[‰æ‘œ–¼
+   public static String category_from_property[]     = new String[10];// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‹ã‚‰å–ã‚Šå‡ºã—ãŸã‚«ãƒ†ã‚´ãƒªãƒ¼å
+   public static String category_img_from_property[] = new String[10];// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‹ã‚‰å–ã‚Šå‡ºã—ãŸã‚«ãƒ†ã‚´ãƒªãƒ¼ç”»åƒå
    /*
-    * –ÚŸ•Ï” 1. mokujiName_10‚ğ“®“I‚É‚·‚é•û–@FŠ¿š‚ğ‰¹º‚É‚·‚éd‘g‚İ‚ª•K—v‚¾‚ªA‚Ü‚¾‚Å‚«‚È‚¢B 2. tab1F–ÚŸ
+    * ç›®æ¬¡å¤‰æ•° 1. mokujiName_10ã‚’å‹•çš„ã«ã™ã‚‹æ–¹æ³•ï¼šæ¼¢å­—ã‚’éŸ³å£°ã«ã™ã‚‹ä»•çµ„ã¿ãŒå¿…è¦ã ãŒã€ã¾ã ã§ããªã„ã€‚ 2. tab1ï¼šç›®æ¬¡
     */
    static int            tab_num                = 10;
    public static String  category_directory_9[] = { "tab1", "tab2", "tab3", "tab4", "tab5", "tab6", "tab7", "tab8",
@@ -110,19 +110,19 @@ public class Kaiwa extends JFrame implements Runnable {
    static int            nextKeyTypeIndex       = 1;
    static JPanel         toolPanel;
    /*
-    * ƒ^ƒu
+    * ã‚¿ãƒ–
     */
    static JTabbedPane tabbedPane     = null;
    JPanel             tabPanel_0_9[] = new JPanel[tab_num];
    /*
-    * ƒ{ƒ^ƒ“iƒAƒCƒRƒ“E–¼‘Oj
+    * ãƒœã‚¿ãƒ³ï¼ˆã‚¢ã‚¤ã‚³ãƒ³ãƒ»åå‰ï¼‰
     */
    static JButton[] b0, b1, b2, b3, b4, b5, b6, b7, b8, b9 = null;
    static JButton   buttons_0_9[][]     = { b0, b1, b2, b3, b4, b5, b6, b7, b8, b9 };
    static JButton[] nab0, nab1, nab2, nab3, nab4, nab5, nab6, nab7, nab8, nab9 = null;
    static JButton   nameButtons_0_9[][] = { nab0, nab1, nab2, nab3, nab4, nab5, nab6, nab7, nab8, nab9 };
    /*
-    * ƒpƒlƒ‹
+    * ãƒ‘ãƒãƒ«
     */
    static JPanel[]      p0, p1, p2, p3, p4, p5, p6, p7, p8, p9 = null;
    public static JPanel panels_0_9[][] = { p0, p1, p2, p3, p4, p5, p6, p7, p8, p9 };
@@ -130,42 +130,42 @@ public class Kaiwa extends JFrame implements Runnable {
    JButton              ekigoHistoryB;
    JScrollPane          ekigoHistorySP;
    /*
-    * ƒGƒxƒ“ƒgƒ‹[ƒv
+    * ã‚¨ãƒ™ãƒ³ãƒˆãƒ«ãƒ¼ãƒ—
     */
    public static JButton mainLoopButton = new JButton();
    /*
-    * ƒvƒƒpƒeƒB
+    * ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
     */
    static int           trueCount                         = 0;
    static int           gyouI                             = 0;
    String               ekigoHenSt                        = null;
-   public static String category_visible_boolean_string[] = new String[10]; // ƒJƒeƒSƒŠƒ^ƒu‚Ì•\¦E”ñ•\¦‚Ìboolean‚Ì•¶š—ñiƒvƒƒpƒeƒB‚©‚çæ‚èo‚µj
-   static Boolean       category_visible_boolean[]        = new Boolean[10];// ƒJƒeƒSƒŠƒ^ƒu‚Ì•\¦E”ñ•\¦‚Ìboolean’l
+   public static String category_visible_boolean_string[] = new String[10]; // ã‚«ãƒ†ã‚´ãƒªã‚¿ãƒ–ã®è¡¨ç¤ºãƒ»éè¡¨ç¤ºã®booleanã®æ–‡å­—åˆ—ï¼ˆãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‹ã‚‰å–ã‚Šå‡ºã—ï¼‰
+   static Boolean       category_visible_boolean[]        = new Boolean[10];// ã‚«ãƒ†ã‚´ãƒªã‚¿ãƒ–ã®è¡¨ç¤ºãƒ»éè¡¨ç¤ºã®booleanå€¤
    static String        gyouIs                            = new String();
    /*
-    * ƒtƒ@ƒCƒ‹
+    * ãƒ•ã‚¡ã‚¤ãƒ«
     */
    static int           category_tate_kakeru_yoko_num = 0;
    static int           category_files_num            = 0;
    public static File[] f0, f1, f2, f3, f4, f5, f6, f7, f8, f9;
    public static File   bunyaFiles_0_9[][]            = { f0, f1, f2, f3, f4, f5, f6, f7, f8, f9 };
    /*
-    * ƒtƒHƒ‹ƒ_[“àî•ñæ“¾—p
+    * ãƒ•ã‚©ãƒ«ãƒ€ãƒ¼å†…æƒ…å ±å–å¾—ç”¨
     */
    public File  d0, d1, d2, d3, d4, d5, d6, d7, d8, d9;
    private File bunyaFolder_0_9[] = { d0, d1, d2, d3, d4, d5, d6, d7, d8, d9, };
    /*
-    * ƒCƒ[ƒW
+    * ã‚¤ãƒ¡ãƒ¼ã‚¸
     */
    Zoom    ZoomImg;
    ZoomTab ZoomTabImg;
    /*
-    * ƒCƒxƒ“ƒg
+    * ã‚¤ãƒ™ãƒ³ãƒˆ
     */
    MyMouse mouse = new MyMouse();
    MyKey   key   = new MyKey();
    /*
-    * ƒŒƒCƒAƒEƒg
+    * ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ
     */
    GridBagLayout      category_button_panel_gridbaglayout       = new GridBagLayout();
    GridBagConstraints category_button_panel_gridbag_constrainrs = new GridBagConstraints();
@@ -174,13 +174,13 @@ public class Kaiwa extends JFrame implements Runnable {
     */
    static boolean yelllow_loop_select_flag = false;     //
    static boolean list_select_flag         = false;     //
-   Prop           prop                     = new Prop();// ƒOƒ[ƒoƒ‹‚ÅƒCƒ“ƒXƒ^ƒ“ƒX‰»‚Ío—ˆ‚È‚¢B
+   Prop           prop                     = new Prop();// ã‚°ãƒ­ãƒ¼ãƒãƒ«ã§ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–ã¯å‡ºæ¥ãªã„ã€‚
 
    /**
     * @return
     */
    private JButton meke_help_button() {
-      JButton buttton = new JButton("<html><b><h2>g‚¢•û</h2><b><html>");
+      JButton buttton = new JButton("<html><b><h2>ä½¿ã„æ–¹</h2><b><html>");
       buttton.setBackground(Color.black);
       buttton.setForeground(Color.white);
       buttton.addKeyListener(key);
@@ -222,26 +222,26 @@ public class Kaiwa extends JFrame implements Runnable {
    public Kaiwa() throws IOException, AWTException {
       super();
       /*
-       * í‚É¶Šp‚ğƒNƒŠƒbƒN‚·‚éB
+       * å¸¸ã«å·¦è§’ã‚’ã‚¯ãƒªãƒƒã‚¯ã™ã‚‹ã€‚
        */
       robot_crick robot  = new robot_crick();
       Thread      thread = new Thread(robot);
       thread.start();
-      double_start_lock();// 2d‹N“®ƒƒbƒN
-      // set_tab_ui_manerger();// ƒ^ƒuƒvƒƒpƒeƒBİ’è
-      // Look&Feel‚Ìİ’è
+      double_start_lock();// 2é‡èµ·å‹•ãƒ­ãƒƒã‚¯
+      // set_tab_ui_manerger();// ã‚¿ãƒ–ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£è¨­å®š
+      // Look&Feelã®è¨­å®š
       // String type = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
       // try {
       // UIManager.setLookAndFeel(type);
       // } catch (Exception e) {
-      // System.out.println("—áŠO”­¶F" + e);
+      // System.out.println("ä¾‹å¤–ç™ºç”Ÿï¼š" + e);
       // }
       /*
        * Insets
        */
-      UIManager.put("TabbedPane.tabInsets", new Insets(2, 8, 2, 8));// ƒ^ƒu‚Ìã‰º‹óŠÔİ’è
+      UIManager.put("TabbedPane.tabInsets", new Insets(2, 8, 2, 8));// ã‚¿ãƒ–ã®ä¸Šä¸‹ç©ºé–“è¨­å®š
       // UIManager.put("TabbedPane.tabAreaInsets", new
-      // Insets(8,8,8,8));//ƒ^ƒuƒpƒlƒ‹‚Ìã‰º‹óŠÔİ’è
+      // Insets(8,8,8,8));//ã‚¿ãƒ–ãƒ‘ãƒãƒ«ã®ä¸Šä¸‹ç©ºé–“è¨­å®š
       // UIManager.put("TabbedPane.contentBorderInsets", new Insets(8,8,8,8));
       // UIManager.put("TabbedPane.selectedTabPadInsets", new
       // Insets(8,8,8,8));
@@ -259,8 +259,8 @@ public class Kaiwa extends JFrame implements Runnable {
       UIManager.put("TabbedPane.foreground", Color.white);
       UIManager.put("TabbedPane.focus", new Color(255, 255, 255));
       UIManager.put("TabbedPane.contentAreaColor", new Color(255, 255, 255));
-      UIManager.put("TabbedPane.selected", new Color(255, 255, 255));// ƒ^ƒu‘I‘ğAF‚ğ‚Â‚¯‚éB
-      UIManager.put("TabbedPane.selectHighlight", new Color(0, 0, 0));// ƒ^ƒu¶ã‚Ìü‚ÌF
+      UIManager.put("TabbedPane.selected", new Color(255, 255, 255));// ã‚¿ãƒ–é¸æŠæ™‚ã€è‰²ã‚’ã¤ã‘ã‚‹ã€‚
+      UIManager.put("TabbedPane.selectHighlight", new Color(0, 0, 0));// ã‚¿ãƒ–å·¦ä¸Šã®ç·šã®è‰²
       UIManager.put("TabbedPane.borderHightlightColor", new Color(0, 0, 0));
       /*
        * Opaque
@@ -270,12 +270,12 @@ public class Kaiwa extends JFrame implements Runnable {
       UIManager.put("TabbedPane.selectionFollowsFocus", Boolean.TRUE);
       tabbedPane = new JTabbedPane(JTabbedPane.LEFT);
       prop       = get_property(prop);
-      ImageIcon icon = set_maximum_window_bounds();// ƒtƒŒ[ƒ€‚ğ‰æ–Ê‚É‡‚í‚¹‚é
+      ImageIcon icon = set_maximum_window_bounds();// ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’ç”»é¢ã«åˆã‚ã›ã‚‹
       set_class_property(icon);
-      tabbedPane.addKeyListener(key);// ‘S‘Ì‚ÌComponent‚ÉƒL[‚ª”½‰f‚³‚ê‚é–‚ª‰ğ‚Á‚½B
-      tabbedPane = make_pict_tab();// ƒ^ƒu‚ğ¶¬E‰ÁH
+      tabbedPane.addKeyListener(key);// å…¨ä½“ã®Componentã«ã‚­ãƒ¼ãŒåæ˜ ã•ã‚Œã‚‹äº‹ãŒè§£ã£ãŸã€‚
+      tabbedPane = make_pict_tab();// ã‚¿ãƒ–ã‚’ç”Ÿæˆãƒ»åŠ å·¥
       /*
-       * ƒ^ƒu‚Ì‘OŒiF‚ğØ‚è‘Ö‚¦ƒCƒxƒ“ƒgAİ’è‚·‚éB
+       * ã‚¿ãƒ–ã®å‰æ™¯è‰²ã‚’åˆ‡ã‚Šæ›¿ãˆã‚¤ãƒ™ãƒ³ãƒˆæ™‚ã€è¨­å®šã™ã‚‹ã€‚
        */
       tabbedPane.addChangeListener(new ChangeListener(){
 
@@ -284,7 +284,7 @@ public class Kaiwa extends JFrame implements Runnable {
             int         sindex = jtab.getSelectedIndex();
             for (int i = 0; i < jtab.getTabCount(); i++) {
                if (i == sindex && jtab.getTitleAt(sindex).endsWith("1")) {
-                  // jtab.setForegroundAt(i, Color.GREEN);// H
+                  // jtab.setForegroundAt(i, Color.GREEN);// ï¼Ÿ
                } else if (i == sindex) {
                   // Color sc = (sindex % 2 == 0) ? Color.RED :
                   // Color.BLUE;
@@ -295,24 +295,24 @@ public class Kaiwa extends JFrame implements Runnable {
             }
          }
       });
-      make_rireki();// —š—ğ‚ğì¬
-      make_pict_button();// ã‚Å¶¬‚µ‚½ƒ^ƒuƒpƒlƒ‹‚É‘Î‚µAƒpƒlƒ‹‚Æƒ{ƒ^ƒ“‚ğ’Ç‰Á‚·‚éB
+      make_rireki();// å±¥æ­´ã‚’ä½œæˆ
+      make_pict_button();// ä¸Šã§ç”Ÿæˆã—ãŸã‚¿ãƒ–ãƒ‘ãƒãƒ«ã«å¯¾ã—ã€ãƒ‘ãƒãƒ«ã¨ãƒœã‚¿ãƒ³ã‚’è¿½åŠ ã™ã‚‹ã€‚
       /*
-       * ƒ‹[ƒv‘I‘ğ
+       * ãƒ«ãƒ¼ãƒ—é¸æŠ
        */
       try {
-         if (prop.getPict().getProperty("seting.roop").equals("ON")) {// ƒ‹[ƒvƒCƒxƒ“ƒg‚ğ‹N“®‚·‚éB
+         if (prop.getPict().getProperty("seting.roop").equals("ON")) {// ãƒ«ãƒ¼ãƒ—ã‚¤ãƒ™ãƒ³ãƒˆã‚’èµ·å‹•ã™ã‚‹ã€‚
             thread = new Thread(this);
             thread.start();
-         } else {// ƒ‹[ƒvƒCƒxƒ“ƒg‚ğ‹N“®‚µ‚È‚¢B
+         } else {// ãƒ«ãƒ¼ãƒ—ã‚¤ãƒ™ãƒ³ãƒˆã‚’èµ·å‹•ã—ãªã„ã€‚
          }
       } catch (FileNotFoundException e) {
          e.printStackTrace();
       } catch (IOException e) {
          e.printStackTrace();
       }
-      // Windows ‚V ‚Å‚ÍAƒ{ƒ^ƒ“‚ªƒtƒHƒ‹ƒg‚É‚È‚éB
-      this.setVisible(true);// ÅŒã‚É‰Â‹‰»‚·‚éB
+      // Windows ï¼— ã§ã¯ã€ãƒœã‚¿ãƒ³ãŒãƒ•ã‚©ãƒ«ãƒˆã«ãªã‚‹ã€‚
+      this.setVisible(true);// æœ€å¾Œã«å¯è¦–åŒ–ã™ã‚‹ã€‚
    }
 
    /**
@@ -320,7 +320,7 @@ public class Kaiwa extends JFrame implements Runnable {
     */
    private void make_rireki() {
       /*
-       * ŠG‹L†—š—ğ
+       * çµµè¨˜å·å±¥æ­´
        */
       JPanel     ekigoHistoryP_main = new JPanel(new BorderLayout());
       FlowLayout layout1            = new FlowLayout(0, 3, 3);
@@ -335,13 +335,13 @@ public class Kaiwa extends JFrame implements Runnable {
       view = ekigoHistorySP.getViewport();
       new l(this, "ekigoHistorySP>getLayout==" + ekigoHistorySP.getLayout().toString());
       new l(this, "ekigoHistoryP>getLayout==" + ekigoHistoryP.getLayout().toString());
-      // -------------------------------------------ŠG‹L†—š—ğ
+      // -------------------------------------------çµµè¨˜å·å±¥æ­´
       ekigoHistoryP_main.add(ekigoHistorySP, BorderLayout.CENTER);
       ekigoHistoryP_main.add(meke_help_button(), BorderLayout.EAST);
       this.getContentPane().add(ekigoHistoryP_main, BorderLayout.NORTH);
-      this.getContentPane().add(tabbedPane, BorderLayout.CENTER);// Frame–{‘Ì‚Éæ‚¹‚éB
-      tabbedPane.setSelectedIndex(1);// ƒRƒ“ƒ|[ƒlƒ“ƒg‰Šú‰»A–ÚŸƒ^ƒu‚ÌƒtƒHƒ“ƒg‚ğ•‚É‚·‚éB
-      tabbedPane.setSelectedIndex(0);// ƒRƒ“ƒ|[ƒlƒ“ƒg‰Šú‰»A–ÚŸƒ^ƒu‚ÌƒtƒHƒ“ƒg‚ğ•‚É‚·‚éB
+      this.getContentPane().add(tabbedPane, BorderLayout.CENTER);// Frameæœ¬ä½“ã«ä¹—ã›ã‚‹ã€‚
+      tabbedPane.setSelectedIndex(1);// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆåˆæœŸåŒ–æ™‚ã€ç›®æ¬¡ã‚¿ãƒ–ã®ãƒ•ã‚©ãƒ³ãƒˆã‚’é»’ã«ã™ã‚‹ã€‚
+      tabbedPane.setSelectedIndex(0);// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆåˆæœŸåŒ–æ™‚ã€ç›®æ¬¡ã‚¿ãƒ–ã®ãƒ•ã‚©ãƒ³ãƒˆã‚’é»’ã«ã™ã‚‹ã€‚
    }
 
    /**
@@ -349,7 +349,7 @@ public class Kaiwa extends JFrame implements Runnable {
     */
    private void meke_help_frame() {
       JFrame frame = new JFrame();
-      frame.setTitle("g‚¢•û");
+      frame.setTitle("ä½¿ã„æ–¹");
       frame.setAlwaysOnTop(true);
       FlowLayout          help_panel_layout = new FlowLayout(FlowLayout.LEFT);
       JPanel              help_panel        = new JPanel(help_panel_layout);
@@ -370,7 +370,7 @@ public class Kaiwa extends JFrame implements Runnable {
       System.out.println("rect.height==" + rect.height);
       JScrollBar JScrollBar = new JScrollBar();
       // JScrollBar.set
-      scrollpane.setPreferredSize(new Dimension(rect.width - 15, rect.height));// ƒXƒNƒ[ƒ‹ƒo[‚Ì•‚Ì•ª‚¾‚¯Ak‚ß‚éB
+      scrollpane.setPreferredSize(new Dimension(rect.width - 15, rect.height));// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼ã®å¹…ã®åˆ†ã ã‘ã€ç¸®ã‚ã‚‹ã€‚
       scrollpane.setVerticalScrollBar(JScrollBar);
       scrollpane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
       help_panel.add(scrollpane);
@@ -387,7 +387,7 @@ public class Kaiwa extends JFrame implements Runnable {
       this.setBounds(rect);
       this.setIconImage(icon.getImage());
       this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      this.setTitle("ŠG‹L†‰ï˜bƒ\ƒtƒg");
+      this.setTitle("çµµè¨˜å·ä¼šè©±ã‚½ãƒ•ãƒˆ");
       this.setLayout(new BorderLayout());
    }
 
@@ -397,24 +397,24 @@ public class Kaiwa extends JFrame implements Runnable {
     */
    private void double_start_lock() throws FileNotFoundException, IOException {
       /*
-       * ‹N“®ƒ`ƒFƒbƒN 2d‹N“®‚µ‚È‚¢
+       * èµ·å‹•ãƒã‚§ãƒƒã‚¯ 2é‡èµ·å‹•ã—ãªã„
        */
       final FileOutputStream fos  = new FileOutputStream(new File("./resource/lock_control"));
       final FileChannel      fc   = fos.getChannel();
       final FileLock         lock = fc.tryLock();
       if (lock == null) {
          /*
-          * Šù‚É‹N“®‚³‚ê‚Ä‚¢‚é‚Ì‚ÅI—¹‚·‚é
+          * æ—¢ã«èµ·å‹•ã•ã‚Œã¦ã„ã‚‹ã®ã§çµ‚äº†ã™ã‚‹
           */
          try {
             "hello".charAt(-1);
          } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "ŠG‹L†‰ï˜bƒ\ƒtƒg‚Í‚·‚Å‚É‹N“®‚µ‚Ä‚¢‚Ü‚·B");
+            JOptionPane.showMessageDialog(null, "çµµè¨˜å·ä¼šè©±ã‚½ãƒ•ãƒˆã¯ã™ã§ã«èµ·å‹•ã—ã¦ã„ã¾ã™ã€‚");
             System.exit(0);
          }
          return;
       }
-      Runtime.getRuntime().addShutdownHook(new Thread(){// ƒƒbƒNŠJ•úˆ—‚ğ“o˜^
+      Runtime.getRuntime().addShutdownHook(new Thread(){// ãƒ­ãƒƒã‚¯é–‹æ”¾å‡¦ç†ã‚’ç™»éŒ²
 
          public void run() {
             if (lock != null && lock.isValid()) {
@@ -474,7 +474,7 @@ public class Kaiwa extends JFrame implements Runnable {
          e1.printStackTrace();
       }
       /*
-       * ŠG‹L†‚Ìs”‚ğİ’è
+       * çµµè¨˜å·ã®è¡Œæ•°ã‚’è¨­å®š
        */
       try {
          if (prop.getPict().getProperty("seting.gyou").equals("3")) {
@@ -489,18 +489,18 @@ public class Kaiwa extends JFrame implements Runnable {
       }
       try {
          /*
-          * ŠG‹L†‚Ìs”‚ğæ“¾
+          * çµµè¨˜å·ã®è¡Œæ•°ã‚’å–å¾—
           */
          try {
-            if (prop.getPict().getProperty("seting.list").equals("‡@à–¾‚ğ•\¦")) {
-               gyouIs = "‡@à–¾‚ğ•\¦";
-               new l(this, "Kaiwa>getProp>else if (prop.getPict().getProperty(seting.list).equals(à–¾))");
-            } else if (prop.getPict().getProperty("seting.list").equals("‡AŠG‹L†‚ğŠg‘å•\¦")) {
-               gyouIs = "‡AŠG‹L†‚ğŠg‘å•\¦";
-               new l(this, "Kaiwa>getProp>else if (prop.getPict().getProperty(seting.list).equals(ŠG‹L†))");
-            } else if (prop.getPict().getProperty("seting.list").equals("‡BŠG‹L†ˆê“I‚É•\¦")) {
-               gyouIs = "‡BŠG‹L†ˆê“I‚É•\¦";
-               new l(this, "Kaiwa>getProp>else if (prop.getPict().getProperty(seting.list).equals(ŠG‹L†ˆê))");
+            if (prop.getPict().getProperty("seting.list").equals("â‘ èª¬æ˜ã‚’è¡¨ç¤º")) {
+               gyouIs = "â‘ èª¬æ˜ã‚’è¡¨ç¤º";
+               new l(this, "Kaiwa>getProp>else if (prop.getPict().getProperty(seting.list).equals(èª¬æ˜))");
+            } else if (prop.getPict().getProperty("seting.list").equals("â‘¡çµµè¨˜å·ã‚’æ‹¡å¤§è¡¨ç¤º")) {
+               gyouIs = "â‘¡çµµè¨˜å·ã‚’æ‹¡å¤§è¡¨ç¤º";
+               new l(this, "Kaiwa>getProp>else if (prop.getPict().getProperty(seting.list).equals(çµµè¨˜å·))");
+            } else if (prop.getPict().getProperty("seting.list").equals("â‘¢çµµè¨˜å·ä¸€æ™‚çš„ã«è¡¨ç¤º")) {
+               gyouIs = "â‘¢çµµè¨˜å·ä¸€æ™‚çš„ã«è¡¨ç¤º";
+               new l(this, "Kaiwa>getProp>else if (prop.getPict().getProperty(seting.list).equals(çµµè¨˜å·ä¸€æ™‚))");
             }
          } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -508,22 +508,22 @@ public class Kaiwa extends JFrame implements Runnable {
             e.printStackTrace();
          }
          /*
-          * –ÚŸ€–Ú
+          * ç›®æ¬¡é …ç›®
           */
          for (int j = 0; j < 10; j++) {
             category_from_property[j]          = new String();
-            category_from_property[j]          = prop.getPict().getProperty("seting.category_name" + String.valueOf(j));// ƒJƒeƒSƒŠ–¼•¶š—ñ
+            category_from_property[j]          = prop.getPict().getProperty("seting.category_name" + String.valueOf(j));// ã‚«ãƒ†ã‚´ãƒªåæ–‡å­—åˆ—
             category_img_from_property[j]      = new String();
             category_img_from_property[j]      = prop.getPict().getProperty(
-                                                               "seting.category_img_name" + String.valueOf(j));         // ƒJƒeƒSƒŠ‰æ‘œ–¼•¶š—ñ
+                                                               "seting.category_img_name" + String.valueOf(j));         // ã‚«ãƒ†ã‚´ãƒªç”»åƒåæ–‡å­—åˆ—
             category_visible_boolean_string[j] = new String();
-            category_visible_boolean_string[j] = prop.getPict().getProperty("seting.mokujiBool" + String.valueOf(j));   // ƒJƒeƒSƒŠ
-            // •\¦true
+            category_visible_boolean_string[j] = prop.getPict().getProperty("seting.mokujiBool" + String.valueOf(j));   // ã‚«ãƒ†ã‚´ãƒª
+            // è¡¨ç¤ºtrue
             // or
             // false
             category_visible_boolean[j] = Boolean.parseBoolean(category_visible_boolean_string[j]);
-            new l(this, "category_from_property[" + j + "] F mokujiBool[" + j + "] == " + category_from_property[j]
-                                                               + " F " + category_visible_boolean_string[j]);
+            new l(this, "category_from_property[" + j + "] ï¼š mokujiBool[" + j + "] == " + category_from_property[j]
+                                                               + " ï¼š " + category_visible_boolean_string[j]);
          }
       } catch (FileNotFoundException e) {
          e.printStackTrace();
@@ -563,8 +563,8 @@ public class Kaiwa extends JFrame implements Runnable {
             tabbedPane.setTitleAt(tabCount, category_from_property[i]);
             // tabbedPane.setTitleAt(tabCount, String.valueOf(i));
             /*
-             * ƒ^ƒu‚ÉhtmlƒŒƒCƒAƒEƒg‚Å‰æ‘œ‚Æ•¶š—ñ‚ğİ’è‚µ‚½‚¢‚ªAƒ^ƒu‚ÍŠG‹L†’¼Š´“I‚É‹æ•Ê‚Å‚«‚é‚æ‚¤‚É‚µ‚È‚¯‚ê‚Î‚È‚ç‚È‚¢A‚Æv‚Á‚½B ‚µ‚©‚µAƒ^ƒu‚ğ‘I‘ğ‚·‚é‚Ì‚Í
-             * ‰SÒ‚Ì‰îŒìÒ‚Ìê‡‚ª‚ ‚é‚Ì‚ÅAƒ^ƒu‚É•ª–ì‚Ì•¶š—ñ‚ğ“ü‚ê‚é‚±‚Æ‚Æ‚·‚éB
+             * ã‚¿ãƒ–ã«htmlãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆã§ç”»åƒã¨æ–‡å­—åˆ—ã‚’è¨­å®šã—ãŸã„ãŒã€ã‚¿ãƒ–ã¯çµµè¨˜å·ç›´æ„Ÿçš„ã«åŒºåˆ¥ã§ãã‚‹ã‚ˆã†ã«ã—ãªã‘ã‚Œã°ãªã‚‰ãªã„ã€ã¨æ€ã£ãŸã€‚ ã—ã‹ã—ã€ã‚¿ãƒ–ã‚’é¸æŠã™ã‚‹ã®ã¯
+             * åˆå¿ƒè€…ã®ä»‹è­·è€…ã®å ´åˆãŒã‚ã‚‹ã®ã§ã€ã‚¿ãƒ–ã«åˆ†é‡ã®æ–‡å­—åˆ—ã‚’å…¥ã‚Œã‚‹ã“ã¨ã¨ã™ã‚‹ã€‚
              */
             // tabbedPane.add(makeTitle(category_from_property[i],
             // "./resource/img/tab1/" + category_img_from_property[i] +
@@ -593,39 +593,39 @@ public class Kaiwa extends JFrame implements Runnable {
       new l(this, "public void button()");
       for (int i = 0; i < tabPanel_0_9.length; i++) {
          /*
-          * •ª–ì–ˆ‚Ìƒtƒ@ƒCƒ‹”‚ğæ“¾
+          * åˆ†é‡æ¯ã®ãƒ•ã‚¡ã‚¤ãƒ«æ•°ã‚’å–å¾—
           */
          if (category_visible_boolean[i].equals(true)) {
             new l(this, "if (bool[i].equals(true))");
             bunyaFolder_0_9[i] = new File("./resource/img/" + category_directory_9[i]);
-            bunyaFiles_0_9[i]  = bunyaFolder_0_9[i].listFiles();                       // ƒtƒHƒ‹ƒ_[“à‚Ìƒtƒ@ƒCƒ‹‚ğ”z—ñ‚Å•Ô‚·B
+            bunyaFiles_0_9[i]  = bunyaFolder_0_9[i].listFiles();                       // ãƒ•ã‚©ãƒ«ãƒ€ãƒ¼å†…ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é…åˆ—ã§è¿”ã™ã€‚
             category_files_num = bunyaFiles_0_9[i].length;
             /*
-             * ŠG‹L†‚Ìs”‚ğİ’è
+             * çµµè¨˜å·ã®è¡Œæ•°ã‚’è¨­å®š
              */
             tabPanel_0_9[i].setLayout(new GridLayout(gyouI, 5, 1, 1));
             tabPanel_0_9[i].setLayout(new GridLayout(gyouI, 5, 1, 1));
             /*
-             * c‚Æ‰¡‚Éƒ{ƒ^ƒ“‚ğ•~‚«‹l‚ß‚é‚½‚ßA category_tate_kakeru_yoko_num: c~‰¡‚Ì”‚ğæ“¾‚·‚éB
+             * ç¸¦ã¨æ¨ªã«ãƒœã‚¿ãƒ³ã‚’æ•·ãè©°ã‚ã‚‹ãŸã‚ã€ category_tate_kakeru_yoko_num: ç¸¦Ã—æ¨ªã®æ•°ã‚’å–å¾—ã™ã‚‹ã€‚
              */
-            category_tate_kakeru_yoko_num = (int) (gyouI * (Math.floor(category_files_num / gyouI) + 1));// c~‰¡‚Ì”
-            panels_0_9[i]                 = new JPanel[category_tate_kakeru_yoko_num];                   // ŠG‹L†ƒpƒlƒ‹
-            buttons_0_9[i]                = new JButton[category_tate_kakeru_yoko_num];                  // ŠG‹L†ƒ{ƒ^ƒ“
-            nameButtons_0_9[i]            = new JButton[category_tate_kakeru_yoko_num];                  // ŠG‹L†–¼ƒ{ƒ^ƒ“
+            category_tate_kakeru_yoko_num = (int) (gyouI * (Math.floor(category_files_num / gyouI) + 1));// ç¸¦Ã—æ¨ªã®æ•°
+            panels_0_9[i]                 = new JPanel[category_tate_kakeru_yoko_num];                   // çµµè¨˜å·ãƒ‘ãƒãƒ«
+            buttons_0_9[i]                = new JButton[category_tate_kakeru_yoko_num];                  // çµµè¨˜å·ãƒœã‚¿ãƒ³
+            nameButtons_0_9[i]            = new JButton[category_tate_kakeru_yoko_num];                  // çµµè¨˜å·åãƒœã‚¿ãƒ³
             /*
-             * ŠG‹L†ƒ{ƒ^ƒ“‚ğ¶¬
+             * çµµè¨˜å·ãƒœã‚¿ãƒ³ã‚’ç”Ÿæˆ
              */
             for (int j = 0; j < category_tate_kakeru_yoko_num; j++) {
                /*
-                * «—ˆA‚±‚±‚É‚³‚Ü‚´‚Ü‚Èƒ{ƒ^ƒ“1ŒÂ‚É‚æ‚é‘€ì‰Â”\‚Èƒ\ƒtƒg‚ğ“ü‚ê‚éB
+                * å°†æ¥ã€ã“ã“ã«ã•ã¾ã–ã¾ãªãƒœã‚¿ãƒ³1å€‹ã«ã‚ˆã‚‹æ“ä½œå¯èƒ½ãªã‚½ãƒ•ãƒˆã‚’å…¥ã‚Œã‚‹ã€‚
                 */
-               if (i == 9) {// ƒAƒvƒŠ•ª–ì
+               if (i == 9) {// ã‚¢ãƒ—ãƒªåˆ†é‡
                   buttons_0_9[i][j]     = new JButton();//
                   nameButtons_0_9[i][j] = new JButton();//
                   buttons_0_9[i][j].setBackground(new Color(0, 0, 0));
                   if (category_files_num <= j) {
                      /*
-                      * ƒAƒvƒŠ‚Ìjar‚ª‚È‚¢ƒ{ƒ^ƒ“ •‚­•\¦‚·‚éB
+                      * ã‚¢ãƒ—ãƒªã®jarãŒãªã„ãƒœã‚¿ãƒ³ é»’ãè¡¨ç¤ºã™ã‚‹ã€‚
                       */
                      nameButtons_0_9[i][j].setText(" ");
                      nameButtons_0_9[i][j].setBackground(Color.black);
@@ -661,9 +661,9 @@ public class Kaiwa extends JFrame implements Runnable {
                      tabPanel_0_9[i].add(panels_0_9[i][j]);
                   } else {
                      /*
-                      * ƒAƒvƒŠ‚Ìƒ{ƒ^ƒ“
+                      * ã‚¢ãƒ—ãƒªã®ãƒœã‚¿ãƒ³
                       */
-                     int point = bunyaFiles_0_9[i][j].getName().lastIndexOf(".");// ƒ|ƒCƒ“ƒg‚Ì•¶š”Ô–Ú‚ğ•Ô‚·B
+                     int point = bunyaFiles_0_9[i][j].getName().lastIndexOf(".");// ãƒã‚¤ãƒ³ãƒˆã®æ–‡å­—ç•ªç›®ã‚’è¿”ã™ã€‚
                      nameButtons_0_9[i][j].setText(bunyaFiles_0_9[i][j].getName().substring(0, point));
                      nameButtons_0_9[i][j].setBackground(Color.black);
                      nameButtons_0_9[i][j].addMouseListener(mouse);
@@ -701,7 +701,7 @@ public class Kaiwa extends JFrame implements Runnable {
                   }
                } else if (1 <= i) {
                   /*
-                   * ŠG‹L†•ª–ìiƒAƒvƒŠˆÈŠO‚Ì•ª–ìj ƒCƒ“ƒfƒbƒNƒX0”Ô–Ú‚Í–ÚŸƒ{ƒ^ƒ“
+                   * çµµè¨˜å·åˆ†é‡ï¼ˆã‚¢ãƒ—ãƒªä»¥å¤–ã®åˆ†é‡ï¼‰ ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹0ç•ªç›®ã¯ç›®æ¬¡ãƒœã‚¿ãƒ³
                    */
                   buttons_0_9[i][j] = new JButton();//
                   buttons_0_9[i][j].setBackground(new Color(0, 0, 0));
@@ -746,9 +746,9 @@ public class Kaiwa extends JFrame implements Runnable {
                      this.setVisible(true);
                   } else {
                      /*
-                      * ŠG‹L†‰æ–Ê‚ªtrue
+                      * çµµè¨˜å·ç”»é¢ãŒtrue
                       */
-                     int point = bunyaFiles_0_9[i][j].getName().lastIndexOf(".");// ƒ|ƒCƒ“ƒg‚Ì•¶š”Ô–Ú‚ğ•Ô‚·B
+                     int point = bunyaFiles_0_9[i][j].getName().lastIndexOf(".");// ãƒã‚¤ãƒ³ãƒˆã®æ–‡å­—ç•ªç›®ã‚’è¿”ã™ã€‚
                      nameButtons_0_9[i][j].setText(bunyaFiles_0_9[i][j].getName().substring(0, point));
                      nameButtons_0_9[i][j].setBackground(Color.black);
                      nameButtons_0_9[i][j].setForeground(Color.white);
@@ -799,17 +799,17 @@ public class Kaiwa extends JFrame implements Runnable {
    }
 
    /**
-    * –ÚŸ‰Šú‰»
+    * ç›®æ¬¡åˆæœŸåŒ–
     *
     * @param category_botton_panel
     */
    public void mokuji(JPanel[] category_botton_panel) {
       /*
-       * –ÚŸƒ{ƒ^ƒ“İ’èij
+       * ç›®æ¬¡ãƒœã‚¿ãƒ³è¨­å®šï¼ˆï¼‰
        */
       for (int i = 1; i < 10; i++) {
          /*
-          * BFƒCƒ“ƒfƒbƒNƒX‚Ìg‚¢•û‚ª•s“K“–‚Æv‚í‚ê‚é
+          * Bï¼šã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã®ä½¿ã„æ–¹ãŒä¸é©å½“ã¨æ€ã‚ã‚Œã‚‹
           */
          if (category_visible_boolean[i].equals(true)) {
             category_button_9[i] = new JButton(category_from_property[i]);
@@ -859,7 +859,7 @@ public class Kaiwa extends JFrame implements Runnable {
             loop_index = 1;
          }
          /*
-          * ƒ^ƒu‚Ìsƒ{ƒ^ƒ“”‚ğæ“¾
+          * ã‚¿ãƒ–ã®è¡Œãƒœã‚¿ãƒ³æ•°ã‚’å–å¾—
           */
          if (category_visible_boolean[loop_index].equals(true)) {
             yoko_Num = (int) Math.floor(bunyaFiles_0_9[loop_index].length / gyouI) + 1;
@@ -871,28 +871,28 @@ public class Kaiwa extends JFrame implements Runnable {
     * @param tabIndex
     */
    private void ekigoLoop(int tabIndex) {
-      new l(this, "ekigoLoop ‡@");
+      new l(this, "ekigoLoop â‘ ");
       /*
-       * ã‰ºƒ‹[ƒv
+       * ä¸Šä¸‹ãƒ«ãƒ¼ãƒ—
        */
       while (true) {
          /*
-          * ƒ‹[ƒv‰¹ playWave("resource/Windows Feed Discovered.wav");//ƒsƒ“
+          * ãƒ«ãƒ¼ãƒ—éŸ³ playWave("resource/Windows Feed Discovered.wav");//ãƒ”ãƒ³
           */
-         playWave("resource/Windows Information Bar.wav");// ƒ|ƒ“
+         playWave("resource/Windows Information Bar.wav");// ãƒãƒ³
          new l(this, "while (true)>mokujiBIndexI  yoko_Inc  yoko_Num==" + loop_index + "  " + yoko_Inc + "  "
                                                             + yoko_Num);
          /*
-          * ƒ^ƒu‚ª–ÚŸ‚É‚È‚Á‚½‚çƒ‹[ƒv‚ğo‚éB
+          * ã‚¿ãƒ–ãŒç›®æ¬¡ã«ãªã£ãŸã‚‰ãƒ«ãƒ¼ãƒ—ã‚’å‡ºã‚‹ã€‚
           */
          if (tabbedPane.getSelectedIndex() == 0) {
-            new l(this, "ƒ^ƒu‚ª–ÚŸ‚É‚È‚Á‚½‚Ì‚Åƒ‹[ƒv‚ğo‚éFif (tabbedPane.getSelectedIndex() == 0)");
+            new l(this, "ã‚¿ãƒ–ãŒç›®æ¬¡ã«ãªã£ãŸã®ã§ãƒ«ãƒ¼ãƒ—ã‚’å‡ºã‚‹ï¼šif (tabbedPane.getSelectedIndex() == 0)");
             new l(this, "mokujiBIndexI_save==" + tab_change_init_num);
             loop_index = tab_change_init_num;
             break;
          }
          /*
-          * FˆÚ“®F•ª–ì
+          * è‰²ç§»å‹•ï¼šåˆ†é‡
           */
          for (int p = 0; p < yoko_Num; p++) {
             panels_0_9[loop_index][yoko_Inc + p].setBorder(new LineBorder(Color.white, 8, false));
@@ -904,23 +904,23 @@ public class Kaiwa extends JFrame implements Runnable {
             e1.printStackTrace();
          }
          /*
-          * ¶‰Eƒ‹[ƒv
+          * å·¦å³ãƒ«ãƒ¼ãƒ—
           */
          while (yelllow_loop_select_flag) {
-            new l(this, "while (tateFlag)„yoko_Inc2Fyoko_IncFyoko_NumFtate_Inc==" + yoko_Inc2 + "F" + yoko_Inc + "F"
-                                                               + yoko_Num + "F" + tate_Inc);
-            list_select_flag = false;// ‘I‘ğ‚³‚ê‚é‚Ü‚Åƒ‹[ƒv
+            new l(this, "while (tateFlag)ï¼yoko_Inc2ï¼šyoko_Incï¼šyoko_Numï¼štate_Inc==" + yoko_Inc2 + "ï¼š" + yoko_Inc + "ï¼š"
+                                                               + yoko_Num + "ï¼š" + tate_Inc);
+            list_select_flag = false;// é¸æŠã•ã‚Œã‚‹ã¾ã§ãƒ«ãƒ¼ãƒ—
             /*
-             * FˆÚ“®F•ª–ìF‰¡‚ÉˆÚ“®‚µ‚½‚Æ‚«AF‚ğ‚à‚Æ‚É–ß‚·B
+             * è‰²ç§»å‹•ï¼šåˆ†é‡ï¼šæ¨ªã«ç§»å‹•ã—ãŸã¨ãã€è‰²ã‚’ã‚‚ã¨ã«æˆ»ã™ã€‚
              */
             panels_0_9[loop_index][yoko_Num * yoko_Inc2 + tate_Inc].setBorder(new LineBorder(Color.white, 0, false));
             nameButtons_0_9[loop_index][yoko_Num * yoko_Inc2 + tate_Inc].setForeground(Color.white);
-            // d‚È‚é•”•ª‚ÍÔ‚ÉiyokoF‰¡ƒ‹[ƒv‚ÌƒCƒ“ƒNƒŠƒƒ“ƒgj
-            // yoko_Ink:ãs‚Ì‡Œv
-            // FˆÚ“®F•ª–ìF‰¡‚ÉˆÚ“®
+            // é‡ãªã‚‹éƒ¨åˆ†ã¯èµ¤ã«ï¼ˆyokoï¼šæ¨ªãƒ«ãƒ¼ãƒ—ã®ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ãƒˆï¼‰
+            // yoko_Ink:ä¸Šè¡Œã®åˆè¨ˆ
+            // è‰²ç§»å‹•ï¼šåˆ†é‡ï¼šæ¨ªã«ç§»å‹•
             panels_0_9[loop_index][tate_Inc + yoko_Inc].setBorder(new LineBorder(Color.orange, 10, false));
             /*
-             * ‚½‚ÄˆÚ“®–ˆ‚É‰¹‚ğ–Â‚ç‚·
+             * ãŸã¦ç§»å‹•æ¯ã«éŸ³ã‚’é³´ã‚‰ã™
              */
             Koe.oto(buttons_0_9[loop_index][tate_Inc + yoko_Inc].getText());
             try {
@@ -929,12 +929,12 @@ public class Kaiwa extends JFrame implements Runnable {
                e1.printStackTrace();
             }
             /*
-             * FˆÚ“®F•ª–ìF‰¡‚ÉˆÚ“®‚·‚éB ‰¡‚Æd‚È‚Á‚Ä‚¢‚½•”•ª‚Í•‚©‚ç‰©F‚É–ß‚·B
+             * è‰²ç§»å‹•ï¼šåˆ†é‡ï¼šæ¨ªã«ç§»å‹•ã™ã‚‹ã€‚ æ¨ªã¨é‡ãªã£ã¦ã„ãŸéƒ¨åˆ†ã¯é»’ã‹ã‚‰é»„è‰²ã«æˆ»ã™ã€‚
              */
             panels_0_9[loop_index][yoko_Num * yoko_Inc2 + tate_Inc].setBorder(new LineBorder(Color.white, 10, false));
             nameButtons_0_9[loop_index][yoko_Num * yoko_Inc2 + tate_Inc].setForeground(Color.white);
             /*
-             * ƒ^ƒuƒCƒ“ƒfƒbƒNƒX‚ª•Ï‰»‚µ‚½‚ç–ÚŸƒ‹[ƒv‚Ö
+             * ã‚¿ãƒ–ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãŒå¤‰åŒ–ã—ãŸã‚‰ç›®æ¬¡ãƒ«ãƒ¼ãƒ—ã¸
              */
             if (tabbedPane.getSelectedIndex() != tabIndex) {
                tate_Inc  = 0;
@@ -942,17 +942,17 @@ public class Kaiwa extends JFrame implements Runnable {
                break;
             }
             /*
-             * ƒŠƒXƒg‰æ–Ê‚Ö
+             * ãƒªã‚¹ãƒˆç”»é¢ã¸
              */
             if (list_select_flag) {
                /*
-                * ƒAƒvƒŠƒpƒlƒ‹iÅIƒpƒlƒ‹j
+                * ã‚¢ãƒ—ãƒªãƒ‘ãƒãƒ«ï¼ˆæœ€çµ‚ãƒ‘ãƒãƒ«ï¼‰
                 */
                if (tabbedPane.getSelectedIndex() == trueCount - 1) {
                   /*
-                   * –ÚŸƒ{ƒ^ƒ“
+                   * ç›®æ¬¡ãƒœã‚¿ãƒ³
                    */
-                  if (buttons_0_9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc].getText().equals("‚à‚­‚¶")) {
+                  if (buttons_0_9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc].getText().equals("ã‚‚ãã˜")) {
                      Koe.oto(buttons_0_9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc].getText());
                      try {
                         Thread.sleep(1000);
@@ -962,7 +962,7 @@ public class Kaiwa extends JFrame implements Runnable {
                      yelllow_loop_select_flag = false;
                      tabbedPane.setSelectedIndex(0);
                      /*
-                      * Kaiwa‚©‚ç‚ÌƒCƒxƒ“ƒg‚Æˆá‚¢n‚ß‚©‚çŒÄ‚Ño‚µ‚Ä‚¢‚È‚¢‚½‚ßA‰Šú‰»‚·‚é
+                      * Kaiwaã‹ã‚‰ã®ã‚¤ãƒ™ãƒ³ãƒˆã¨é•ã„å§‹ã‚ã‹ã‚‰å‘¼ã³å‡ºã—ã¦ã„ãªã„ãŸã‚ã€åˆæœŸåŒ–ã™ã‚‹
                       */
                      tate_Inc  = 0;
                      yoko_Inc2 = 0;
@@ -972,7 +972,7 @@ public class Kaiwa extends JFrame implements Runnable {
                   if (buttons_0_9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc].getText().equals("tab10")) {
                   } else {
                      /*
-                      * ‘¼PC‚É“ü‚ê‚é‚Æ‚«‚ÍACF‚É‹ß‚¢Š‚É“ü‚ê‚È‚¢‚ÆAexecƒGƒ‰[‚É‚È‚éB
+                      * ä»–PCã«å…¥ã‚Œã‚‹ã¨ãã¯ã€Cï¼šã«è¿‘ã„æ‰€ã«å…¥ã‚Œãªã„ã¨ã€execã‚¨ãƒ©ãƒ¼ã«ãªã‚‹ã€‚
                       */
                      File   f       = new File("./resource/img/tab10/" + buttons_0_9[loop_index][yoko_Inc2 * yoko_Num
                                                                         + tate_Inc].getText() + ".jar");
@@ -982,12 +982,12 @@ public class Kaiwa extends JFrame implements Runnable {
                      Runtime runtime = Runtime.getRuntime();
                      Process process = null;
                      /*
-                      * jar‚ÌÀs
+                      * jarã®å®Ÿè¡Œ
                       */
-                     new l(this, "jar‚ ‚è");
+                     new l(this, "jarã‚ã‚Š");
                      new l(this, "==" + buttons_0_9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc].getText());
-                     new l(this, "yoko_Inc2Fyoko_IncFyoko_NumFtate_Inc==" + yoko_Inc2 + "F" + yoko_Inc + "F" + yoko_Num
-                                                                        + "F" + tate_Inc);
+                     new l(this, "yoko_Inc2ï¼šyoko_Incï¼šyoko_Numï¼štate_Inc==" + yoko_Inc2 + "ï¼š" + yoko_Inc + "ï¼š" + yoko_Num
+                                                                        + "ï¼š" + tate_Inc);
                      try {
                         process = runtime.exec("cmd /c start " + command);
                      } catch (IOException e) {
@@ -1013,38 +1013,38 @@ public class Kaiwa extends JFrame implements Runnable {
                   yelllow_loop_select_flag = false;
                   break;
                   /*
-                   * ƒAƒvƒŠˆÈŠO‚Ì•ª–ì
+                   * ã‚¢ãƒ—ãƒªä»¥å¤–ã®åˆ†é‡
                    */
                } else {
                   /*
-                   * –ÚŸƒ{ƒ^ƒ“‚ğ‘I‘ğ
+                   * ç›®æ¬¡ãƒœã‚¿ãƒ³ã‚’é¸æŠ
                    */
-                  if (buttons_0_9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc].getText().equals("‚à‚­‚¶")) {
+                  if (buttons_0_9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc].getText().equals("ã‚‚ãã˜")) {
                      Koe.oto(buttons_0_9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc].getText());
                      yelllow_loop_select_flag = false;
                      tabbedPane.setSelectedIndex(0);
                      /*
-                      * KaiwaPictList‚©‚ç‚ÌƒCƒxƒ“ƒg‚Æˆá‚¢n‚ß‚©‚çŒÄ‚Ño‚µ‚Ä‚¢‚È‚¢‚½‚ßA‰Šú‰»‚·‚é
+                      * KaiwaPictListã‹ã‚‰ã®ã‚¤ãƒ™ãƒ³ãƒˆã¨é•ã„å§‹ã‚ã‹ã‚‰å‘¼ã³å‡ºã—ã¦ã„ãªã„ãŸã‚ã€åˆæœŸåŒ–ã™ã‚‹
                       */
                      tate_Inc  = 0;
                      yoko_Inc2 = 0;
                      break;
                      /*
-                      * ŠG‹L†‚ğ‘I‘ğ
+                      * çµµè¨˜å·ã‚’é¸æŠ
                       */
                   } else {
                      if (bunyaFiles_0_9[loop_index].length > yoko_Inc2 * yoko_Num + tate_Inc) {
                         /*
-                         * ƒ{ƒ^ƒ“‚ğ“_–Å‚³‚¹‚é
+                         * ãƒœã‚¿ãƒ³ã‚’ç‚¹æ»…ã•ã›ã‚‹
                          */
                         Thread thread = new Thread(new PointerColorTHread());
                         thread.start();
                         panels_0_9[loop_index][tate_Inc + yoko_Inc].setBorder(new LineBorder(Color.black, 8, false));
                         nameButtons_0_9[loop_index][tate_Inc + yoko_Inc].setForeground(Color.white);
-                        if (gyouIs.equals("‡AŠG‹L†‚ğŠg‘å•\¦")) {
-                           new l(this, "if (gyouIs.equals(‡AŠG‹L†‚ğŠg‘å•\¦) {");
+                        if (gyouIs.equals("â‘¡çµµè¨˜å·ã‚’æ‹¡å¤§è¡¨ç¤º")) {
+                           new l(this, "if (gyouIs.equals(â‘¡çµµè¨˜å·ã‚’æ‹¡å¤§è¡¨ç¤º) {");
                            /*
-                            * ŠG‹L†‘I‘ğ—š—ğ ƒNƒŠƒbƒN
+                            * çµµè¨˜å·é¸æŠå±¥æ­´ ã‚¯ãƒªãƒƒã‚¯æ™‚
                             */
                            Zoom zoom = new Zoom(new ImageIcon("./resource/img/" + category_directory_9[loop_index] + "/"
                                                                               + buttons_0_9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc]
@@ -1072,10 +1072,10 @@ public class Kaiwa extends JFrame implements Runnable {
                            }
                            ekigoHistoryP.add(ekigoHistoryB);
                            this.setVisible(true);
-                           // -----------------------------------ŠG‹L†‘I‘ğ—š—ğ
-                           // ƒNƒŠƒbƒN
+                           // -----------------------------------çµµè¨˜å·é¸æŠå±¥æ­´
+                           // ã‚¯ãƒªãƒƒã‚¯æ™‚
                            /*
-                            * ŠG‹L†‚ğ•\¦‚·‚é‘O‚ÉAŠÔ‚ğ‚¨‚­
+                            * çµµè¨˜å·ã‚’è¡¨ç¤ºã™ã‚‹å‰ã«ã€æ™‚é–“ã‚’ãŠã
                             */
                            try {
                               Thread.sleep(handleLag);
@@ -1089,10 +1089,10 @@ public class Kaiwa extends JFrame implements Runnable {
                               e.printStackTrace();
                            }
                            Koe.oto(buttons_0_9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc].getText());
-                        } else if (gyouIs.equals("‡@à–¾‚ğ•\¦")) {
-                           new l(this, "if (gyouIs.equals(‡@à–¾‚ğ•\¦)) {");
+                        } else if (gyouIs.equals("â‘ èª¬æ˜ã‚’è¡¨ç¤º")) {
+                           new l(this, "if (gyouIs.equals(â‘ èª¬æ˜ã‚’è¡¨ç¤º)) {");
                            /*
-                            * ŠG‹L†‘I‘ğ—š—ğ ƒNƒŠƒbƒN
+                            * çµµè¨˜å·é¸æŠå±¥æ­´ ã‚¯ãƒªãƒƒã‚¯æ™‚
                             */
                            Zoom zoom = new Zoom(new ImageIcon("./resource/img/" + category_directory_9[loop_index] + "/"
                                                                               + buttons_0_9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc]
@@ -1122,7 +1122,7 @@ public class Kaiwa extends JFrame implements Runnable {
                            this.setVisible(true);
                            // -----------------------------------
                            /*
-                            * ŠG‹L†‚ğ•\¦‚·‚é‘O‚ÉAŠÔ‚ğ‚¨‚­B
+                            * çµµè¨˜å·ã‚’è¡¨ç¤ºã™ã‚‹å‰ã«ã€æ™‚é–“ã‚’ãŠãã€‚
                             */
                            try {
                               Thread.sleep(handleLag);
@@ -1141,10 +1141,10 @@ public class Kaiwa extends JFrame implements Runnable {
                               e.printStackTrace();
                            }
                            Koe.oto(buttons_0_9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc].getText());
-                        } else if (gyouIs.equals("‡BŠG‹L†ˆê“I‚É•\¦")) {
-                           new l(this, "if (gyouIs.equals(‡BŠG‹L†ˆê“I‚É•\¦)) {");
+                        } else if (gyouIs.equals("â‘¢çµµè¨˜å·ä¸€æ™‚çš„ã«è¡¨ç¤º")) {
+                           new l(this, "if (gyouIs.equals(â‘¢çµµè¨˜å·ä¸€æ™‚çš„ã«è¡¨ç¤º)) {");
                            /*
-                            * ŠG‹L†‘I‘ğ—š—ğ ƒNƒŠƒbƒN
+                            * çµµè¨˜å·é¸æŠå±¥æ­´ ã‚¯ãƒªãƒƒã‚¯æ™‚
                             */
                            Zoom zoom = new Zoom(new ImageIcon("./resource/img/" + category_directory_9[loop_index] + "/"
                                                                               + buttons_0_9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc]
@@ -1174,7 +1174,7 @@ public class Kaiwa extends JFrame implements Runnable {
                            this.setVisible(true);
                            // -----------------------------------
                            /*
-                            * ŠG‹L†‚ğ•\¦‚·‚é‘O‚ÉAŠÔ‚ğ‚¨‚­B
+                            * çµµè¨˜å·ã‚’è¡¨ç¤ºã™ã‚‹å‰ã«ã€æ™‚é–“ã‚’ãŠãã€‚
                             */
                            try {
                               Thread.sleep(handleLag);
@@ -1182,7 +1182,7 @@ public class Kaiwa extends JFrame implements Runnable {
                               e1.printStackTrace();
                            }
                            /*
-                            * ¬‚³‚ÈŠG‹L†‚ğ‚Q•bŠÔ•\¦‚·‚éB
+                            * å°ã•ãªçµµè¨˜å·ã‚’ï¼’ç§’é–“è¡¨ç¤ºã™ã‚‹ã€‚
                             */
                            try {
                               // public BigEkigo(String
@@ -1192,19 +1192,19 @@ public class Kaiwa extends JFrame implements Runnable {
                            } catch (HeadlessException e) {
                               e.printStackTrace();
                            }
-                           // -----------------------------------------------¬‚³‚ÈŠG‹L†‚ğ‚Q•bŠÔ•\¦‚·‚éB
+                           // -----------------------------------------------å°ã•ãªçµµè¨˜å·ã‚’ï¼’ç§’é–“è¡¨ç¤ºã™ã‚‹ã€‚
                            Koe.oto(buttons_0_9[loop_index][yoko_Inc2 * yoko_Num + tate_Inc].getText());
                         }
                         /*
-                         * yoko_Inc2=0;//cƒ‹[ƒv‚ğo‚½ê‡‚ÍA‰¡ƒCƒ“ƒfƒbƒNƒX‚ğ0iã‚©‚çƒ‹[ƒvŠJnj
+                         * yoko_Inc2=0;//ç¸¦ãƒ«ãƒ¼ãƒ—ã‚’å‡ºãŸå ´åˆã¯ã€æ¨ªã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’0ï¼ˆä¸Šã‹ã‚‰ãƒ«ãƒ¼ãƒ—é–‹å§‹ï¼‰
                          */
                         yelllow_loop_select_flag = false;
                         break;
-                     } else {// ‹óƒ{ƒ^ƒ“‚Í‚È‚É‚à‚µ‚È‚¢B
-                        new l(this, "yoko_Inc2Fyoko_IncFyoko_NumFtate_Inc==" + yoko_Inc2 + "F" + yoko_Inc + "F"
-                                                                           + yoko_Num + "F" + tate_Inc);
+                     } else {// ç©ºãƒœã‚¿ãƒ³ã¯ãªã«ã‚‚ã—ãªã„ã€‚
+                        new l(this, "yoko_Inc2ï¼šyoko_Incï¼šyoko_Numï¼štate_Inc==" + yoko_Inc2 + "ï¼š" + yoko_Inc + "ï¼š"
+                                                                           + yoko_Num + "ï¼š" + tate_Inc);
                         /*
-                         * yoko_Inc2=0;//cƒ‹[ƒv‚ğo‚½ê‡‚ÍA‰¡ƒCƒ“ƒfƒbƒNƒX‚ğ0iã‚©‚çƒ‹[ƒvŠJnj
+                         * yoko_Inc2=0;//ç¸¦ãƒ«ãƒ¼ãƒ—ã‚’å‡ºãŸå ´åˆã¯ã€æ¨ªã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’0ï¼ˆä¸Šã‹ã‚‰ãƒ«ãƒ¼ãƒ—é–‹å§‹ï¼‰
                          */
                         yelllow_loop_select_flag = false;
                         break;
@@ -1213,21 +1213,21 @@ public class Kaiwa extends JFrame implements Runnable {
                }
             }
             tate_Inc++;
-            if (tate_Inc == yoko_Num) {// ÅŒã‚ÌƒCƒ“ƒfƒbƒNƒX”Ô†‚Å‰Šú‰»
+            if (tate_Inc == yoko_Num) {// æœ€å¾Œã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ç•ªå·ã§åˆæœŸåŒ–
                tate_Inc = 0;
             }
-         } // -------------------------------------------------------------------------‚½‚Äƒ‹[ƒvI’[
+         } // -------------------------------------------------------------------------ãŸã¦ãƒ«ãƒ¼ãƒ—çµ‚ç«¯
          /*
-          * TODO FˆÚ“® cƒ‹[ƒv‚ÅA˜gü‚ğ•‚É–ß‚·B
+          * TODO è‰²ç§»å‹• ç¸¦ãƒ«ãƒ¼ãƒ—ã§ã€æ ç·šã‚’é»’ã«æˆ»ã™ã€‚
           */
          for (int i = 0; i < yoko_Num; i++) {
             panels_0_9[loop_index][yoko_Inc + i].setBorder(new LineBorder(Color.black, 0, false));
             nameButtons_0_9[loop_index][yoko_Inc + i].setForeground(Color.white);
          }
          /*
-          * ƒ‹[ƒv’†‚Ìƒ^ƒu‚Å‚Í‚È‚­‚È‚Á‚½ê‡Aã‰ºƒ‹[ƒv‚ğ”²‚¯‚é
+          * ãƒ«ãƒ¼ãƒ—ä¸­ã®ã‚¿ãƒ–ã§ã¯ãªããªã£ãŸå ´åˆã€ä¸Šä¸‹ãƒ«ãƒ¼ãƒ—ã‚’æŠœã‘ã‚‹
           */
-         if (tabbedPane.getSelectedIndex() != tabIndex && tabbedPane.getSelectedIndex() != 0) {// ƒ^ƒuƒCƒ“ƒfƒbƒNƒX‚ª•Ï‰»‚µ‚½‚ç–ÚŸƒ‹[ƒv‚Ö
+         if (tabbedPane.getSelectedIndex() != tabIndex && tabbedPane.getSelectedIndex() != 0) {// ã‚¿ãƒ–ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãŒå¤‰åŒ–ã—ãŸã‚‰ç›®æ¬¡ãƒ«ãƒ¼ãƒ—ã¸
             yoko_Inc  = 0;
             yoko_Inc2 = 0;
             new l(this, "mokujiBIndexI_save==" + tab_change_init_num);
@@ -1235,12 +1235,12 @@ public class Kaiwa extends JFrame implements Runnable {
             break;
          } else
             /*
-             * ƒ‹[ƒv’†‚Ìƒ^ƒu‚Å‚Í‚È‚­‚È‚Á‚½ê‡Aã‰ºƒ‹[ƒv‚ğ”²‚¯‚é
+             * ãƒ«ãƒ¼ãƒ—ä¸­ã®ã‚¿ãƒ–ã§ã¯ãªããªã£ãŸå ´åˆã€ä¸Šä¸‹ãƒ«ãƒ¼ãƒ—ã‚’æŠœã‘ã‚‹
              */
-            if (tabbedPane.getSelectedIndex() == 0) {// ƒ^ƒuƒCƒ“ƒfƒbƒNƒX‚ª•Ï‰»‚µ‚½‚ç–ÚŸƒ‹[ƒv‚Ö
+            if (tabbedPane.getSelectedIndex() == 0) {// ã‚¿ãƒ–ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãŒå¤‰åŒ–ã—ãŸã‚‰ç›®æ¬¡ãƒ«ãƒ¼ãƒ—ã¸
                yoko_Inc = 0;
                yoko_Inc2 = 0;
-               // BagFNullPointerException
+               // Bagï¼šNullPointerException
                new l(this, "mokujiBIndexI_save==" + tab_change_init_num);
                /*
                 * mokujiB_10[mokujiBIndexI_save].setBorder(new LineBorder(Color.black, 0, false));//NG
@@ -1254,23 +1254,23 @@ public class Kaiwa extends JFrame implements Runnable {
                loop_index = tab_change_init_num;
                break;
             }
-         yoko_Inc = yoko_Inc + yoko_Num;// ƒ‹[ƒv‚·‚é‚½‚Ñ‚ÉAindex‚ğ‰ÁZ‚µAÔƒ‹[ƒv‚ğ‚·‚é
+         yoko_Inc = yoko_Inc + yoko_Num;// ãƒ«ãƒ¼ãƒ—ã™ã‚‹ãŸã³ã«ã€indexã‚’åŠ ç®—ã—ã€èµ¤ãƒ«ãƒ¼ãƒ—ã‚’ã™ã‚‹
          yoko_Inc2++;
          /*
-          * ÅŒã‚Ìƒ{ƒ^ƒ“ƒCƒ“ƒfƒbƒNƒX”Ô†‚Å‰Šú‰»i—áF36ŒÂ¨yoko_Inc0`35j
+          * æœ€å¾Œã®ãƒœã‚¿ãƒ³ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ç•ªå·ã§åˆæœŸåŒ–ï¼ˆä¾‹ï¼š36å€‹â†’yoko_Incï¼0ï½35ï¼‰
           */
          if (yoko_Inc == buttons_0_9[loop_index].length) {
             yoko_Inc = 0;
          }
          /*
-          * ÅŒã‚ÌƒCƒ“ƒfƒbƒNƒX”Ô†‚Å‰Šú‰»i—áFyoko_Inc21`4/gyouI3or4j
+          * æœ€å¾Œã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ç•ªå·ã§åˆæœŸåŒ–ï¼ˆä¾‹ï¼šyoko_Inc2ï¼1ï½4/gyouIï¼3or4ï¼‰
           */
          if (yoko_Inc2 == gyouI) {
             yoko_Inc2 = 0;
          }
-         tate_Inc = 0;// ‰¡ƒ‹[ƒv’†‚Ícƒ‹[ƒv‚Í0i¶‚Í‚©‚çƒ‹[ƒv‚ğŠJnj
+         tate_Inc = 0;// æ¨ªãƒ«ãƒ¼ãƒ—ä¸­ã¯ç¸¦ãƒ«ãƒ¼ãƒ—ã¯0ï¼ˆå·¦ã¯æ™‚ã‹ã‚‰ãƒ«ãƒ¼ãƒ—ã‚’é–‹å§‹ï¼‰
       } // --------------------------------------------------------------------------------------
-        // ‰¡ƒ‹[ƒvI’[
+        // æ¨ªãƒ«ãƒ¼ãƒ—çµ‚ç«¯
    }
 
    /**
@@ -1280,7 +1280,7 @@ public class Kaiwa extends JFrame implements Runnable {
       playWave("resource/Windows Information Bar.wav");
       try {
          /*
-          * –ÚŸƒ{ƒ^ƒ“‚ÉF‚ğ•t‚¯‚é
+          * ç›®æ¬¡ãƒœã‚¿ãƒ³ã«è‰²ã‚’ä»˜ã‘ã‚‹
           */
          if (category_visible_boolean[loop_index].equals(true)) {
             // mokuji_button_9[loop_index].setBorder(new
@@ -1289,47 +1289,47 @@ public class Kaiwa extends JFrame implements Runnable {
             category_button_9[loop_index].setForeground(Color.white);
             new l(this, "mokujiLoop>mokujiName_10[mokujiBIndexI] == " + StringFormat
                                                                .stringFormat(category_from_property[loop_index], 10)
-                                                               + "F" + loop_index);
+                                                               + "ï¼š" + loop_index);
             Thread.sleep(speed);
          }
          /*
-          * ƒ^ƒu‚ªA–ÚŸˆÈŠO‚Ìê‡A—ñ”‚ğæ“¾‚·‚éB
+          * ã‚¿ãƒ–ãŒã€ç›®æ¬¡ä»¥å¤–ã®å ´åˆã€åˆ—æ•°ã‚’å–å¾—ã™ã‚‹ã€‚
           */
          if (tabbedPane.getSelectedIndex() != 0) {
             // Consorlnew log(Thread.currentThread().getStackTrace(),"void
-            // mokuji()„if (tabbedPane.getSelectedIndex() != 0)");
+            // mokuji()ï¼if (tabbedPane.getSelectedIndex() != 0)");
             yelllow_loop_select_flag = true;
             new l(this, "mokujiBIndexI==" + loop_index);
             tab_change_init_num = loop_index;
             /*
-             * ƒ^ƒu‚Ì”Ô†i•¶š—ñj‚ğint‚Åæ“¾ ƒ^ƒu‚ÌƒCƒ“ƒfƒbƒNƒX”Ô†‚ğæ“¾‚µAƒ^ƒCƒgƒ‹‚Æ‚µ‚Äˆµ‚¤B
+             * ã‚¿ãƒ–ã®ç•ªå·ï¼ˆæ–‡å­—åˆ—ï¼‰ã‚’intã§å–å¾— ã‚¿ãƒ–ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ç•ªå·ã‚’å–å¾—ã—ã€ã‚¿ã‚¤ãƒˆãƒ«ã¨ã—ã¦æ‰±ã†ã€‚
              */
             // loop_index =
             // Integer.valueOf((tabbedPane.getTitleAt(tabbedPane.getSelectedIndex())));
             loop_index = Integer.valueOf(tabbedPane.getSelectedIndex());
             /*
-             * ƒ^ƒu‚Ìsƒ{ƒ^ƒ“”‚ğæ“¾
+             * ã‚¿ãƒ–ã®è¡Œãƒœã‚¿ãƒ³æ•°ã‚’å–å¾—
              */
             if (category_visible_boolean[loop_index].equals(true)) {
                yoko_Num = (int) Math.floor(bunyaFiles_0_9[loop_index].length / gyouI) + 1;
             }
          }
          /*
-          * –ÚŸ‚©‚çAŠG‹L†‚ÖƒL[ˆÚ“®–—áF5•bŠÔˆÈã’·‰Ÿ‚µ‚µ‚½ê‡A–ÚŸ‚É–ß‚é‹@”\ ¨ ƒL[release‚ÌAfalse ‚É‚·‚é‚±‚Æ‚É‚æ‚èA–ÚŸ‚És‚Á‚ÄŸè‚É•ª–ì‚És‚­‚±‚Æ‚ğ–h‚®B
+          * ç›®æ¬¡ã‹ã‚‰ã€çµµè¨˜å·ã¸ã‚­ãƒ¼ç§»å‹•äº‹ä¾‹ï¼š5ç§’é–“ä»¥ä¸Šé•·æŠ¼ã—ã—ãŸå ´åˆã€ç›®æ¬¡ã«æˆ»ã‚‹æ©Ÿèƒ½ â†’ ã‚­ãƒ¼releaseã®æ™‚ã€false ã«ã™ã‚‹ã“ã¨ã«ã‚ˆã‚Šã€ç›®æ¬¡ã«è¡Œã£ã¦å‹æ‰‹ã«åˆ†é‡ã«è¡Œãã“ã¨ã‚’é˜²ãã€‚
           */
          if (yelllow_loop_select_flag) {
             new l(this, "keyFlag : mokujiBIndexI == " + yelllow_loop_select_flag + " : " + loop_index);
             if (category_visible_boolean[loop_index].equals(true)) {
                tabbedPane.setSelectedIndex(tabNum[loop_index]);
                /*
-                * –ÚŸ‚Ì‰¹
+                * ç›®æ¬¡ã®éŸ³
                 */
                Koe.oto(category_from_property[loop_index]);
                yelllow_loop_select_flag = false;
             }
          }
          /*
-          * •‚É–ß‚·
+          * é»’ã«æˆ»ã™
           */
          if (category_visible_boolean[loop_index].equals(true)) {
             category_button_9[loop_index].setBorder(new LineBorder(Color.black, 8, true));
@@ -1346,17 +1346,17 @@ public class Kaiwa extends JFrame implements Runnable {
     */
    public class MyKey extends KeyAdapter {
 
-      int returnMokujiCount = 0;// ƒL[’·‰Ÿ‚µ‚ÅA–ÚŸ‚É–ß‚é‹@”\
+      int returnMokujiCount = 0;// ã‚­ãƒ¼é•·æŠ¼ã—ã§ã€ç›®æ¬¡ã«æˆ»ã‚‹æ©Ÿèƒ½
 
       public void keyPressed(KeyEvent e) {
          /*
-          * 10•bŠÔ‰Ÿ‚µ‘±‚¯‚é‚ÆA–ÚŸ‚É–ß‚éB
+          * 10ç§’é–“æŠ¼ã—ç¶šã‘ã‚‹ã¨ã€ç›®æ¬¡ã«æˆ»ã‚‹ã€‚
           */
          returnMokujiCount++;
          System.out.println("returnMokujiCount==" + returnMokujiCount);
          new l(this, "moveEkigo>keyPressed == " + KeyEvent.getKeyText(e.getKeyChar()));
          /*
-          * ƒ^ƒu‚ğØ‚è‘Ö‚¦‚éBiƒXƒy[ƒXƒL[j
+          * ã‚¿ãƒ–ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹ã€‚ï¼ˆã‚¹ãƒšãƒ¼ã‚¹ã‚­ãƒ¼ï¼‰
           */
          if (KeyEvent.getKeyText(e.getKeyChar()).equals("Space")) {
             next_tab_count++;
@@ -1375,10 +1375,10 @@ public class Kaiwa extends JFrame implements Runnable {
                                                                   || KeyEvent.getKeyText(e.getKeyChar()).equals("Unknown keyCode: 0x2a")
                                                                   || KeyEvent.getKeyText(e.getKeyChar()).equals("Slash")
                                                                   || KeyEvent.getKeyText(e.getKeyChar()).equals("Minus")
-               // Num Lock‚Í§Œä•s‰Â
+               // Num Lockã¯åˆ¶å¾¡ä¸å¯
                ) {
                   /*
-                   * keyPressAvailable ƒL[‚ğ‰Ÿ‚µ‚Ä‚¢‚éŠÔ‚Í2‰ñ–ÚˆÚs‚ÍApressƒCƒxƒ“ƒg‚É“ü‚ç‚È‚¢B
+                   * keyPressAvailable ã‚­ãƒ¼ã‚’æŠ¼ã—ã¦ã„ã‚‹é–“ã¯2å›ç›®ç§»è¡Œã¯ã€pressã‚¤ãƒ™ãƒ³ãƒˆã«å…¥ã‚‰ãªã„ã€‚
                    */
                   keyPressAvailable = false;
                   new l(this, "moveEkigo>keyPressed == " + KeyEvent.getKeyText(e.getKeyChar()));
@@ -1399,7 +1399,7 @@ public class Kaiwa extends JFrame implements Runnable {
                                                                || KeyEvent.getKeyText(e.getKeyChar()).equals("Unknown keyCode: 0x2a")
                                                                || KeyEvent.getKeyText(e.getKeyChar()).equals("Slash")
                                                                || KeyEvent.getKeyText(e.getKeyChar()).equals("Minus")
-            // Num Lock‚Í§Œä•s‰Â
+            // Num Lockã¯åˆ¶å¾¡ä¸å¯
             ) {
                /*
                 *
@@ -1411,11 +1411,11 @@ public class Kaiwa extends JFrame implements Runnable {
                   returnMokujiCount        = 0;
                }
                /*
-                * keyPressAvailable ƒL[‚ğ˜b‚µ‚½AkeyPressAvailable‚ğtrue‚É‚µAÄ‚ÑPressƒCƒxƒ“ƒg‚É“ü‚ê‚éB
+                * keyPressAvailable ã‚­ãƒ¼ã‚’è©±ã—ãŸæ™‚ã€keyPressAvailableã‚’trueã«ã—ã€å†ã³Pressã‚¤ãƒ™ãƒ³ãƒˆã«å…¥ã‚Œã‚‹ã€‚
                 */
                keyPressAvailable = true;
                new l(this, "moveEkigo>keyReleased == " + KeyEvent.getKeyText(e.getKeyChar()));
-               returnMokujiCount = 0;// ƒL[’·‰Ÿ‚µ‚Å–ÚŸ‚É–ß‚éBğŒ’l‚ğ0‚É‰Šú‰»
+               returnMokujiCount = 0;// ã‚­ãƒ¼é•·æŠ¼ã—ã§ç›®æ¬¡ã«æˆ»ã‚‹ã€‚æ¡ä»¶å€¤ã‚’0ã«åˆæœŸåŒ–
                break;
             }
          }
@@ -1429,14 +1429,14 @@ public class Kaiwa extends JFrame implements Runnable {
 
       public void mouseEntered(MouseEvent e1) {
          /*
-          * ƒ^ƒu•ª–ì‚P`9‚ª‘ÎÛ
+          * ã‚¿ãƒ–åˆ†é‡ï¼‘ï½9ãŒå¯¾è±¡
           */
          for (int i = 1; i < tabPanel_0_9.length; i++) {
-            // trueƒ^ƒu‚ğ‘I•Ê
+            // trueã‚¿ãƒ–ã‚’é¸åˆ¥
             if (category_visible_boolean[i].equals(true)) {
-               // •ª–ì–ˆ‚Ìƒ{ƒ^ƒ“”ƒ‹[ƒv‚µA‰Ÿ‚³‚ê‚½ƒ{ƒ^ƒ“‚ğ’Šo
+               // åˆ†é‡æ¯ã®ãƒœã‚¿ãƒ³æ•°ãƒ«ãƒ¼ãƒ—ã—ã€æŠ¼ã•ã‚ŒãŸãƒœã‚¿ãƒ³ã‚’æŠ½å‡º
                for (int j = 0; j < buttons_0_9[i].length; j++) {
-                  // ‰Ÿ‚³‚ê‚½ƒ{ƒ^ƒ“‚Å‚ ‚é
+                  // æŠ¼ã•ã‚ŒãŸãƒœã‚¿ãƒ³ã§ã‚ã‚‹
                   if (i != 9 && e1.getSource() == buttons_0_9[i][j] || i != 9
                                                                      && e1.getSource() == nameButtons_0_9[i][j]) {
                      panels_0_9[i][j].setBorder(new LineBorder(CommonColor.enteredColor, 3, false));
@@ -1460,14 +1460,14 @@ public class Kaiwa extends JFrame implements Runnable {
 
       public void mouseExited(MouseEvent e1) {
          /*
-          * ƒ^ƒu•ª–ì‚P`9‚ª‘ÎÛ
+          * ã‚¿ãƒ–åˆ†é‡ï¼‘ï½9ãŒå¯¾è±¡
           */
          for (int i = 1; i < tabPanel_0_9.length; i++) {
-            // trueƒ^ƒu‚ğ‘I•Ê
+            // trueã‚¿ãƒ–ã‚’é¸åˆ¥
             if (category_visible_boolean[i].equals(true)) {
-               // •ª–ì–ˆ‚Ìƒ{ƒ^ƒ“”ƒ‹[ƒv‚µA‰Ÿ‚³‚ê‚½ƒ{ƒ^ƒ“‚ğ’Šo
+               // åˆ†é‡æ¯ã®ãƒœã‚¿ãƒ³æ•°ãƒ«ãƒ¼ãƒ—ã—ã€æŠ¼ã•ã‚ŒãŸãƒœã‚¿ãƒ³ã‚’æŠ½å‡º
                for (int j = 0; j < buttons_0_9[i].length; j++) {
-                  // ‰Ÿ‚³‚ê‚½ƒ{ƒ^ƒ“‚Å‚ ‚é
+                  // æŠ¼ã•ã‚ŒãŸãƒœã‚¿ãƒ³ã§ã‚ã‚‹
                   if (i != 9 && e1.getSource() == buttons_0_9[i][j] || i != 9
                                                                      && e1.getSource() == nameButtons_0_9[i][j]) {
                      panels_0_9[i][j].setBorder(new LineBorder(Color.black, 0, false));
@@ -1493,31 +1493,31 @@ public class Kaiwa extends JFrame implements Runnable {
 
       public void mousePressed(MouseEvent e) {
          /*
-          * ŠG‹L†‚Ì‰¹‚ğÄ¶ ƒ^ƒu•ª–ì‚P`9‚ª‘ÎÛ
+          * çµµè¨˜å·ã®éŸ³ã‚’å†ç”Ÿ ã‚¿ãƒ–åˆ†é‡ï¼‘ï½9ãŒå¯¾è±¡
           */
          for (int i = 1; i < tabPanel_0_9.length; i++) {
-            // trueƒ^ƒu‚ğ‘I•Ê
+            // trueã‚¿ãƒ–ã‚’é¸åˆ¥
             if (category_visible_boolean[i].equals(true)) {
-               // •ª–ì–ˆ‚Ìƒ{ƒ^ƒ“”ƒ‹[ƒv‚µA‰Ÿ‚³‚ê‚½ƒ{ƒ^ƒ“‚ğ’Šo
+               // åˆ†é‡æ¯ã®ãƒœã‚¿ãƒ³æ•°ãƒ«ãƒ¼ãƒ—ã—ã€æŠ¼ã•ã‚ŒãŸãƒœã‚¿ãƒ³ã‚’æŠ½å‡º
                for (int j = 0; j < buttons_0_9[i].length; j++) {
-                  // ‰Ÿ‚³‚ê‚½ƒ{ƒ^ƒ“‚Å‚ ‚é
+                  // æŠ¼ã•ã‚ŒãŸãƒœã‚¿ãƒ³ã§ã‚ã‚‹
                   if (i != 9 && e.getSource() == buttons_0_9[i][j] || i != 9
                                                                      && e.getSource() == nameButtons_0_9[i][j]) {
-                     // ƒAƒvƒŠˆÈŠO‚Ì•ª–ì
+                     // ã‚¢ãƒ—ãƒªä»¥å¤–ã®åˆ†é‡
                      try {
-                        // ƒŠƒXƒg‚ğ•\¦
+                        // ãƒªã‚¹ãƒˆã‚’è¡¨ç¤º
                         if (buttons_0_9[i][j].getText().equals(category_directory_9[i])) {
-                           // ‰æ‘œ‚È‚ª–³‚¢ê‡‚Í‰½‚à‚µ‚È‚¢
+                           // ç”»åƒãªãŒç„¡ã„å ´åˆã¯ä½•ã‚‚ã—ãªã„
                         } else {
-                           if (buttons_0_9[i][j].getText().equals("‚à‚­‚¶")) {
-                              Koe.oto("‚à‚­‚¶");
+                           if (buttons_0_9[i][j].getText().equals("ã‚‚ãã˜")) {
+                              Koe.oto("ã‚‚ãã˜");
                               tabbedPane.setSelectedIndex(0);
                            } else {
                               // /////////////////////////////////////////
-                              // ƒŠƒXƒgE‰¹‚Ì•\¦
-                              if (gyouIs.equals("ŠG‹L†")) {
-                                 // ///////////////////////////////////ŠG‹L†‘I‘ğ—š—ğ
-                                 // ƒNƒŠƒbƒN
+                              // ãƒªã‚¹ãƒˆãƒ»éŸ³ã®è¡¨ç¤º
+                              if (gyouIs.equals("çµµè¨˜å·")) {
+                                 // ///////////////////////////////////çµµè¨˜å·é¸æŠå±¥æ­´
+                                 // ã‚¯ãƒªãƒƒã‚¯æ™‚
                                  Zoom zoom = new Zoom(new ImageIcon("./resource/img/" + category_directory_9[i] + "/"
                                                                                     + buttons_0_9[i][j].getText()
                                                                                     + ".jpg"), 0, 0, 70, 60);
@@ -1551,8 +1551,8 @@ public class Kaiwa extends JFrame implements Runnable {
                                  new DispEkigo(buttons_0_9[i][j].getText(), category_directory_9[i], 2);
                                  Koe.oto(buttons_0_9[i][j].getText());
                               } else {
-                                 // ///////////////////////////////////ŠG‹L†‘I‘ğ—š—ğ
-                                 // ƒNƒŠƒbƒN
+                                 // ///////////////////////////////////çµµè¨˜å·é¸æŠå±¥æ­´
+                                 // ã‚¯ãƒªãƒƒã‚¯æ™‚
                                  Zoom zoom = new Zoom(new ImageIcon("./resource/img/" + category_directory_9[i] + "/"
                                                                                     + buttons_0_9[i][j].getText()
                                                                                     + ".jpg"), 0, 0, 70, 60);
@@ -1590,11 +1590,11 @@ public class Kaiwa extends JFrame implements Runnable {
                         e2.printStackTrace();
                         System.exit(1);
                      }
-                     // ƒAƒvƒŠ•ª–ì
+                     // ã‚¢ãƒ—ãƒªåˆ†é‡
                   } else if ((i == 9 && e.getSource() == buttons_0_9[9][j]) || (i == 9
                                                                      && e.getSource() == nameButtons_0_9[9][j])) {
                                                                         new l(this, "else if(i==9)");
-                                                                        if (buttons_0_9[9][j].getText().equals("‚à‚­‚¶")) {
+                                                                        if (buttons_0_9[9][j].getText().equals("ã‚‚ãã˜")) {
                                                                            tabbedPane.setSelectedIndex(0);
                                                                            break;
                                                                         }
@@ -1603,14 +1603,14 @@ public class Kaiwa extends JFrame implements Runnable {
                                                                            try {
                                                                               Koe.oto(buttons_0_9[i][j].getText());
                                                                               // /////////////////////////////////////////////////////////////////
-                                                                              // ‘¼PC‚É“ü‚ê‚é‚Æ‚«‚ÍACF‚É‹ß‚¢Š‚É“ü‚ê‚È‚¢‚ÆAexecƒGƒ‰[‚É‚È‚éB
+                                                                              // ä»–PCã«å…¥ã‚Œã‚‹ã¨ãã¯ã€Cï¼šã«è¿‘ã„æ‰€ã«å…¥ã‚Œãªã„ã¨ã€execã‚¨ãƒ©ãƒ¼ã«ãªã‚‹ã€‚
                                                                               File f = new File("./resource/img/tab10/" + buttons_0_9[i][j].getText() + ".jar");
                                                                               String command = f.getAbsolutePath();
                                                                               new l(this, "command==" + command);
                                                                               Runtime runtime = Runtime.getRuntime();
                                                                               Process process = runtime.exec("cmd /c start " + command);
                                                                               // //////////////////////////////////////////////////////////////////
-                                                                              // ƒ_ƒCƒAƒƒO‚ÍAƒvƒƒOƒ‰ƒ€‚ğˆê’â~‚³‚¹‚éB
+                                                                              // ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã¯ã€ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’ä¸€æ™‚åœæ­¢ã•ã›ã‚‹ã€‚
                                                                               // JOptionPane.showMessageDialog(null,
                                                                               // command);
                                                                               Reader in = new InputStreamReader(process.getInputStream());
@@ -1629,9 +1629,9 @@ public class Kaiwa extends JFrame implements Runnable {
                }
             }
          }
-         // -------------------------------------------------------------ŠG‹L†‚Ì‰¹‚ğÄ¶
+         // -------------------------------------------------------------çµµè¨˜å·ã®éŸ³ã‚’å†ç”Ÿ
          /*
-          * ŠG‹L†•ª–ì‰æ–Ê‚ÉˆÚ“®‚·‚éB
+          * çµµè¨˜å·åˆ†é‡ç”»é¢ã«ç§»å‹•ã™ã‚‹ã€‚
           */
          new l(this, "MousePressed_before");
          try {
@@ -1642,11 +1642,11 @@ public class Kaiwa extends JFrame implements Runnable {
             e1.printStackTrace();
          }
          new l(this, "MousePressed_after");
-         // ---------------------------------------------------------------------ŠG‹L†•ª–ì‰æ–Ê‚ÉˆÚ“®‚·‚éB
+         // ---------------------------------------------------------------------çµµè¨˜å·åˆ†é‡ç”»é¢ã«ç§»å‹•ã™ã‚‹ã€‚
       }
 
       /*
-       * MOKUJI BUTTON‚ÅŠG‹L†•ª–ì‰æ–Ê‚ÉˆÚ“®‚·‚éB
+       * MOKUJI BUTTONã§çµµè¨˜å·åˆ†é‡ç”»é¢ã«ç§»å‹•ã™ã‚‹ã€‚
        */
       private void moveEkigo(MouseEvent e) throws FileNotFoundException, IOException {
          new l(this, "moveEkigo");
@@ -1658,7 +1658,7 @@ public class Kaiwa extends JFrame implements Runnable {
                   Koe.oto(category_from_property[moveEkigoCount]);
                   tab_change_init_num = loop_index;
                   loop_index          = moveEkigoCount;
-                  // –ÚŸƒ{ƒ^ƒ“‚ÌF‚ğ•‚É–ß‚·B
+                  // ç›®æ¬¡ãƒœã‚¿ãƒ³ã®è‰²ã‚’é»’ã«æˆ»ã™ã€‚
                   if (category_visible_boolean[loop_index].equals(true)) {
                      category_button_9[loop_index].setBorder(new LineBorder(Color.black, 0, true));
                      category_button_9[loop_index].setForeground(Color.white);
@@ -1666,25 +1666,25 @@ public class Kaiwa extends JFrame implements Runnable {
                   if (category_visible_boolean[loop_index].equals(true)) {
                      yoko_Num = (int) Math.floor(bunyaFiles_0_9[loop_index].length / gyouI) + 1;
                   }
-                  // ”ñƒ‹[ƒvó‘Ô‚Åƒ^ƒuˆÚ“®
+                  // éãƒ«ãƒ¼ãƒ—çŠ¶æ…‹ã§ã‚¿ãƒ–ç§»å‹•
                   if (prop.getPict().getProperty("seting.roop").equals("OFF")) {
-                     new l(this, "”ñƒ‹[ƒvó‘Ô‚Åƒ^ƒuˆÚ“®");
+                     new l(this, "éãƒ«ãƒ¼ãƒ—çŠ¶æ…‹ã§ã‚¿ãƒ–ç§»å‹•");
                      if (category_visible_boolean[loop_index].equals(true)) {
                         tabbedPane.setSelectedIndex(tabNum[loop_index]);
                      }
                   } else {
-                     // ƒ‹[ƒv“à‚Åƒ^ƒuˆÚ“®
-                     new l(this, "ƒ‹[ƒvó‘Ô‚Åƒ^ƒuˆÚ“®");
+                     // ãƒ«ãƒ¼ãƒ—å†…ã§ã‚¿ãƒ–ç§»å‹•
+                     new l(this, "ãƒ«ãƒ¼ãƒ—çŠ¶æ…‹ã§ã‚¿ãƒ–ç§»å‹•");
                      yelllow_loop_select_flag = true;
                   }
-                  // ƒ‹[ƒvó‘Ôo‚È‚¯‚ê‚ÎkeyFlag‚ÍƒAƒvƒŠ‚ÉŠÖŒW‚È‚¢B
+                  // ãƒ«ãƒ¼ãƒ—çŠ¶æ…‹å‡ºãªã‘ã‚Œã°keyFlagã¯ã‚¢ãƒ—ãƒªã«é–¢ä¿‚ãªã„ã€‚
                   new l(this, "moveEkigo>mokujiBIndexI==" + loop_index);
                }
             }
          }
       }
       // ----------------------------------------------------------------------MOKUJI
-      // BUTTON‚ÅŠG‹L†•ª–ì‰æ–Ê‚ÉˆÚ“®‚·‚éB
+      // BUTTONã§çµµè¨˜å·åˆ†é‡ç”»é¢ã«ç§»å‹•ã™ã‚‹ã€‚
    }
    /**
     * @author User
@@ -1694,47 +1694,47 @@ public class Kaiwa extends JFrame implements Runnable {
 
       public void run() {
          /*
-          * ƒ{ƒ^ƒ“ƒ‹[ƒv‘I‘ğAborder‚ğƒIƒŒƒ“ƒW‚É•Ï‰»‚³‚¹‚éB
+          * ãƒœã‚¿ãƒ³ãƒ«ãƒ¼ãƒ—é¸æŠæ™‚ã€borderã‚’ã‚ªãƒ¬ãƒ³ã‚¸ã«å¤‰åŒ–ã•ã›ã‚‹ã€‚
           */
          panels_0_9[loop_index][tate_Inc + yoko_Inc].setBorder(new LineBorder(Color.white, 20, false));
       }
    }
 
    /**
-    * ƒ‹[ƒv‰¹
+    * ãƒ«ãƒ¼ãƒ—éŸ³
     *
     * @param fileName
     */
    public static void playWave(String fileName) {
       final int EXTERNAL_BUFFER_SIZE = 128000;
       try {
-         // FileƒNƒ‰ƒX‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬
+         // Fileã‚¯ãƒ©ã‚¹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆ
          File soundFile = new File(fileName);
-         // ƒI[ƒfƒBƒI“ü—ÍƒXƒgƒŠ[ƒ€‚ğæ“¾‚µ‚Ü‚·
+         // ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªå…¥åŠ›ã‚¹ãƒˆãƒªãƒ¼ãƒ ã‚’å–å¾—ã—ã¾ã™
          AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-         // ƒI[ƒfƒBƒIŒ`®‚ğæ“¾‚µ‚Ü‚·
+         // ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªå½¢å¼ã‚’å–å¾—ã—ã¾ã™
          AudioFormat audioFormat = audioInputStream.getFormat();
-         // ƒf[ƒ^ƒ‰ƒCƒ“‚Ìî•ñƒIƒuƒWƒFƒNƒg‚ğ¶¬‚µ‚Ü‚·
+         // ãƒ‡ãƒ¼ã‚¿ãƒ©ã‚¤ãƒ³ã®æƒ…å ±ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆã—ã¾ã™
          DataLine.Info info = new DataLine.Info(SourceDataLine.class, audioFormat);
-         // w’è‚³‚ê‚½ƒf[ƒ^ƒ‰ƒCƒ“î•ñ‚Éˆê’v‚·‚éƒ‰ƒCƒ“‚ğæ“¾‚µ‚Ü‚·
+         // æŒ‡å®šã•ã‚ŒãŸãƒ‡ãƒ¼ã‚¿ãƒ©ã‚¤ãƒ³æƒ…å ±ã«ä¸€è‡´ã™ã‚‹ãƒ©ã‚¤ãƒ³ã‚’å–å¾—ã—ã¾ã™
          SourceDataLine line = (SourceDataLine) AudioSystem.getLine(info);
-         // w’è‚³‚ê‚½ƒI[ƒfƒBƒIŒ`®‚Åƒ‰ƒCƒ“‚ğŠJ‚«‚Ü‚·
+         // æŒ‡å®šã•ã‚ŒãŸã‚ªãƒ¼ãƒ‡ã‚£ã‚ªå½¢å¼ã§ãƒ©ã‚¤ãƒ³ã‚’é–‹ãã¾ã™
          line.open(audioFormat);
-         // ƒ‰ƒCƒ“‚Å‚Ìƒf[ƒ^“üo—Í‚ğ‰Â”\‚É‚µ‚Ü‚·
+         // ãƒ©ã‚¤ãƒ³ã§ã®ãƒ‡ãƒ¼ã‚¿å…¥å‡ºåŠ›ã‚’å¯èƒ½ã«ã—ã¾ã™
          line.start();
          int    nBytesRead = 0;
          byte[] abData     = new byte[EXTERNAL_BUFFER_SIZE];
          while (nBytesRead != -1) {
-            // ƒI[ƒfƒBƒIƒXƒgƒŠ[ƒ€‚©‚çƒf[ƒ^‚ğ“Ç‚İ‚İ‚Ü‚·
+            // ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªã‚¹ãƒˆãƒªãƒ¼ãƒ ã‹ã‚‰ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã¿ã¾ã™
             nBytesRead = audioInputStream.read(abData, 0, abData.length);
             if (nBytesRead >= 0) {
-               // ƒI[ƒfƒBƒIƒf[ƒ^‚ğƒ~ƒLƒT[‚É‘‚«‚İ‚Ü‚·
+               // ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªãƒ‡ãƒ¼ã‚¿ã‚’ãƒŸã‚­ã‚µãƒ¼ã«æ›¸ãè¾¼ã¿ã¾ã™
                int nBytesWritten = line.write(abData, 0, nBytesRead);
             }
          }
-         // ƒ‰ƒCƒ“‚©‚çƒLƒ…[‚É“ü‚Á‚Ä‚¢‚éƒf[ƒ^‚ğ”ro‚µ‚Ü‚·
+         // ãƒ©ã‚¤ãƒ³ã‹ã‚‰ã‚­ãƒ¥ãƒ¼ã«å…¥ã£ã¦ã„ã‚‹ãƒ‡ãƒ¼ã‚¿ã‚’æ’å‡ºã—ã¾ã™
          line.drain();
-         // ƒ‰ƒCƒ“‚ğ•Â‚¶‚Ü‚·
+         // ãƒ©ã‚¤ãƒ³ã‚’é–‰ã˜ã¾ã™
          line.close();
       } catch (Exception e) {
          e.printStackTrace();
@@ -1753,7 +1753,7 @@ public class Kaiwa extends JFrame implements Runnable {
             } catch (IOException e) {
                e.printStackTrace();
             } catch (AWTException e) {
-               // TODO ©“®¶¬‚³‚ê‚½ catch ƒuƒƒbƒN
+               // TODO è‡ªå‹•ç”Ÿæˆã•ã‚ŒãŸ catch ãƒ–ãƒ­ãƒƒã‚¯
                e.printStackTrace();
             }
          }
@@ -1771,7 +1771,7 @@ public class Kaiwa extends JFrame implements Runnable {
             try {
                Thread.sleep(30000);
             } catch (InterruptedException e) {
-               // TODO ©“®¶¬‚³‚ê‚½ catch ƒuƒƒbƒN
+               // TODO è‡ªå‹•ç”Ÿæˆã•ã‚ŒãŸ catch ãƒ–ãƒ­ãƒƒã‚¯
                e.printStackTrace();
             }
             robot.mouseMove(rect.width - 100, 10);
